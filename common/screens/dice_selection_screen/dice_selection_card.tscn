@@ -1,28 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1jx6x1hs7f51"]
+[gd_scene load_steps=5 format=3 uid="uid://c1jx6x1hs7f51"]
 
 [ext_resource type="PackedScene" uid="uid://ynjdjcukvk4c" path="res://common/dice/dice.tscn" id="1_01x0e"]
 [ext_resource type="Script" uid="uid://dty0q4oaf3sk3" path="res://common/screens/dice_selection_screen/dice_selection_card.gd" id="1_lctdf"]
+[ext_resource type="Texture2D" uid="uid://ddmw5rh0xflch" path="res://common/board/art/card.png" id="1_u67fa"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_01x0e"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.5067887, 0, 0, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-shadow_color = Color(1, 0, 0, 0.2)
-shadow_size = 1
-shadow_offset = Vector2(0, 5)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jiskc"]
+texture = ExtResource("1_u67fa")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
 
 [node name="DiceSelectionCard" type="Button"]
 custom_minimum_size = Vector2(128, 192)
 offset_right = 128.0
 offset_bottom = 192.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_01x0e")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jiskc")
 script = ExtResource("1_lctdf")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -31,9 +24,9 @@ offset_left = 2.0
 offset_top = 2.0
 offset_right = 126.0
 offset_bottom = 190.0
-theme_override_constants/margin_left = 2
+theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 2
+theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
@@ -42,20 +35,38 @@ theme_override_constants/separation = 16
 
 [node name="DiceNameLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/default_color = Color(1, 0, 0.26352262, 1)
+theme_override_colors/default_color = Color(0.0044277906, 0.0037281057, 0.0039119446, 1)
+theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 text = "Dice Name"
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Dice" parent="MarginContainer/VBoxContainer" instance=ExtResource("1_01x0e")]
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+
+[node name="Dice" parent="MarginContainer/VBoxContainer/Control" instance=ExtResource("1_01x0e")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.3, 1.3)
 size_flags_horizontal = 4
 
 [node name="DiceDescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "This is the label description for this dice"
 horizontal_alignment = 1
 autowrap_mode = 2
