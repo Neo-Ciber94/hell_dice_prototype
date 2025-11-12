@@ -192,7 +192,7 @@ layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Dice" parent="MarginContainer/VBoxContainer/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
+[node name="Dice1" parent="MarginContainer/VBoxContainer/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
 layout_mode = 2
 behaviour = SubResource("Resource_axvh3")
 

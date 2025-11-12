@@ -17,6 +17,9 @@ func get_dice_value() -> int:
 func get_dice_order() -> Order:
 	return Order.LAST
 
+func calculate_dice_score(_board: Board, accumulated_score: int) -> int:
+	return get_dice_value() * accumulated_score;
+	
 func get_dice_sides() -> Array[DiceSide]:
 	var sides: Array[DiceSide] = []
 	

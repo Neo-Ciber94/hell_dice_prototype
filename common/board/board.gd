@@ -49,6 +49,7 @@ func _on_roll_dices_pressed() -> void:
 		return;
 		
 	_remaining_throws -= 1;
+	
 	_update_throw_left()
 	_roll_dices()
 
@@ -89,12 +90,17 @@ func _roll_dices() -> void:
 		dice.roll_dice(rng)
 
 func _get_current_score() -> int:
-	var score: int = 0;
+	var cur_score: int = 0;
+	var cur_dices = dices.duplicate();
+	cur_dices.sort_custom(_sort_dices)
 	
 	for dice in dices:
-		score += dice.get_dice_value()
+		cur_score = dice.behaviour.calculate_dice_score(self, cur_score)
 	
-	return score;
+	return cur_score;
+	
+func _sort_dices(a: Dice, b: Dice) -> bool:
+	return a.behaviour.get_dice_order() < b.behaviour.get_dice_order()
 	
 func _calculate_total_score() -> void:
 	total_score += _get_current_score()
@@ -108,8 +114,7 @@ func _on_roll_finished() -> void:
 
 func _show_total_score() -> void:
 	_is_calculating_score = true;
-	await _bring_dices_to_front()
-	_show_current_score()
+	await _show_current_score()
 	
 	var initial_score = total_score;
 	_calculate_total_score()
@@ -123,15 +128,29 @@ func _show_total_score() -> void:
 	_check_game_state()
 	_is_calculating_score = false;
 	
-func _bring_dices_to_front() -> void:
-	for dice in dices:
+func _show_score_accumulation() -> void:
+	# TODO: We are duplicating the entire node
+	var cur_dices = dices.duplicate() as Array[Dice]
+	cur_dices.sort_custom(_sort_dices)
+	
+	var cur_score: int = 0;
+	
+	for dice in cur_dices:
 		await dice.bring_to_front()
+		current_score_label.show()
+		cur_score = dice.behaviour.calculate_dice_score(self, cur_score)
+		current_score_label.text = "+%s" % cur_score;
 	
 func _show_current_score() -> void:
-	current_score_timer.stop()
-	var current_score = _get_current_score();
-	current_score_label.text = "+%s" % current_score;
+	current_score_timer.stop()	
+
+	# Show increment
+	await _show_score_accumulation()
+	
+	# Show result
 	current_score_label.show()
+	var score = _get_current_score();
+	current_score_label.text = "+%s" % score;
 	
 	current_score_timer.start(5.0);
 	current_score_timer.timeout.connect(func(): current_score_label.hide(), Object.CONNECT_ONE_SHOT)

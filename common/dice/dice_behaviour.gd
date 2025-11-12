@@ -22,6 +22,9 @@ func roll_dice(rng: RNG) -> void;
 @abstract
 func get_dice_value() -> int;
 
+@abstract
+func calculate_dice_score(board: Board, accumulated_score: int) -> int;
+	
 func get_dice_order() -> Order:
 	return Order.FIRST;
 
