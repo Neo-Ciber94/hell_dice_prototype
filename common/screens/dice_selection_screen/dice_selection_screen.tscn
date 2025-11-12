@@ -1,0 +1,165 @@
+[gd_scene load_steps=8 format=3 uid="uid://cd83tm6vvulaw"]
+
+[ext_resource type="Script" uid="uid://iag1fmyygrj0" path="res://common/screens/dice_selection_screen/dice_selection_screen.gd" id="1_7xkwk"]
+[ext_resource type="PackedScene" uid="uid://c1jx6x1hs7f51" path="res://common/screens/dice_selection_screen/dice_selection_card.tscn" id="1_k03ym"]
+[ext_resource type="PackedScene" uid="uid://ynjdjcukvk4c" path="res://common/dice/dice.tscn" id="2_4vgwx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k03ym"]
+bg_color = Color(0.78818816, 0, 0.1897483, 0.5)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vgwx"]
+bg_color = Color(0.9998526, 0.11866053, 0.26954314, 0.7294118)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xkwk"]
+bg_color = Color(1, 0, 0.812068, 0.5019608)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d3dlh"]
+bg_color = Color(1, 0.11774105, 0.78466827, 0.98600006)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+
+[node name="DiceSelectionScreen" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_7xkwk")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0, 0.09759998, 1)
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[wave]Select a new dice[/wave]"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReplaceDiceContainer" type="Panel" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+
+[node name="ReplaceDiceOuterContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 608.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Replace Dice"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CurrentDiceContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="Dice" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer" instance=ExtResource("2_4vgwx")]
+layout_mode = 2
+
+[node name="Dice2" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer" instance=ExtResource("2_4vgwx")]
+layout_mode = 2
+
+[node name="Dice3" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer" instance=ExtResource("2_4vgwx")]
+layout_mode = 2
+
+[node name="Dice4" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer" instance=ExtResource("2_4vgwx")]
+layout_mode = 2
+
+[node name="Dice5" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer" instance=ExtResource("2_4vgwx")]
+layout_mode = 2
+
+[node name="Dice6" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer" instance=ExtResource("2_4vgwx")]
+layout_mode = 2
+
+[node name="DiceSelectionCardContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="PanelContainer" parent="MarginContainer/VBoxContainer/DiceSelectionCardContainer" instance=ExtResource("1_k03ym")]
+layout_mode = 2
+
+[node name="PanelContainer2" parent="MarginContainer/VBoxContainer/DiceSelectionCardContainer" instance=ExtResource("1_k03ym")]
+layout_mode = 2
+
+[node name="PanelContainer3" parent="MarginContainer/VBoxContainer/DiceSelectionCardContainer" instance=ExtResource("1_k03ym")]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="SkipButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_k03ym")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4vgwx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4vgwx")
+theme_override_styles/focus = SubResource("StyleBoxFlat_4vgwx")
+text = "Skip"
+
+[node name="CancelButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_7xkwk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_d3dlh")
+theme_override_styles/hover = SubResource("StyleBoxFlat_d3dlh")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_d3dlh")
+theme_override_styles/focus = SubResource("StyleBoxFlat_d3dlh")
+text = "Cancel"
+flat = true

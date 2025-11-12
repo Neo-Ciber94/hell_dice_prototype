@@ -6,6 +6,7 @@ extends Control
 @onready var score_label: RichTextLabel = %ScoreLabel
 @onready var game_over_screen: GameOverScreen = $GameOverScreen
 @onready var win_screen: WinScreen = $WinScreen
+@onready var dice_selection_screen: DiceSelectionScreen = $DiceSelectionScreen
 
 @onready var current_score_label: Label = %CurrentScoreLabel
 @onready var current_score_timer: Timer = $CurrentScoreTimer
@@ -67,6 +68,7 @@ func _update_throw_left() -> void:
 
 func _check_game_state() -> void:
 	if _remaining_throws > 0:
+		dice_selection_screen.show_dice_selection(self)
 		return;
 		
 	if not has_reached_score:

@@ -21,8 +21,11 @@ var _had_rolled = false;
 var _side_index: int = 0;
 
 func _ready() -> void:
-	behaviour = behaviour.duplicate(true)
 	pressed.connect(_on_dice_pressed)
+	
+	if behaviour:
+		behaviour = behaviour.duplicate(true)
+	
 	_prepare()
 
 func _prepare() -> void:
@@ -44,7 +47,7 @@ func _set_side(side: DiceSide, animate: bool = false) -> void:
 	value_label.text = side.side_text;
 
 func _on_dice_pressed() -> void:
-	if _had_rolled:
+	if _had_rolled || behaviour == null:
 		return;
 		
 	var sides = behaviour.get_dice_sides();

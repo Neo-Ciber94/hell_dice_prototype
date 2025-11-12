@@ -10,6 +10,7 @@ region = Rect2(32, 0, 32, 32)
 [resource]
 script = ExtResource("1_40j1t")
 dice_name = "Golden Dice"
+dice_description = "Multiply the final score by the value"
 dice_texture = SubResource("AtlasTexture_svx46")
 dice_text_color = Color(0.6080301, 0.14733289, 0, 0.8)
 metadata/_custom_type_script = "uid://dcqs73b6mvxck"
