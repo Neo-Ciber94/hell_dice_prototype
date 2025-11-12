@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3cd4tivx5dm2"]
+
+[ext_resource type="Shader" uid="uid://cccjkqsh3osro" path="res://common/backgrounds/move_uv.gdshader" id="1_g3ckd"]
+[ext_resource type="Texture2D" uid="uid://ivmcmguf4kdg" path="res://common/backgrounds/art/dotted_bg.png" id="1_t78x4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2ha2i"]
+shader = ExtResource("1_g3ckd")
+shader_parameter/dir = Vector2(1, 1)
+shader_parameter/speed = 0.250000011875
+
+[node name="DottedBg" type="TextureRect"]
+material = SubResource("ShaderMaterial_2ha2i")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_t78x4")
+stretch_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.70000005)

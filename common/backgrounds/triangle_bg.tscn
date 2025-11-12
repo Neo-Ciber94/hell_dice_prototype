@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ee5cl2bv8w0d"]
 
-[ext_resource type="Shader" uid="uid://cpfyhs6mrl770" path="res://common/backgrounds/background.gdshader" id="1_rp12l"]
+[ext_resource type="Shader" uid="uid://cpfyhs6mrl770" path="res://common/backgrounds/triangle_bg_shader.gdshader" id="1_rp12l"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nc6r6"]
 shader = ExtResource("1_rp12l")

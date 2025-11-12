@@ -12,7 +12,12 @@ func _ready() -> void:
 	hide()
 	skip_button.pressed.connect(_on_skip_button)
 	cancel_button.pressed.connect(_on_cancel_button)
-
+	EventBus.on_dice_selected.connect(_on_dice_selected)
+	
+func _on_dice_selected(_dice: Dice) -> void:
+	#hide()
+	pass
+	
 func show_dice_selection(board: Board) -> void:
 	show()
 	_prepare_current_dices(board)

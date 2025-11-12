@@ -38,7 +38,7 @@ func _ready() -> void:
 	_reset_game_state()
 	win_screen.on_next_run.connect(_on_next_run)
 	roll_dice_button.pressed.connect(_on_roll_dices_pressed)
-	
+
 func _reset_game_state() -> void:
 	_remaining_throws = throws_available
 	
@@ -62,6 +62,12 @@ func _on_next_run() -> void:
 	throws_available += 2;
 	current_score_label.hide()
 	_reset_game_state()
+
+func _input(event: InputEvent) -> void:
+	if event.is_released() and event is InputEventKey:
+		var key_event = event as InputEventKey;
+		if key_event.keycode == KEY_U:
+			dice_selection_screen.show_dice_selection(self)
 
 func _update_throw_left() -> void:
 	throw_left_label.text = str(_remaining_throws)

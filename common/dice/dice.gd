@@ -17,6 +17,8 @@ signal on_finished()
 @export_group("Animations")
 @export_tool_button("Bring to Front", "Callable") var _bring_to_front = bring_to_front;
 
+var parent_card: DiceSelectionCard;
+
 var _had_rolled = false;
 var _side_index: int = 0;
 
@@ -27,6 +29,57 @@ func _ready() -> void:
 		behaviour = behaviour.duplicate(true)
 	
 	_prepare()
+
+func _get_drag_data(_at_position: Vector2) -> Variant:
+	if behaviour and behaviour.dice_texture:
+		var preview := Control.new()
+		var texture_rect := TextureRect.new()
+		texture_rect.texture = behaviour.dice_texture
+		texture_rect.custom_minimum_size = Vector2(32, 32)
+		texture_rect.expand_mode = TextureRect.EXPAND_KEEP_SIZE
+		texture_rect.position = -texture_rect.custom_minimum_size / 2.0
+		preview.add_child(texture_rect)
+		set_drag_preview(preview)
+
+	return self
+
+func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
+	var other_dice = data as Dice;
+	
+	if other_dice == null:
+		return false;
+		
+	if other_dice == self:
+		return false;
+		
+	if other_dice.parent_card and parent_card:
+		return false;
+		
+	return true;
+
+func _drop_data(_at_position: Vector2, data: Variant) -> void:
+	var other_dice = data as Dice;
+	
+	if other_dice == null:
+		return;
+		
+	print("Dice dropped: ", data)
+	var other_behaviour = other_dice.behaviour;
+	var temp = behaviour;
+	behaviour = other_behaviour
+	other_dice.behaviour = temp
+	_prepare()
+	other_dice._prepare()
+	
+	if parent_card:
+		parent_card.behaviour = behaviour;
+		parent_card.on_dice_changed.emit()
+		
+	if other_dice.parent_card:
+		other_dice.parent_card.behaviour = other_dice.behaviour;
+		other_dice.parent_card.on_dice_changed.emit()
+		
+	EventBus.on_dice_selected.emit(self)
 
 func _prepare() -> void:
 	if behaviour == null || container == null:

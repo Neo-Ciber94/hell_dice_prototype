@@ -1,8 +1,21 @@
-[gd_scene load_steps=8 format=3 uid="uid://cd83tm6vvulaw"]
+[gd_scene load_steps=10 format=3 uid="uid://cd83tm6vvulaw"]
 
 [ext_resource type="Script" uid="uid://iag1fmyygrj0" path="res://common/screens/dice_selection_screen/dice_selection_screen.gd" id="1_7xkwk"]
 [ext_resource type="PackedScene" uid="uid://c1jx6x1hs7f51" path="res://common/screens/dice_selection_screen/dice_selection_card.tscn" id="1_k03ym"]
 [ext_resource type="PackedScene" uid="uid://ynjdjcukvk4c" path="res://common/dice/dice.tscn" id="2_4vgwx"]
+[ext_resource type="PackedScene" uid="uid://b3cd4tivx5dm2" path="res://common/backgrounds/dotted_bg.tscn" id="2_d3dlh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b30ox"]
+bg_color = Color(0.07910305, 0.07910305, 0.07910305, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k03ym"]
 bg_color = Color(0.78818816, 0, 0.1897483, 0.5)
@@ -50,6 +63,10 @@ mouse_filter = 1
 color = Color(0, 0, 0, 1)
 script = ExtResource("1_7xkwk")
 
+[node name="DottedBg" parent="." instance=ExtResource("2_d3dlh")]
+layout_mode = 0
+anchors_preset = 0
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -64,21 +81,22 @@ theme_override_constants/margin_bottom = 16
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 4
 
 [node name="Label" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/default_color = Color(1, 0, 0.09759998, 1)
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
-text = "[wave]Select a new dice[/wave]"
+text = "[wave]Take a new dice[/wave]"
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ReplaceDiceContainer" type="Panel" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_b30ox")
 
 [node name="ReplaceDiceOuterContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer"]
 unique_name_in_owner = true
@@ -92,7 +110,7 @@ alignment = 1
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
-text = "Replace Dice"
+text = "Replace a dice"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -119,18 +137,23 @@ layout_mode = 2
 [node name="Dice6" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer" instance=ExtResource("2_4vgwx")]
 layout_mode = 2
 
-[node name="DiceSelectionCardContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 16
+
+[node name="DiceSelectionCardContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/separation = 8
 alignment = 1
 
-[node name="PanelContainer" parent="MarginContainer/VBoxContainer/DiceSelectionCardContainer" instance=ExtResource("1_k03ym")]
+[node name="PanelContainer" parent="MarginContainer/VBoxContainer/MarginContainer/DiceSelectionCardContainer" instance=ExtResource("1_k03ym")]
 layout_mode = 2
 
-[node name="PanelContainer2" parent="MarginContainer/VBoxContainer/DiceSelectionCardContainer" instance=ExtResource("1_k03ym")]
+[node name="PanelContainer2" parent="MarginContainer/VBoxContainer/MarginContainer/DiceSelectionCardContainer" instance=ExtResource("1_k03ym")]
 layout_mode = 2
 
-[node name="PanelContainer3" parent="MarginContainer/VBoxContainer/DiceSelectionCardContainer" instance=ExtResource("1_k03ym")]
+[node name="PanelContainer3" parent="MarginContainer/VBoxContainer/MarginContainer/DiceSelectionCardContainer" instance=ExtResource("1_k03ym")]
 layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
