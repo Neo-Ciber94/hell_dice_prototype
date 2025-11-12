@@ -1,0 +1,196 @@
+[gd_scene load_steps=15 format=3 uid="uid://br52iykcd2vob"]
+
+[ext_resource type="PackedScene" uid="uid://ynjdjcukvk4c" path="res://common/dice/dice.tscn" id="1_con10"]
+[ext_resource type="Script" uid="uid://dd1d45l7ej470" path="res://common/board/board.gd" id="1_qo330"]
+[ext_resource type="PackedScene" uid="uid://ee5cl2bv8w0d" path="res://common/backgrounds/background.tscn" id="2_gfbbj"]
+[ext_resource type="Script" uid="uid://c3x0hnkjatabx" path="res://common/dice/types/regular_dice.gd" id="3_sodj2"]
+[ext_resource type="PackedScene" uid="uid://cjluvk3eo44bo" path="res://common/screens/game_over/game_over_screen.tscn" id="5_87ad3"]
+[ext_resource type="PackedScene" uid="uid://dh2lwt5tyi7q2" path="res://common/screens/win_screen/win_screen.tscn" id="6_7mm28"]
+
+[sub_resource type="Resource" id="Resource_2uu5o"]
+script = ExtResource("3_sodj2")
+metadata/_custom_type_script = "uid://c3x0hnkjatabx"
+
+[sub_resource type="Resource" id="Resource_2hp0k"]
+script = ExtResource("3_sodj2")
+metadata/_custom_type_script = "uid://c3x0hnkjatabx"
+
+[sub_resource type="Resource" id="Resource_axvh3"]
+script = ExtResource("3_sodj2")
+metadata/_custom_type_script = "uid://c3x0hnkjatabx"
+
+[sub_resource type="Resource" id="Resource_qmv3x"]
+script = ExtResource("3_sodj2")
+metadata/_custom_type_script = "uid://c3x0hnkjatabx"
+
+[sub_resource type="Resource" id="Resource_a2o8v"]
+script = ExtResource("3_sodj2")
+metadata/_custom_type_script = "uid://c3x0hnkjatabx"
+
+[sub_resource type="Resource" id="Resource_kac7v"]
+script = ExtResource("3_sodj2")
+metadata/_custom_type_script = "uid://c3x0hnkjatabx"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gfbbj"]
+bg_color = Color(0.78818816, 0, 0.1897483, 0.5)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_87ad3"]
+bg_color = Color(0.9998526, 0.11866053, 0.26954314, 0.7294118)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+
+[node name="Board" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qo330")
+
+[node name="Background" parent="." instance=ExtResource("2_gfbbj")]
+layout_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="ScoreContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/ScoreContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Score:"
+
+[node name="ScoreLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer2/ScoreContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "0 / 999"
+fit_content = true
+autowrap_mode = 0
+
+[node name="ThrowLeftContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/ThrowLeftContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.999965, 0.10802419, 0.29587567, 1)
+text = "Throw Left:"
+
+[node name="ThrowLeftLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer2/ThrowLeftContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/default_color = Color(0.999965, 0.10802419, 0.29587567, 1)
+bbcode_enabled = true
+text = "9"
+fit_content = true
+autowrap_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Control" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="CurrentScoreLabel" type="Label" parent="MarginContainer/VBoxContainer/Control"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95386344, 0.23348907, 0.349994, 1)
+theme_override_font_sizes/font_size = 80
+text = "+10"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="DiceContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Dice" parent="MarginContainer/VBoxContainer/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
+layout_mode = 2
+behaviur = SubResource("Resource_2uu5o")
+
+[node name="Dice2" parent="MarginContainer/VBoxContainer/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
+layout_mode = 2
+behaviur = SubResource("Resource_2hp0k")
+
+[node name="Dice3" parent="MarginContainer/VBoxContainer/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
+layout_mode = 2
+behaviur = SubResource("Resource_axvh3")
+
+[node name="Dice4" parent="MarginContainer/VBoxContainer/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
+layout_mode = 2
+behaviur = SubResource("Resource_qmv3x")
+
+[node name="Dice5" parent="MarginContainer/VBoxContainer/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
+layout_mode = 2
+behaviur = SubResource("Resource_a2o8v")
+
+[node name="Dice6" parent="MarginContainer/VBoxContainer/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
+layout_mode = 2
+behaviur = SubResource("Resource_kac7v")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="RollDiceButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_gfbbj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_87ad3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_87ad3")
+theme_override_styles/focus = SubResource("StyleBoxFlat_87ad3")
+text = "Roll Dices"
+
+[node name="CurrentScoreTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="GameOverScreen" parent="." instance=ExtResource("5_87ad3")]
+visible = false
+layout_mode = 1
+
+[node name="WinScreen" parent="." instance=ExtResource("6_7mm28")]
+visible = false
+layout_mode = 1

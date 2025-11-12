@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="RegularDice" load_steps=2 format=3 uid="uid://q266l778bqyl"]
+
+[ext_resource type="Script" uid="uid://c3x0hnkjatabx" path="res://common/dice/types/regular_dice.gd" id="1_0rvsm"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_0rvsm")
+dice_name = "Regular Dice"
+metadata/_custom_type_script = "uid://c3x0hnkjatabx"

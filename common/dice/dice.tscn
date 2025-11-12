@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://ynjdjcukvk4c"]
+
+[ext_resource type="Script" uid="uid://d1ipy6j6whcel" path="res://common/dice/dice.gd" id="1_fbg6l"]
+[ext_resource type="Script" uid="uid://c3x0hnkjatabx" path="res://common/dice/types/regular_dice.gd" id="2_7slir"]
+
+[sub_resource type="Resource" id="Resource_7slir"]
+script = ExtResource("2_7slir")
+metadata/_custom_type_script = "uid://c3x0hnkjatabx"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_agrpc"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+anti_aliasing = false
+anti_aliasing_size = 0.216
+
+[node name="Dice" type="Control"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 32.0
+offset_bottom = 32.0
+pivot_offset = Vector2(16, 16)
+script = ExtResource("1_fbg6l")
+behaviur = SubResource("Resource_7slir")
+duration = 0.5
+
+[node name="Container" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -3.6239624e-05
+offset_bottom = -0.00024223328
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(16, 16)
+theme_override_styles/panel = SubResource("StyleBoxFlat_agrpc")
+
+[node name="ValueLabel" type="Label" parent="Container"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.5247766, 0.009047486, 0.1367926, 1)
+theme_override_font_sizes/font_size = 32
+text = "5"
+horizontal_alignment = 1

@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://ee5cl2bv8w0d"]
+
+[ext_resource type="Shader" uid="uid://cpfyhs6mrl770" path="res://common/backgrounds/background.gdshader" id="1_rp12l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nc6r6"]
+shader = ExtResource("1_rp12l")
+shader_parameter/tri_size = 80.000003705
+shader_parameter/spacing = 1.0000000475
+shader_parameter/speed = 90.000004275
+shader_parameter/direction = Vector2(-1, -1)
+shader_parameter/tri_color = Color(1, 0, 0, 1)
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+
+[node name="Background" type="ColorRect"]
+material = SubResource("ShaderMaterial_nc6r6")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
