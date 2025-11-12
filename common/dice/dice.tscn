@@ -1,15 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://ynjdjcukvk4c"]
+[gd_scene load_steps=5 format=3 uid="uid://ynjdjcukvk4c"]
 
 [ext_resource type="Script" uid="uid://d1ipy6j6whcel" path="res://common/dice/dice.gd" id="1_fbg6l"]
-[ext_resource type="Script" uid="uid://c3x0hnkjatabx" path="res://common/dice/types/regular_dice.gd" id="2_7slir"]
 [ext_resource type="Texture2D" uid="uid://bn06wbr3vqiie" path="res://common/dice/art/dices.png" id="3_lcp15"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lcp15"]
-
-[sub_resource type="Resource" id="Resource_lcp15"]
-script = ExtResource("2_7slir")
-dice_text_color = null
-metadata/_custom_type_script = "uid://c3x0hnkjatabx"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w33to"]
 atlas = ExtResource("3_lcp15")
@@ -27,7 +21,6 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_lcp15")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_lcp15")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_lcp15")
 script = ExtResource("1_fbg6l")
-behaviur = SubResource("Resource_lcp15")
 duration = 0.5
 
 [node name="Container" type="TextureRect" parent="."]

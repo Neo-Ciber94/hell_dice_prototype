@@ -4,10 +4,14 @@ extends Button
 
 signal on_finished()
 
-@onready var container: Control = $Container
+@onready var container: TextureRect = $Container
 @onready var value_label: Label = $Container/ValueLabel
 
-@export var behaviur: DiceBehaviour;
+@export var behaviour: DiceBehaviour:
+	set(value):
+		behaviour = value;
+		_prepare()
+		
 @export var duration: float = 1.0;
 
 @export_group("Animations")
@@ -17,15 +21,20 @@ var _had_rolled = false;
 var _side_index: int = 0;
 
 func _ready() -> void:
-	behaviur = behaviur.duplicate(true)
+	behaviour = behaviour.duplicate(true)
 	pressed.connect(_on_dice_pressed)
-	
-	if not Engine.is_editor_hint():
-		var sides = behaviur.get_dice_sides();
-		_set_side(sides.front())
-		
-		value_label.add_theme_color_override("font_color", behaviur.dice_text_color)
+	_prepare()
 
+func _prepare() -> void:
+	if behaviour == null || container == null:
+		return;
+		
+	var sides = behaviour.get_dice_sides();
+	_set_side(sides.front())
+		
+	container.texture = behaviour.dice_texture;
+	value_label.add_theme_color_override("font_color", behaviour.dice_text_color)
+		
 func _set_side(side: DiceSide, animate: bool = false) -> void:
 	if animate:
 		await _animate_roll(_side_index, false, 0.1)
@@ -38,16 +47,16 @@ func _on_dice_pressed() -> void:
 	if _had_rolled:
 		return;
 		
-	var sides = behaviur.get_dice_sides();
+	var sides = behaviour.get_dice_sides();
 	_side_index = (_side_index + 1) % sides.size()
 	var side = sides.get(_side_index)
 	_set_side(side, true)
 
 func roll_dice(rng: RNG) -> void:
 	_had_rolled = true;
-	behaviur.roll_dice(rng)
+	behaviour.roll_dice(rng)
 	
-	var sides = behaviur.get_dice_sides_with_selected_as_last()
+	var sides = behaviour.get_dice_sides_with_selected_as_last()
 	var anim_duration = duration / sides.size()
 	
 	for idx in sides.size():
@@ -59,7 +68,7 @@ func roll_dice(rng: RNG) -> void:
 	on_finished.emit()
 
 func get_dice_value() -> int:
-	return behaviur.get_dice_value()
+	return behaviour.get_dice_value()
 
 func _animate_roll(dice_index: int, is_last: bool, anim_duration: float) -> void:
 	var tween = create_tween()

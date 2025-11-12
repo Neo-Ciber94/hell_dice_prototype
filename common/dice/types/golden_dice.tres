@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="GoldenDice" load_steps=4 format=3 uid="uid://67igom24nxvx"]
+
+[ext_resource type="Script" uid="uid://dcqs73b6mvxck" path="res://common/dice/types/golden_dice.gd" id="1_40j1t"]
+[ext_resource type="Texture2D" uid="uid://bn06wbr3vqiie" path="res://common/dice/art/dices.png" id="1_lx678"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_svx46"]
+atlas = ExtResource("1_lx678")
+region = Rect2(32, 0, 32, 32)
+
+[resource]
+script = ExtResource("1_40j1t")
+dice_name = "Golden Dice"
+dice_texture = SubResource("AtlasTexture_svx46")
+dice_text_color = Color(0.6080301, 0.14733289, 0, 0.8)
+metadata/_custom_type_script = "uid://dcqs73b6mvxck"
