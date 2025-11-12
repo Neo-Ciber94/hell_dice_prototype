@@ -6,4 +6,5 @@
 resource_local_to_scene = true
 script = ExtResource("1_0rvsm")
 dice_name = "Regular Dice"
+dice_text_color = Color(0.5247766, 0.009047486, 0.1367926, 1)
 metadata/_custom_type_script = "uid://c3x0hnkjatabx"

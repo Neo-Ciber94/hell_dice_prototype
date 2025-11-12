@@ -72,6 +72,10 @@ func _check_game_state() -> void:
 		game_over_screen.show()
 	else:
 		win_screen.show_total_score(total_score, target_score)
+		
+	# TODO: Remove
+	for dice in dices:
+		dice._had_rolled = false;
 
 func _roll_dices() -> void:
 	current_score_label.hide()

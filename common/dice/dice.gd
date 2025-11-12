@@ -1,10 +1,10 @@
 @tool
 class_name Dice
-extends Control
+extends Button
 
 signal on_finished()
 
-@onready var container: PanelContainer = $Container
+@onready var container: Control = $Container
 @onready var value_label: Label = $Container/ValueLabel
 
 @export var behaviur: DiceBehaviour;
@@ -13,15 +13,38 @@ signal on_finished()
 @export_group("Animations")
 @export_tool_button("Bring to Front", "Callable") var _bring_to_front = bring_to_front;
 
+var _had_rolled = false;
+var _side_index: int = 0;
+
 func _ready() -> void:
 	behaviur = behaviur.duplicate(true)
+	pressed.connect(_on_dice_pressed)
 	
 	if not Engine.is_editor_hint():
 		var sides = behaviur.get_dice_sides();
-		var front = sides.front() as DiceSide;
-		value_label.text = front.side_text;
+		_set_side(sides.front())
+		
+		value_label.add_theme_color_override("font_color", behaviur.dice_text_color)
+
+func _set_side(side: DiceSide, animate: bool = false) -> void:
+	if animate:
+		await _animate_roll(_side_index, false, 0.1)
+		await _animate_roll(_side_index + 1, false, 0.1)
+		await _animate_roll(_side_index + 1, true, 0.1)
+		
+	value_label.text = side.side_text;
+
+func _on_dice_pressed() -> void:
+	if _had_rolled:
+		return;
+		
+	var sides = behaviur.get_dice_sides();
+	_side_index = (_side_index + 1) % sides.size()
+	var side = sides.get(_side_index)
+	_set_side(side, true)
 
 func roll_dice(rng: RNG) -> void:
+	_had_rolled = true;
 	behaviur.roll_dice(rng)
 	
 	var sides = behaviur.get_dice_sides_with_selected_as_last()
@@ -31,15 +54,14 @@ func roll_dice(rng: RNG) -> void:
 		var side = sides.get(idx)
 		var is_last = idx == sides.size() - 1;
 		await _animate_roll(idx, is_last, anim_duration)
-		value_label.text = side.side_text
-
+		_set_side(side)
+		
 	on_finished.emit()
 
 func get_dice_value() -> int:
 	return behaviur.get_dice_value()
 
 func _animate_roll(dice_index: int, is_last: bool, anim_duration: float) -> void:
-		
 	var tween = create_tween()
 	tween.set_parallel(true)
 	tween.set_trans(Tween.TRANS_SINE)
