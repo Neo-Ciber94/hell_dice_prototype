@@ -58,6 +58,7 @@ func _on_next_run() -> void:
 
 	target_score += 50;
 	throws_available += 2;
+	current_score_label.hide()
 	_reset_game_state()
 
 func _update_throw_left() -> void:
