@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://br52iykcd2vob"]
+[gd_scene load_steps=24 format=3 uid="uid://br52iykcd2vob"]
 
 [ext_resource type="PackedScene" uid="uid://ynjdjcukvk4c" path="res://common/dice/dice_ui.tscn" id="1_con10"]
 [ext_resource type="Script" uid="uid://dd1d45l7ej470" path="res://common/board/board.gd" id="1_qo330"]
@@ -99,6 +99,15 @@ corner_radius_bottom_left = 4
 expand_margin_left = 5.0
 expand_margin_right = 5.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hp0k"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 4.0
+expand_margin_right = 4.0
+
 [node name="Board" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -123,20 +132,27 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+size_flags_vertical = 0
 
-[node name="ScoreContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer2"]
+[node name="ScoreAndRollContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="ScoreContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/ScoreAndRollContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/ScoreContainer"]
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/ScoreAndRollContainer/ScoreContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Score:"
 
-[node name="ScoreLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer2/ScoreContainer"]
+[node name="ScoreLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/ScoreAndRollContainer/ScoreContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
@@ -145,18 +161,18 @@ text = "$0 / $999"
 fit_content = true
 autowrap_mode = 0
 
-[node name="ThrowLeftContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer2"]
+[node name="RollLeftContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/ScoreAndRollContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/ThrowLeftContainer"]
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/ScoreAndRollContainer/RollLeftContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.999965, 0.10802419, 0.29587567, 1)
 theme_override_font_sizes/font_size = 32
-text = "Throw Left:"
+text = "Rolls Left:"
 
-[node name="ThrowLeftLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer2/ThrowLeftContainer"]
+[node name="RollsLeftLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/ScoreAndRollContainer/RollLeftContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/default_color = Color(0.999965, 0.10802419, 0.29587567, 1)
@@ -166,17 +182,43 @@ text = "9"
 fit_content = true
 autowrap_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+
+[node name="RoundsContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/RoundsContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.999965, 0.10802419, 0.29587567, 1)
+theme_override_font_sizes/font_size = 32
+text = "Round:"
+
+[node name="CurrentRoundLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer/RoundsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/default_color = Color(0.999965, 0.10802419, 0.29587567, 1)
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "1"
+fit_content = true
+autowrap_mode = 0
+
+[node name="RollArea" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Control" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="Control" type="VBoxContainer" parent="MarginContainer/RollArea"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 theme_override_constants/separation = 0
 alignment = 2
 
-[node name="CurrentScoreLabel" type="Label" parent="MarginContainer/VBoxContainer/Control"]
+[node name="CurrentScoreLabel" type="Label" parent="MarginContainer/RollArea/Control"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95386344, 0.23348907, 0.349994, 1)
@@ -185,48 +227,48 @@ text = "+10"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/RollArea"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="DiceContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CenterContainer"]
+[node name="DiceContainer" type="HBoxContainer" parent="MarginContainer/RollArea/CenterContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Dice1" parent="MarginContainer/VBoxContainer/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
+[node name="Dice1" parent="MarginContainer/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
 layout_mode = 2
 dice = SubResource("Resource_axvh3")
 
-[node name="Dice2" parent="MarginContainer/VBoxContainer/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
+[node name="Dice2" parent="MarginContainer/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
 layout_mode = 2
 dice = SubResource("Resource_a2o8v")
 
-[node name="Dice3" parent="MarginContainer/VBoxContainer/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
+[node name="Dice3" parent="MarginContainer/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
 layout_mode = 2
 dice = SubResource("Resource_3mkyq")
 
-[node name="Dice4" parent="MarginContainer/VBoxContainer/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
+[node name="Dice4" parent="MarginContainer/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
 layout_mode = 2
 dice = SubResource("Resource_fu3as")
 
-[node name="Dice5" parent="MarginContainer/VBoxContainer/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
+[node name="Dice5" parent="MarginContainer/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
 layout_mode = 2
 dice = SubResource("Resource_laywn")
 
-[node name="Dice6" parent="MarginContainer/VBoxContainer/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
+[node name="Dice6" parent="MarginContainer/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
 layout_mode = 2
 dice = SubResource("Resource_xfj07")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/RollArea"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/RollArea/MarginContainer"]
 layout_mode = 2
 
-[node name="RollDiceButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/CenterContainer"]
+[node name="RollDiceButton" type="Button" parent="MarginContainer/RollArea/MarginContainer/CenterContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -236,6 +278,24 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_87ad3")
 theme_override_styles/hover = SubResource("StyleBoxFlat_87ad3")
 theme_override_styles/focus = SubResource("StyleBoxFlat_87ad3")
 text = "Roll Dices"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 2
+
+[node name="EndRoundButton" type="Button" parent="MarginContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_2hp0k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2hp0k")
+theme_override_styles/hover = SubResource("StyleBoxFlat_2hp0k")
+theme_override_styles/focus = SubResource("StyleBoxFlat_2hp0k")
+text = "End Round"
 
 [node name="CurrentScoreTimer" type="Timer" parent="."]
 one_shot = true

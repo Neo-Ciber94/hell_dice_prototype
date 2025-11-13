@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="RegularDice" load_steps=4 format=3 uid="uid://c8vxymiysr5fx"]
+
+[ext_resource type="Texture2D" uid="uid://bn06wbr3vqiie" path="res://common/dice/art/dices.png" id="1_n2iub"]
+[ext_resource type="Script" uid="uid://c3x0hnkjatabx" path="res://common/dice/dices/regular_dice/regular_dice.gd" id="1_vthqv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j16g0"]
+atlas = ExtResource("1_n2iub")
+region = Rect2(96, 0, 32, 32)
+
+[resource]
+script = ExtResource("1_vthqv")
+dice_values = Array[int]([-5, 5, 10, -10, 20, -20])
+dice_name = "Greedy Dice"
+dice_description = "A dice with + and -"
+dice_texture = SubResource("AtlasTexture_j16g0")
+dice_text_color = Color(1, 0, 0.25, 1)
+metadata/_custom_type_script = "uid://c3x0hnkjatabx"

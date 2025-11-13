@@ -7,26 +7,30 @@ extends Control
 @onready var game_over_screen: GameOverScreen = $GameOverScreen
 @onready var win_screen: WinScreen = $WinScreen
 @onready var dice_selection_screen: DiceSelectionScreen = $DiceSelectionScreen
+@onready var end_round_button: Button = %EndRoundButton
+@onready var current_round_label: RichTextLabel = %CurrentRoundLabel
 
 @onready var current_score_label: Label = %CurrentScoreLabel
 @onready var current_score_timer: Timer = $CurrentScoreTimer
-@onready var throw_left_label: RichTextLabel = %ThrowLeftLabel
+@onready var rolls_left_label: RichTextLabel = %RollsLeftLabel
 
 var dices_ui: Array[DiceUI] = []
 
 @export var target_score: int = 100;
-@export var throws_available: int = 5;
+@export var rolls_available: int = 5;
 
-var total_score: int = 0;
+var current_score: int = 0;
+var _current_round: int = 1;
+
 var _is_calculating_score: bool = false;
 var _dice_rolling_count: int = 0;
-var _remaining_throws: int = 0;
+var _remaining_rolls: int = 0;
 
 var no_more_throws: bool:
-	get: return _remaining_throws == 0;
+	get: return _remaining_rolls == 0;
 
 var has_reached_score: bool:
-	get: return total_score >= target_score;
+	get: return current_score >= target_score;
 
 func _ready() -> void:
 	current_score_label.hide()
@@ -36,15 +40,26 @@ func _ready() -> void:
 			dices_ui.push_back(child)
 			
 	_reset_game_state()
-	win_screen.on_next_run.connect(_on_next_run)
+
+	win_screen.on_next_run.connect(_on_next_round)
 	roll_dice_button.pressed.connect(_on_roll_dices_pressed)
 	dice_selection_screen.on_selection_done.connect(_on_selection_done)
+	end_round_button.pressed.connect(_on_end_round_pressed)
+
+func _process(_delta: float) -> void:
+	end_round_button.visible = _remaining_rolls > 0 and has_reached_score
 
 func _reset_game_state() -> void:
-	_remaining_throws = throws_available
+	_remaining_rolls = rolls_available
+	current_round_label.text = str(_current_round)
+	current_score = 0;
 	
+	end_round_button.hide()
 	_on_update_score(0)
 	_update_throw_left()
+	
+func _on_end_round_pressed() -> void:
+	_on_next_round()
 	
 func _on_selection_done(dices: Array[Dice]) -> void:
 	for idx in dices.size():
@@ -56,17 +71,26 @@ func _on_roll_dices_pressed() -> void:
 	if _is_calculating_score || no_more_throws:
 		return;
 		
-	_remaining_throws -= 1;
+	_remaining_rolls -= 1;
 	
 	_update_throw_left()
 	_roll_dices()
 
-func _on_next_run() -> void:
-	if _remaining_throws > 0:
-		return;
+func _on_next_round() -> void:
+	#if _remaining_rolls > 0:
+		#return;
 
-	target_score += 50;
-	throws_available += 2;
+	_current_round += 1;
+	
+	if _current_round > 3:
+		_current_round = 0;
+		target_score *= 10;
+	else:
+		dice_selection_screen.show_dice_selection(self)
+		target_score += 50;
+		rolls_available += 1;
+	
+	current_round_label.text = str(_current_round)
 	current_score_label.hide()
 	_reset_game_state()
 
@@ -77,17 +101,17 @@ func _input(event: InputEvent) -> void:
 			dice_selection_screen.show_dice_selection(self)
 
 func _update_throw_left() -> void:
-	throw_left_label.text = str(_remaining_throws)
+	rolls_left_label.text = str(_remaining_rolls)
 
 func _check_game_state() -> void:
-	if _remaining_throws > 0:
-		dice_selection_screen.show_dice_selection(self)
-		return;
-		
-	if not has_reached_score:
+	var is_game_over = _remaining_rolls == 0 and not has_reached_score
+	
+	if is_game_over:
 		game_over_screen.show()
+	elif has_reached_score:
+		win_screen.show_total_score(current_score, target_score)
 	else:
-		win_screen.show_total_score(total_score, target_score)
+		pass
 		
 	# TODO: Remove
 	for dice in dices_ui:
@@ -122,7 +146,7 @@ func _sort_dices(a: DiceUI, b: DiceUI) -> bool:
 	return a.dice.get_dice_order() < b.dice.get_dice_order()
 	
 func _calculate_total_score() -> void:
-	total_score += _get_current_score()
+	current_score += _get_current_score()
 
 func _on_roll_finished() -> void:
 	_dice_rolling_count += 1;
@@ -141,13 +165,13 @@ func _show_total_score() -> void:
 	_is_calculating_score = true;
 	await _show_current_score()
 	
-	var initial_score = total_score;
+	var initial_score = current_score;
 	_calculate_total_score()
 	
 	score_label.show()
 	score_label.text = str(initial_score)
 	var tween = create_tween()
-	tween.tween_method(_on_update_score, initial_score, total_score, 0.5);
+	tween.tween_method(_on_update_score, initial_score, current_score, 0.5);
 	
 	await tween.finished;
 	_check_game_state()
