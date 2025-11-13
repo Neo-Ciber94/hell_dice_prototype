@@ -1,7 +1,7 @@
 class_name DiceSelectionScreen
 extends ColorRect
 
-signal on_selection_done(values: Array[DiceBehaviour])
+signal on_selection_done(values: Array[Dice])
 
 @onready var dice_selection_card_container: HBoxContainer = %DiceSelectionCardContainer
 @onready var replace_dice_outer_container: VBoxContainer = %ReplaceDiceOuterContainer
@@ -21,7 +21,7 @@ func show_dice_selection(board: Board) -> void:
 	_prepare_current_dices(board)
 	_prepare_dice_selection()
 		
-func _on_dice_selected(_selected: Dice) -> void:
+func _on_dice_selected(_selected: DiceUI) -> void:
 	for child in dice_selection_card_container.get_children():
 		if child is DiceSelectionCard:
 			child.disabled = true;
@@ -32,24 +32,24 @@ func _prepare_dice_selection() -> void:
 	for child in dice_selection_card_container.get_children():
 		child.queue_free()
 		
-	for dice_behaviour in _get_available_dices():
+	for dice in _get_available_dices():
 		var selection_card = DICE_SELECTION_CARD.instantiate() as DiceSelectionCard;
-		selection_card.behaviour = dice_behaviour;
+		selection_card.dice = dice;
 		dice_selection_card_container.add_child(selection_card)
 		
 func _prepare_current_dices(board: Board) -> void:
 	for child in current_dice_container.get_children():
 		child.queue_free()
 		
-	var dice_behaviours = board.dices.map(func(d: Dice): return d.behaviour)
+	var dices = board.dices_ui.map(func(d: DiceUI): return d.dice)
 	var DICE = load("uid://ynjdjcukvk4c")
 	
-	for d: DiceBehaviour in dice_behaviours:
-		var dice = DICE.instantiate() as Dice;
-		dice.behaviour = d;
-		current_dice_container.add_child(dice)
+	for d: Dice in dices:
+		var dice_ui = DICE.instantiate() as DiceUI;
+		dice_ui.dice = d;
+		current_dice_container.add_child(dice_ui)
 		
-func _get_available_dices() -> Array[DiceBehaviour]:
+func _get_available_dices() -> Array[Dice]:
 	const GOLDEN_DICE = preload("uid://67igom24nxvx")
 	
 	return [
@@ -69,11 +69,11 @@ func _on_cancel_button() -> void:
 func _notify_changed() -> void:
 	on_selection_done.emit(_get_selection())
 
-func _get_selection() -> Array[DiceBehaviour]:
-	var result: Array[DiceBehaviour] = []
+func _get_selection() -> Array[Dice]:
+	var result: Array[Dice] = []
 	
 	for d in current_dice_container.get_children():
-		if d is Dice:
-			result.push_back(d.behaviour)
+		if d is DiceUI:
+			result.push_back(d.dice)
 	
 	return result;

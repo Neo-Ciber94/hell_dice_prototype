@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bn06wbr3vqiie" path="res://common/dice/art/dices.png" id="1_vgpn4"]
 [ext_resource type="FontFile" uid="uid://qb7ev0kg1cmj" path="res://assets/fonts/awesome_dp/awesome.ttf" id="2_mv8bi"]
-[ext_resource type="Script" uid="uid://d6clonnebaac" path="res://common/dice/dice_preview.gd" id="2_vssci"]
+[ext_resource type="Script" uid="uid://d6clonnebaac" path="res://common/dice/dice_ui_preview.gd" id="2_vssci"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mv8bi"]
 atlas = ExtResource("1_vgpn4")

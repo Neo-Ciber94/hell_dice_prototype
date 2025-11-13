@@ -4,13 +4,13 @@ extends Button
 signal on_dice_changed()
 
 @onready var dice_name_label: RichTextLabel = $MarginContainer/VBoxContainer/DiceNameLabel
-@onready var dice: Dice = %Dice
+@onready var dice_ui: DiceUI = %DiceUI
 @onready var dice_description_label: Label = $MarginContainer/VBoxContainer/DiceDescriptionLabel
 @onready var outline: Panel = $Outline
 
-@export var behaviour: DiceBehaviour:
+@export var dice: Dice:
 	set(value):
-		behaviour = value;
+		dice = value;
 		_prepare()
 
 func _ready() -> void:
@@ -21,12 +21,12 @@ func _prepare() -> void:
 	if dice_name_label == null:
 		return;
 		
-	if behaviour:
-		dice_name_label.text = behaviour.dice_name;
-		dice_description_label.text = behaviour.dice_description;
-		dice.behaviour = behaviour;
-		dice.parent_card = self;
-		dice._prepare()
+	if dice:
+		dice_name_label.text = dice.dice_name;
+		dice_description_label.text = dice.dice_description;
+		dice_ui.dice = dice;
+		dice_ui.parent_card = self;
+		dice_ui._prepare()
 
 func _process(_delta: float) -> void:
 	outline.visible = is_hovered() or is_pressed() or has_focus()

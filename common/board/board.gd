@@ -12,7 +12,7 @@ extends Control
 @onready var current_score_timer: Timer = $CurrentScoreTimer
 @onready var throw_left_label: RichTextLabel = %ThrowLeftLabel
 
-var dices: Array[Dice] = []
+var dices_ui: Array[DiceUI] = []
 
 @export var target_score: int = 100;
 @export var throws_available: int = 5;
@@ -32,8 +32,8 @@ func _ready() -> void:
 	current_score_label.hide()
 
 	for child in dice_container.get_children():
-		if child is Dice:
-			dices.push_back(child)
+		if child is DiceUI:
+			dices_ui.push_back(child)
 			
 	_reset_game_state()
 	win_screen.on_next_run.connect(_on_next_run)
@@ -46,11 +46,11 @@ func _reset_game_state() -> void:
 	_on_update_score(0)
 	_update_throw_left()
 	
-func _on_selection_done(behaviours: Array[DiceBehaviour]) -> void:
-	for idx in behaviours.size():
-		var dice = dices[idx] as Dice;
-		dice.behaviour = behaviours.get(idx)
-		dice._prepare()
+func _on_selection_done(dices: Array[Dice]) -> void:
+	for idx in dices.size():
+		var dice_ui = dices_ui[idx] as DiceUI;
+		dice_ui.dice = dices.get(idx)
+		dice_ui._prepare()
 	
 func _on_roll_dices_pressed() -> void:
 	if _is_calculating_score || no_more_throws:
@@ -90,32 +90,32 @@ func _check_game_state() -> void:
 		win_screen.show_total_score(total_score, target_score)
 		
 	# TODO: Remove
-	for dice in dices:
+	for dice in dices_ui:
 		dice._had_rolled = false;
 
 func _roll_dices() -> void:
 	current_score_label.hide()
 
 	var rng = RNG.new()
-	for idx in dices.size():
-		var dice = dices.get(idx) as Dice;
+	for idx in dices_ui.size():
+		var dice_ui = dices_ui.get(idx) as DiceUI;
 		var duration = rng.randf_range(0.3, 1.0)
-		dice.duration = duration;
-		dice.on_finished.connect(_on_roll_finished, Object.CONNECT_ONE_SHOT)
-		dice.roll_dice(rng)
+		dice_ui.duration = duration;
+		dice_ui.on_finished.connect(_on_roll_finished, Object.CONNECT_ONE_SHOT)
+		dice_ui.roll_dice(rng)
 
 func _get_current_score() -> int:
 	var cur_score: int = 0;
-	var cur_dices = dices.duplicate();
+	var cur_dices = dices_ui.duplicate();
 	cur_dices.sort_custom(_sort_dices)
 	
-	for dice in dices:
-		cur_score = dice.behaviour.calculate_dice_score(self, cur_score)
+	for dice_ui in dices_ui:
+		cur_score = dice_ui.dice.calculate_dice_score(self, cur_score)
 	
 	return cur_score;
 	
-func _sort_dices(a: Dice, b: Dice) -> bool:
-	return a.behaviour.get_dice_order() < b.behaviour.get_dice_order()
+func _sort_dices(a: DiceUI, b: DiceUI) -> bool:
+	return a.dice.get_dice_order() < b.dice.get_dice_order()
 	
 func _calculate_total_score() -> void:
 	total_score += _get_current_score()
@@ -123,7 +123,7 @@ func _calculate_total_score() -> void:
 func _on_roll_finished() -> void:
 	_dice_rolling_count += 1;
 	
-	if _dice_rolling_count == dices.size():
+	if _dice_rolling_count == dices_ui.size():
 		_dice_rolling_count = 0;
 		_show_total_score()
 
@@ -145,15 +145,15 @@ func _show_total_score() -> void:
 	
 func _show_score_accumulation() -> void:
 	# TODO: We are duplicating the entire node
-	var cur_dices = dices.duplicate() as Array[Dice]
+	var cur_dices = dices_ui.duplicate() as Array[DiceUI]
 	cur_dices.sort_custom(_sort_dices)
 	
 	var cur_score: int = 0;
 	
-	for dice in cur_dices:
-		await dice.bring_to_front()
+	for dice_ui in cur_dices:
+		await dice_ui.bring_to_front()
 		current_score_label.show()
-		cur_score = dice.behaviour.calculate_dice_score(self, cur_score)
+		cur_score = dice_ui.dice.calculate_dice_score(self, cur_score)
 		current_score_label.text = "+%s" % cur_score;
 	
 func _show_current_score() -> void:

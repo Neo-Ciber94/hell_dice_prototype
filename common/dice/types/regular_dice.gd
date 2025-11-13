@@ -1,5 +1,6 @@
 @tool
-class_name RegularDice extends DiceBehaviour
+class_name RegularDice 
+extends Dice
 
 @export var dice_values: Array[int] = [1, 2, 3, 4, 5, 6]
 

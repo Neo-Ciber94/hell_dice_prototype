@@ -1,5 +1,6 @@
 @tool
-class_name GoldenDice extends DiceBehaviour
+class_name GoldenDice 
+extends Dice
 
 @export var multipliers = [1, 2, 3, 4, 5, 6]
 

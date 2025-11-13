@@ -8,11 +8,9 @@ atlas = ExtResource("1_vfaj4")
 region = Rect2(0, 0, 32, 32)
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("1_0rvsm")
 dice_name = "Regular Dice"
 dice_description = "Just a regular dice"
 dice_texture = SubResource("AtlasTexture_xvm70")
 dice_text_color = Color(0.5247766, 0.009047486, 0.1367926, 1)
-is_selectable = false
 metadata/_custom_type_script = "uid://c3x0hnkjatabx"

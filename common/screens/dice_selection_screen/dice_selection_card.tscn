@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://c1jx6x1hs7f51"]
 
-[ext_resource type="PackedScene" uid="uid://ynjdjcukvk4c" path="res://common/dice/dice.tscn" id="1_01x0e"]
+[ext_resource type="PackedScene" uid="uid://ynjdjcukvk4c" path="res://common/dice/dice_ui.tscn" id="1_01x0e"]
 [ext_resource type="Script" uid="uid://dty0q4oaf3sk3" path="res://common/screens/dice_selection_screen/dice_selection_card.gd" id="1_lctdf"]
 [ext_resource type="Texture2D" uid="uid://ddmw5rh0xflch" path="res://common/board/art/card.png" id="1_u67fa"]
 
@@ -91,7 +91,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="Dice" parent="MarginContainer/VBoxContainer/Control" instance=ExtResource("1_01x0e")]
+[node name="DiceUI" parent="MarginContainer/VBoxContainer/Control" instance=ExtResource("1_01x0e")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
