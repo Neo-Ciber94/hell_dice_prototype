@@ -29,63 +29,16 @@ func _ready() -> void:
 	
 	_prepare()
 
-func _get_drag_data(_at_position: Vector2) -> Variant:
-	if parent_card && parent_card.disabled:
-		return null;
-	
-	const DICE_PREVIEW = preload("uid://dpgm01o6sb5x3")
-
-	if dice and dice.dice_texture:
-		var preview := Control.new()
-		var dice_preview := DICE_PREVIEW.instantiate() as DicePreview;
-		dice_preview.dice = dice;
-		dice_preview.position = -dice_preview.custom_minimum_size / 2.0
-		preview.add_child(dice_preview)
-		set_drag_preview(preview)
-
-	return self
-
-func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
-	var other_dice = data as DiceUI;
-	
-	if other_dice == null || other_dice == self:
-		return false;
-		
-	if other_dice.parent_card and parent_card:
-		return false;
-		
-	if (parent_card and parent_card.disabled) || (other_dice.parent_card and other_dice.parent_card.disabled):
-		return false;
-		
-	return true;
-
-func _drop_data(_at_position: Vector2, data: Variant) -> void:
-	var other = data as DiceUI;
-	
-	if other == null:
-		return;
-		
-	var other_dice: Dice = other.dice as Dice;
-	var temp: Dice = dice as Dice;
-	dice = other_dice
-	other.dice = temp 
-	self._prepare()
-	other._prepare()
-	
-	if parent_card:
-		parent_card.dice = other_dice;
-		parent_card.on_dice_changed.emit()
-		
-	if other.parent_card:
-		other.parent_card.dice = other.dice;
-		other.parent_card.on_dice_changed.emit()
-		
-	if other.parent_card:
-		EventBus.on_dice_selected.emit(self)
+func _on_dice_changed() -> void:
+	var side = dice.get_selected_dice_side()
+	_set_side(side, true)
 
 func _prepare() -> void:
 	if dice == null || container == null:
 		return;
+		
+	if not dice.changed.is_connected(_on_dice_changed):
+		dice.changed.connect(_on_dice_changed)
 		
 	var sides = dice.get_dice_sides();
 	_set_side(sides.front())
@@ -159,3 +112,57 @@ func bring_to_front() -> void:
 	tween.tween_property(container, "scale", Vector2.ONE * 0.90, 0.4)
 	tween.tween_property(container, "scale", Vector2.ONE * 1.2, 0.1)
 	await tween.finished
+
+func _get_drag_data(_at_position: Vector2) -> Variant:
+	if parent_card && parent_card.disabled:
+		return null;
+	
+	const DICE_PREVIEW = preload("uid://dpgm01o6sb5x3")
+
+	if dice and dice.dice_texture:
+		var preview := Control.new()
+		var dice_preview := DICE_PREVIEW.instantiate() as DicePreview;
+		dice_preview.dice = dice;
+		dice_preview.position = -dice_preview.custom_minimum_size / 2.0
+		preview.add_child(dice_preview)
+		set_drag_preview(preview)
+
+	return self
+
+func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
+	var other_dice = data as DiceUI;
+	
+	if other_dice == null || other_dice == self:
+		return false;
+		
+	if other_dice.parent_card and parent_card:
+		return false;
+		
+	if (parent_card and parent_card.disabled) || (other_dice.parent_card and other_dice.parent_card.disabled):
+		return false;
+		
+	return true;
+
+func _drop_data(_at_position: Vector2, data: Variant) -> void:
+	var other = data as DiceUI;
+	
+	if other == null:
+		return;
+		
+	var other_dice: Dice = other.dice as Dice;
+	var temp: Dice = dice as Dice;
+	dice = other_dice
+	other.dice = temp 
+	self._prepare()
+	other._prepare()
+	
+	if parent_card:
+		parent_card.dice = other_dice;
+		parent_card.on_dice_changed.emit()
+		
+	if other.parent_card:
+		other.parent_card.dice = other.dice;
+		other.parent_card.on_dice_changed.emit()
+		
+	if other.parent_card:
+		EventBus.on_dice_selected.emit(self)

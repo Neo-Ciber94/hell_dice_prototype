@@ -1,6 +1,8 @@
 class_name DiceSelectionScreen
 extends ColorRect
 
+const MAX_SELECTABLES = 3;
+
 signal on_selection_done(values: Array[Dice])
 
 @onready var dice_selection_card_container: HBoxContainer = %DiceSelectionCardContainer
@@ -58,14 +60,18 @@ func _prepare_current_dices(board: Board) -> void:
 		current_dice_container.add_child(dice_ui)
 		
 func _get_available_dices() -> Array[Dice]:
-	const GOLDEN_DICE = preload("uid://67igom24nxvx")
-	const ONLY_ONE_DICE = preload("uid://ctgvkrm4a8eyn")
+	const DICES_PATH = "res://common/dice/dices/"
+	var result: Array[Dice] = []
+	var files = FileUtils.read_files(DICES_PATH, "*.tres", true)
 	
-	return [
-		GOLDEN_DICE,
-		GOLDEN_DICE,
-		ONLY_ONE_DICE
-	]
+	for file in files:
+		var coin = load(file) as Dice;
+		if coin and coin.is_selectable:
+			result.push_back(coin)
+	
+	print("%s available dices found" % result.size())
+	result.shuffle()
+	return result.slice(0, MAX_SELECTABLES)
 
 func _on_skip_button() -> void:
 	_notify_changed()
@@ -83,6 +89,6 @@ func _get_selection() -> Array[Dice]:
 	
 	for d in current_dice_container.get_children():
 		if d is DiceUI:
-			result.push_back(d.dice)
+			result.push_back(d.dice.duplicate())
 	
 	return result;

@@ -95,6 +95,10 @@ func _check_game_state() -> void:
 
 func _roll_dices() -> void:
 	current_score_label.hide()
+	
+	for dice_ui in dices_ui:
+		if dice_ui is DiceUI:
+			dice_ui.dice.on_roll_start(self)
 
 	var rng = RNG.new()
 	for idx in dices_ui.size():
@@ -125,8 +129,14 @@ func _on_roll_finished() -> void:
 	
 	if _dice_rolling_count == dices_ui.size():
 		_dice_rolling_count = 0;
+		_on_roll_ended()
 		_show_total_score()
-
+	
+func _on_roll_ended() -> void:
+	for dice_ui in dices_ui:
+		if dice_ui is DiceUI:
+			dice_ui.dice.on_roll_finished(self)
+	
 func _show_total_score() -> void:
 	_is_calculating_score = true;
 	await _show_current_score()
@@ -142,7 +152,7 @@ func _show_total_score() -> void:
 	await tween.finished;
 	_check_game_state()
 	_is_calculating_score = false;
-	
+
 func _show_score_accumulation() -> void:
 	# TODO: We are duplicating the entire node
 	var cur_dices = dices_ui.duplicate() as Array[DiceUI]

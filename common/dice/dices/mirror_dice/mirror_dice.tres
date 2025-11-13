@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MirrorDice" load_steps=4 format=3 uid="uid://ww641ygt1g1i"]
+
+[ext_resource type="Texture2D" uid="uid://bn06wbr3vqiie" path="res://common/dice/art/dices.png" id="1_4s7re"]
+[ext_resource type="Script" uid="uid://bph3xvll1nje7" path="res://common/dice/dices/mirror_dice/mirror_dice.gd" id="1_3315p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m8hbf"]
+atlas = ExtResource("1_4s7re")
+region = Rect2(64, 0, 32, 32)
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_3315p")
+dice_name = "Mirror Dice"
+dice_description = "Copies the highest value dice"
+dice_texture = SubResource("AtlasTexture_m8hbf")
+dice_text_color = Color(0, 1, 0.8304081, 1)
+metadata/_custom_type_script = "uid://bph3xvll1nje7"

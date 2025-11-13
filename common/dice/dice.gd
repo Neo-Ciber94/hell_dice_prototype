@@ -18,6 +18,12 @@ enum Order {
 @export_group("Selectable")
 @export var is_selectable: bool = true;
 
+func on_roll_start(board: Board) -> void:
+	pass
+
+func on_roll_finished(board: Board) -> void:
+	pass
+
 @abstract
 func get_dice_sides() -> Array[DiceSide];
 
