@@ -48,10 +48,7 @@ func _get_drag_data(_at_position: Vector2) -> Variant:
 func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
 	var other_dice = data as DiceUI;
 	
-	if other_dice == null:
-		return false;
-		
-	if other_dice == self:
+	if other_dice == null || other_dice == self:
 		return false;
 		
 	if other_dice.parent_card and parent_card:
@@ -71,20 +68,19 @@ func _drop_data(_at_position: Vector2, data: Variant) -> void:
 	var other_dice: Dice = other.dice as Dice;
 	var temp: Dice = dice as Dice;
 	dice = other_dice
-	
-	other_dice.dice = temp 
+	other.dice = temp 
 	self._prepare()
-	other_dice._prepare()
+	other._prepare()
 	
 	if parent_card:
 		parent_card.dice = other_dice;
 		parent_card.on_dice_changed.emit()
 		
-	if other_dice.parent_card:
-		other_dice.parent_card.dice = other_dice.dice;
-		other_dice.parent_card.on_dice_changed.emit()
+	if other.parent_card:
+		other.parent_card.dice = other.dice;
+		other.parent_card.on_dice_changed.emit()
 		
-	if other_dice.parent_card:
+	if other.parent_card:
 		EventBus.on_dice_selected.emit(self)
 
 func _prepare() -> void:

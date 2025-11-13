@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SameValueDice" load_steps=4 format=3 uid="uid://ctgvkrm4a8eyn"]
+
+[ext_resource type="Texture2D" uid="uid://bn06wbr3vqiie" path="res://common/dice/art/dices.png" id="1_a54n5"]
+[ext_resource type="Script" uid="uid://dauuu2ctbnxxa" path="res://common/dice/types/same_value_dice.gd" id="1_nxpyy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8oj7i"]
+atlas = ExtResource("1_a54n5")
+region = Rect2(0, 0, 32, 32)
+
+[resource]
+script = ExtResource("1_nxpyy")
+dice_name = "Only One"
+dice_description = "A dice with only 1"
+dice_texture = SubResource("AtlasTexture_8oj7i")
+dice_text_color = Color(0.3888471, 0.25009245, 1, 1)
+metadata/_custom_type_script = "uid://dauuu2ctbnxxa"

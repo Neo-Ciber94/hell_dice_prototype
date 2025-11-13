@@ -9,4 +9,4 @@ extends TextureRect
 func _ready() -> void:
 	dice_preview.texture = dice.dice_texture;
 	label.text = str(dice.get_dice_sides().front().side_value)
-	
+	label.add_theme_color_override("font_color", dice.dice_text_color)

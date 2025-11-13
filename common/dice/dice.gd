@@ -1,6 +1,7 @@
 @tool
 @abstract
 class_name Dice
+
 extends Resource
 
 enum Order {

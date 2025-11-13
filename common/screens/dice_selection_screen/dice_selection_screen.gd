@@ -51,11 +51,12 @@ func _prepare_current_dices(board: Board) -> void:
 		
 func _get_available_dices() -> Array[Dice]:
 	const GOLDEN_DICE = preload("uid://67igom24nxvx")
+	const ONLY_ONE_DICE = preload("uid://ctgvkrm4a8eyn")
 	
 	return [
 		GOLDEN_DICE,
 		GOLDEN_DICE,
-		GOLDEN_DICE
+		ONLY_ONE_DICE
 	]
 
 func _on_skip_button() -> void:
