@@ -41,17 +41,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(320, 180)
 mouse_filter = 1
 color = Color(0, 0, 0, 1)
 script = ExtResource("1_7xkwk")
 
 [node name="DottedBg" parent="." instance=ExtResource("2_d3dlh")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
+layout_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -71,7 +67,7 @@ theme_override_constants/separation = 4
 
 [node name="Label" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/default_color = Color(1, 0, 0.09759998, 1)
+theme_override_colors/default_color = Color(1, 0.69112843, 0, 1)
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "[wave]Take a new dice[/wave]"
@@ -157,7 +153,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_k03ym")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_4vgwx")
 theme_override_styles/hover = SubResource("StyleBoxFlat_4vgwx")
 theme_override_styles/focus = SubResource("StyleBoxFlat_4vgwx")
-text = "Skip"
+text = "Continue"
 
 [node name="CancelButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true

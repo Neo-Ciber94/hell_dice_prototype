@@ -17,7 +17,15 @@ func _ready() -> void:
 	EventBus.on_dice_selected.connect(_on_dice_selected)
 	
 func show_dice_selection(board: Board) -> void:
-	show()
+	var tween = create_tween();
+	self.modulate.a = 0.0;
+	tween.set_parallel(true)
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(self, "modulate:a", 1.0, 0.5).from(0);
+	tween.tween_property(self, "scale", Vector2.ONE, 0.5).from(Vector2.ONE * 0.8)
+	
+	show.call_deferred()
 	_prepare_current_dices(board)
 	_prepare_dice_selection()
 		
