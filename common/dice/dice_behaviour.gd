@@ -11,9 +11,11 @@ enum Order {
 @export_group("General")
 @export var dice_name: String;
 @export_multiline var dice_description: String;
-
 @export var dice_texture: Texture2D;
 @export var dice_text_color: Color = Color.from_string("#860223", Color.DARK_RED)
+
+@export_group("Selectable")
+@export var is_selectable: bool = true;
 
 @abstract
 func get_dice_sides() -> Array[DiceSide];

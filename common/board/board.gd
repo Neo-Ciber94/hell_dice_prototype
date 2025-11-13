@@ -171,7 +171,7 @@ func _show_current_score() -> void:
 	current_score_timer.timeout.connect(func(): current_score_label.hide(), Object.CONNECT_ONE_SHOT)
 	
 func _on_update_score(new_value: int) -> void:
-	score_label.text = "{current} / {target}".format({
+	score_label.text = "${current} / ${target}".format({
 		current = new_value,
 		target = target_score
 	})

@@ -14,4 +14,5 @@ dice_name = "Regular Dice"
 dice_description = "Just a regular dice"
 dice_texture = SubResource("AtlasTexture_xvm70")
 dice_text_color = Color(0.5247766, 0.009047486, 0.1367926, 1)
+is_selectable = false
 metadata/_custom_type_script = "uid://c3x0hnkjatabx"
