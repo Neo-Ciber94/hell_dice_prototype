@@ -1,6 +1,8 @@
 class_name DiceSelectionScreen
 extends ColorRect
 
+signal on_selection_done(values: Array[DiceBehaviour])
+
 @onready var dice_selection_card_container: HBoxContainer = %DiceSelectionCardContainer
 @onready var replace_dice_outer_container: VBoxContainer = %ReplaceDiceOuterContainer
 @onready var current_dice_container: HBoxContainer = %CurrentDiceContainer
@@ -14,14 +16,15 @@ func _ready() -> void:
 	cancel_button.pressed.connect(_on_cancel_button)
 	EventBus.on_dice_selected.connect(_on_dice_selected)
 	
-func _on_dice_selected(_dice: Dice) -> void:
-	#hide()
-	pass
-	
 func show_dice_selection(board: Board) -> void:
 	show()
 	_prepare_current_dices(board)
 	_prepare_dice_selection()
+		
+func _on_dice_selected(_selected: Dice) -> void:
+	for child in dice_selection_card_container.get_children():
+		if child is DiceSelectionCard:
+			child.disabled = true;
 		
 func _prepare_dice_selection() -> void:
 	var DICE_SELECTION_CARD = load("uid://c1jx6x1hs7f51")
@@ -56,7 +59,21 @@ func _get_available_dices() -> Array[DiceBehaviour]:
 	]
 
 func _on_skip_button() -> void:
+	_notify_changed()
 	hide()
 	
 func _on_cancel_button() -> void:
+	_notify_changed()
 	hide()
+
+func _notify_changed() -> void:
+	on_selection_done.emit(_get_selection())
+
+func _get_selection() -> Array[DiceBehaviour]:
+	var result: Array[DiceBehaviour] = []
+	
+	for d in current_dice_container.get_children():
+		if d is Dice:
+			result.push_back(d.behaviour)
+	
+	return result;

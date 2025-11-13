@@ -31,15 +31,15 @@ func _ready() -> void:
 	_prepare()
 
 func _get_drag_data(_at_position: Vector2) -> Variant:
+	if parent_card && parent_card.disabled:
+		return null;
+	
 	const DICE_PREVIEW = preload("uid://dpgm01o6sb5x3")
 
 	if behaviour and behaviour.dice_texture:
 		var preview := Control.new()
 		var dice_preview := DICE_PREVIEW.instantiate() as DicePreview;
 		dice_preview.behaviour = behaviour;
-		#dice_preview.texture = behaviour.dice_texture
-		#dice_preview.custom_minimum_size = Vector2(32, 32)
-		#dice_preview.expand_mode = TextureRect.EXPAND_KEEP_SIZE
 		dice_preview.position = -dice_preview.custom_minimum_size / 2.0
 		preview.add_child(dice_preview)
 		set_drag_preview(preview)
@@ -58,6 +58,9 @@ func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
 	if other_dice.parent_card and parent_card:
 		return false;
 		
+	if (parent_card and parent_card.disabled) || (other_dice.parent_card and other_dice.parent_card.disabled):
+		return false;
+		
 	return true;
 
 func _drop_data(_at_position: Vector2, data: Variant) -> void:
@@ -66,7 +69,6 @@ func _drop_data(_at_position: Vector2, data: Variant) -> void:
 	if other_dice == null:
 		return;
 		
-	print("Dice dropped: ", data)
 	var other_behaviour = other_dice.behaviour;
 	var temp = behaviour;
 	behaviour = other_behaviour
@@ -82,7 +84,8 @@ func _drop_data(_at_position: Vector2, data: Variant) -> void:
 		other_dice.parent_card.behaviour = other_dice.behaviour;
 		other_dice.parent_card.on_dice_changed.emit()
 		
-	EventBus.on_dice_selected.emit(self)
+	if other_dice.parent_card:
+		EventBus.on_dice_selected.emit(self)
 
 func _prepare() -> void:
 	if behaviour == null || container == null:

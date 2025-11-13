@@ -38,12 +38,19 @@ func _ready() -> void:
 	_reset_game_state()
 	win_screen.on_next_run.connect(_on_next_run)
 	roll_dice_button.pressed.connect(_on_roll_dices_pressed)
+	dice_selection_screen.on_selection_done.connect(_on_selection_done)
 
 func _reset_game_state() -> void:
 	_remaining_throws = throws_available
 	
 	_on_update_score(0)
 	_update_throw_left()
+	
+func _on_selection_done(behaviours: Array[DiceBehaviour]) -> void:
+	for idx in behaviours.size():
+		var dice = dices[idx] as Dice;
+		dice.behaviour = behaviours.get(idx)
+		dice._prepare()
 	
 func _on_roll_dices_pressed() -> void:
 	if _is_calculating_score || no_more_throws:

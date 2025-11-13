@@ -48,6 +48,10 @@ script = ExtResource("1_7xkwk")
 [node name="DottedBg" parent="." instance=ExtResource("2_d3dlh")]
 layout_mode = 0
 anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
