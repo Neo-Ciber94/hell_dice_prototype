@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpgm01o6sb5x3"]
+
+[ext_resource type="Texture2D" uid="uid://bn06wbr3vqiie" path="res://common/dice/art/dices.png" id="1_vgpn4"]
+[ext_resource type="FontFile" uid="uid://qb7ev0kg1cmj" path="res://assets/fonts/awesome_dp/awesome.ttf" id="2_mv8bi"]
+[ext_resource type="Script" uid="uid://d6clonnebaac" path="res://common/dice/dice_preview.gd" id="2_vssci"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mv8bi"]
+atlas = ExtResource("1_vgpn4")
+region = Rect2(0, 0, 32, 32)
+
+[node name="DicePreview" type="TextureRect"]
+custom_minimum_size = Vector2(32, 32)
+offset_right = 32.0
+offset_bottom = 32.0
+texture = SubResource("AtlasTexture_mv8bi")
+stretch_mode = 3
+script = ExtResource("2_vssci")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.64256185, 0, 0.16064046, 1)
+theme_override_fonts/font = ExtResource("2_mv8bi")
+theme_override_font_sizes/font_size = 32
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1

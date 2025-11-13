@@ -31,14 +31,17 @@ func _ready() -> void:
 	_prepare()
 
 func _get_drag_data(_at_position: Vector2) -> Variant:
+	const DICE_PREVIEW = preload("uid://dpgm01o6sb5x3")
+
 	if behaviour and behaviour.dice_texture:
 		var preview := Control.new()
-		var texture_rect := TextureRect.new()
-		texture_rect.texture = behaviour.dice_texture
-		texture_rect.custom_minimum_size = Vector2(32, 32)
-		texture_rect.expand_mode = TextureRect.EXPAND_KEEP_SIZE
-		texture_rect.position = -texture_rect.custom_minimum_size / 2.0
-		preview.add_child(texture_rect)
+		var dice_preview := DICE_PREVIEW.instantiate() as DicePreview;
+		dice_preview.behaviour = behaviour;
+		#dice_preview.texture = behaviour.dice_texture
+		#dice_preview.custom_minimum_size = Vector2(32, 32)
+		#dice_preview.expand_mode = TextureRect.EXPAND_KEEP_SIZE
+		dice_preview.position = -dice_preview.custom_minimum_size / 2.0
+		preview.add_child(dice_preview)
 		set_drag_preview(preview)
 
 	return self

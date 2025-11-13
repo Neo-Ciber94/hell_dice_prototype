@@ -56,7 +56,7 @@ func _get_available_dices() -> Array[DiceBehaviour]:
 	]
 
 func _on_skip_button() -> void:
-	pass
+	hide()
 	
 func _on_cancel_button() -> void:
-	pass
+	hide()

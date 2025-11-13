@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cd83tm6vvulaw"]
+[gd_scene load_steps=8 format=3 uid="uid://cd83tm6vvulaw"]
 
 [ext_resource type="Script" uid="uid://iag1fmyygrj0" path="res://common/screens/dice_selection_screen/dice_selection_screen.gd" id="1_7xkwk"]
 [ext_resource type="PackedScene" uid="uid://c1jx6x1hs7f51" path="res://common/screens/dice_selection_screen/dice_selection_card.tscn" id="1_k03ym"]
@@ -28,24 +28,6 @@ expand_margin_right = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vgwx"]
 bg_color = Color(0.9998526, 0.11866053, 0.26954314, 0.7294118)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-expand_margin_left = 5.0
-expand_margin_right = 5.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xkwk"]
-bg_color = Color(1, 0, 0.812068, 0.5019608)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-expand_margin_left = 5.0
-expand_margin_right = 5.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d3dlh"]
-bg_color = Color(1, 0.11774105, 0.78466827, 0.98600006)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -179,10 +161,5 @@ custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_7xkwk")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_d3dlh")
-theme_override_styles/hover = SubResource("StyleBoxFlat_d3dlh")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_d3dlh")
-theme_override_styles/focus = SubResource("StyleBoxFlat_d3dlh")
 text = "Cancel"
 flat = true
