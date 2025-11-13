@@ -48,9 +48,7 @@ func _prepare() -> void:
 		
 func _set_side(side: DiceSide, animate: bool = false) -> void:
 	if animate:
-		await _animate_roll(_side_index, false, 0.1)
-		await _animate_roll(_side_index + 1, false, 0.1)
-		await _animate_roll(_side_index + 1, true, 0.1)
+		await shake()
 		
 	value_label.text = side.side_text;
 
@@ -73,7 +71,13 @@ func roll_dice(rng: RNG) -> void:
 	for idx in sides.size():
 		var side = sides.get(idx)
 		var is_last = idx == sides.size() - 1;
-		await _animate_roll(idx, is_last, anim_duration)
+		var move_right = idx % 2 == 0;
+
+		if not is_last:
+			await _move(move_right, anim_duration)
+		else:
+			await reset_transform(anim_duration)
+			
 		_set_side(side)
 		
 	on_finished.emit()
@@ -81,21 +85,15 @@ func roll_dice(rng: RNG) -> void:
 func get_dice_value() -> int:
 	return dice.get_dice_value()
 
-func _animate_roll(dice_index: int, is_last: bool, anim_duration: float) -> void:
+func _move(move_right: bool, anim_duration: float) -> void:
 	var tween = create_tween()
 	tween.set_parallel(true)
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.set_ease(Tween.EASE_IN_OUT)
-
-	var wobble_offset = Vector2.ZERO;
-	var wobble_rotation = 0.0;
 	
-	container.scale = Vector2.ONE
-	
-	if not is_last:
-		var dir = 1 if dice_index % 2 == 0 else -1;
-		wobble_offset = Vector2(dir * 2, 0)
-		wobble_rotation = deg_to_rad(5) if dice_index % 2 == 0 else deg_to_rad(-5);
+	var dir = 1 if move_right else -1;
+	var wobble_offset = Vector2(dir * 2, 0)
+	var wobble_rotation = deg_to_rad(5) if move_right else deg_to_rad(-5);
 
 	tween.tween_property(container, "position", wobble_offset, anim_duration)
 	tween.tween_property(container, "rotation", wobble_rotation, anim_duration)
@@ -104,6 +102,12 @@ func _animate_roll(dice_index: int, is_last: bool, anim_duration: float) -> void
 
 	await tween.finished
 
+func shake() -> void:
+	var anim_duration = duration / dice.get_dice_sides().size()
+	await _move(true, anim_duration)
+	await _move(false, anim_duration)
+	await reset_transform(anim_duration)
+
 func bring_to_front() -> void:
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_OUT_IN)
@@ -111,6 +115,17 @@ func bring_to_front() -> void:
 	
 	tween.tween_property(container, "scale", Vector2.ONE * 0.90, 0.4)
 	tween.tween_property(container, "scale", Vector2.ONE * 1.2, 0.1)
+	await tween.finished
+
+func reset_transform(anim_duration: float = 0.25) -> void:
+	var tween = create_tween()
+	tween.set_parallel(true)
+	tween.set_ease(Tween.EASE_OUT_IN)
+	tween.set_trans(Tween.TRANS_SINE)
+	
+	tween.tween_property(container, "scale", Vector2.ONE, anim_duration)
+	tween.tween_property(container, "position", Vector2.ZERO, anim_duration)
+	tween.tween_property(container, "rotation", 0, anim_duration)
 	await tween.finished
 
 func _get_drag_data(_at_position: Vector2) -> Variant:

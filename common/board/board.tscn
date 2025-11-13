@@ -133,13 +133,13 @@ size_flags_vertical = 0
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/ScoreContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 32
 text = "Score:"
 
 [node name="ScoreLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer2/ScoreContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "$0 / $999"
 fit_content = true
@@ -153,12 +153,14 @@ size_flags_vertical = 0
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/ThrowLeftContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.999965, 0.10802419, 0.29587567, 1)
+theme_override_font_sizes/font_size = 32
 text = "Throw Left:"
 
 [node name="ThrowLeftLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer2/ThrowLeftContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/default_color = Color(0.999965, 0.10802419, 0.29587567, 1)
+theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "9"
 fit_content = true

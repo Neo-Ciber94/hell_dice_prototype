@@ -6,7 +6,10 @@ extends Resource
 
 enum Order {
 	FIRST = 1,
-	LAST = 999
+	EARLY = 2,
+	#MID = 5,
+	#LATE = 9,
+	LAST = 10
 }
 
 @export_group("General")
