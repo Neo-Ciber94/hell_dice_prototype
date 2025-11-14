@@ -9,6 +9,7 @@ extends Control
 @onready var dice_selection_screen: DiceSelectionScreen = $DiceSelectionScreen
 @onready var end_round_button: Button = %EndRoundButton
 @onready var current_round_label: RichTextLabel = %CurrentRoundLabel
+@onready var ability_selection_screen: AbilitySelectionScreen = $AbilitySelectionScreen
 
 @onready var current_score_label: Label = %CurrentScoreLabel
 @onready var current_score_timer: Timer = $CurrentScoreTimer
@@ -18,6 +19,7 @@ var dices_ui: Array[DiceUI] = []
 
 @export var target_score: int = 100;
 @export var rolls_available: int = 5;
+@export var active_abilities: Array[AbilityData] = []
 
 var current_score: int = 0;
 var _current_round: int = 1;
@@ -44,7 +46,14 @@ func _ready() -> void:
 	win_screen.on_next_run.connect(_on_next_round)
 	roll_dice_button.pressed.connect(_on_roll_dices_pressed)
 	dice_selection_screen.on_selection_done.connect(_on_selection_done)
+	ability_selection_screen.on_ability_selected.connect(_on_ability_selected)
 	end_round_button.pressed.connect(_on_end_round_pressed)
+
+func _on_ability_selected(ability: AbilityData) -> void:
+	if active_abilities.size() >= 6:
+		active_abilities.pop_front()
+		
+	active_abilities.push_back(ability)
 
 func _process(_delta: float) -> void:
 	end_round_button.visible = _remaining_rolls > 0 and has_reached_score
@@ -77,9 +86,6 @@ func _on_roll_dices_pressed() -> void:
 	_roll_dices()
 
 func _on_next_round() -> void:
-	#if _remaining_rolls > 0:
-		#return;
-
 	_current_round += 1;
 	
 	if _current_round > 3:
@@ -99,6 +105,9 @@ func _input(event: InputEvent) -> void:
 		var key_event = event as InputEventKey;
 		if key_event.keycode == KEY_U:
 			dice_selection_screen.show_dice_selection(self)
+			
+		if key_event.keycode == KEY_O:
+			ability_selection_screen.open_ability_selection(self)
 
 func _update_throw_left() -> void:
 	rolls_left_label.text = str(_remaining_rolls)
@@ -119,10 +128,7 @@ func _check_game_state() -> void:
 
 func _roll_dices() -> void:
 	current_score_label.hide()
-	
-	for dice_ui in dices_ui:
-		if dice_ui is DiceUI:
-			dice_ui.dice.on_roll_start(self)
+	_on_roll_start()
 
 	var rng = RNG.new()
 	for idx in dices_ui.size():
@@ -145,6 +151,9 @@ func _get_current_score() -> int:
 func _sort_dices(a: DiceUI, b: DiceUI) -> bool:
 	return a.dice.get_dice_order() < b.dice.get_dice_order()
 	
+func _sort_abilities(a: AbilityData, b: AbilityData) -> bool:
+		return a.get_order() < b.get_order()
+	
 func _calculate_total_score() -> void:
 	current_score += _get_current_score()
 
@@ -155,15 +164,36 @@ func _on_roll_finished() -> void:
 		_dice_rolling_count = 0;
 		_on_roll_ended()
 		_show_total_score()
+		
+func _on_roll_start() -> void:
+	var abilities = active_abilities.duplicate() as Array[AbilityData]
+	abilities.sort_custom(_sort_abilities)
 	
-func _on_roll_ended() -> void:
 	for dice_ui in dices_ui:
 		if dice_ui is DiceUI:
-			dice_ui.dice.on_roll_finished(self)
+			@warning_ignore("redundant_await")
+			await dice_ui.dice.on_roll_start(self)
+			
+	for ability in abilities:
+		@warning_ignore("redundant_await")
+		await ability.on_roll_start(self)
+	
+func _on_roll_ended() -> void:
+	var abilities = active_abilities.duplicate() as Array[AbilityData]
+	abilities.sort_custom(_sort_abilities)
+	
+	for dice_ui in dices_ui:
+		if dice_ui is DiceUI:
+			@warning_ignore("redundant_await")
+			await dice_ui.dice.on_roll_finished(self)
+	
+	for ability in abilities:
+		@warning_ignore("redundant_await")
+		await ability.on_roll_finished(self)
 	
 func _show_total_score() -> void:
 	_is_calculating_score = true;
-	await _show_current_score()
+	await _animate_current_score()
 	
 	var initial_score = current_score;
 	_calculate_total_score()
@@ -184,13 +214,26 @@ func _show_score_accumulation() -> void:
 	
 	var cur_score: int = 0;
 	
+	# Calculate score from dices
 	for dice_ui in cur_dices:
 		await dice_ui.bring_to_front()
 		current_score_label.show()
 		cur_score = dice_ui.dice.calculate_dice_score(self, cur_score)
 		current_score_label.text = "+%s" % cur_score;
+		
+	# Calculate score from abilities
+	var abilities = active_abilities.duplicate() as Array[AbilityData]
+	abilities.sort_custom(_sort_abilities)
 	
-func _show_current_score() -> void:
+	for ability in abilities:
+		var prev_score = cur_score;
+		cur_score = ability.calculate_score(self, current_score);
+		
+		if cur_score != prev_score:
+			await get_tree().create_timer(0.2).timeout
+			current_score_label.text = "+%s" % cur_score;
+	
+func _animate_current_score() -> void:
 	current_score_timer.stop()	
 
 	# Show increment

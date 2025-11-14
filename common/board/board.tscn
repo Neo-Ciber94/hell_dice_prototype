@@ -1,38 +1,16 @@
-[gd_scene load_steps=23 format=3 uid="uid://br52iykcd2vob"]
+[gd_scene load_steps=27 format=3 uid="uid://br52iykcd2vob"]
 
 [ext_resource type="PackedScene" uid="uid://ynjdjcukvk4c" path="res://common/dice/dice_ui.tscn" id="1_con10"]
 [ext_resource type="Script" uid="uid://dd1d45l7ej470" path="res://common/board/board.gd" id="1_qo330"]
 [ext_resource type="PackedScene" uid="uid://ee5cl2bv8w0d" path="res://common/backgrounds/triangle_bg.tscn" id="2_gfbbj"]
+[ext_resource type="PackedScene" uid="uid://dcxn1uq4rdvg4" path="res://common/ability/active_ability_card.tscn" id="3_a2o8v"]
 [ext_resource type="Texture2D" uid="uid://bn06wbr3vqiie" path="res://common/dice/art/dices.png" id="4_2hp0k"]
 [ext_resource type="Script" uid="uid://c3x0hnkjatabx" path="res://common/dice/dices/regular_dice/regular_dice.gd" id="5_2hp0k"]
 [ext_resource type="PackedScene" uid="uid://cjluvk3eo44bo" path="res://common/screens/game_over/game_over_screen.tscn" id="5_87ad3"]
 [ext_resource type="PackedScene" uid="uid://dh2lwt5tyi7q2" path="res://common/screens/win_screen/win_screen.tscn" id="6_7mm28"]
-[ext_resource type="Resource" uid="uid://nm1ufbx1t8gm" path="res://common/dice/dices/bank_dice/bank_dice.tres" id="6_axvh3"]
+[ext_resource type="Script" uid="uid://crm7wqyuihxe6" path="res://common/dice/dices/bank_dice/bank_dice.gd" id="6_qmv3x"]
 [ext_resource type="PackedScene" uid="uid://cd83tm6vvulaw" path="res://common/screens/dice_selection_screen/dice_selection_screen.tscn" id="9_axvh3"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2hp0k"]
-atlas = ExtResource("4_2hp0k")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="Resource" id="Resource_axvh3"]
-script = ExtResource("5_2hp0k")
-dice_name = "Regular Dice"
-dice_description = "Just a regular dice"
-dice_texture = SubResource("AtlasTexture_2hp0k")
-dice_text_color = Color(0.5247766, 0.009047486, 0.1367926, 1)
-metadata/_custom_type_script = "uid://c3x0hnkjatabx"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qmv3x"]
-atlas = ExtResource("4_2hp0k")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="Resource" id="Resource_a2o8v"]
-script = ExtResource("5_2hp0k")
-dice_name = "Regular Dice"
-dice_description = "Just a regular dice"
-dice_texture = SubResource("AtlasTexture_qmv3x")
-dice_text_color = Color(0.5247766, 0.009047486, 0.1367926, 1)
-metadata/_custom_type_script = "uid://c3x0hnkjatabx"
+[ext_resource type="PackedScene" uid="uid://cbcx0yg11h1xq" path="res://common/screens/ability_selection_screen/ability_selection_screen.tscn" id="10_a2o8v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kac7v"]
 atlas = ExtResource("4_2hp0k")
@@ -69,6 +47,42 @@ dice_description = "Just a regular dice"
 dice_texture = SubResource("AtlasTexture_7hws1")
 dice_text_color = Color(0.5247766, 0.009047486, 0.1367926, 1)
 metadata/_custom_type_script = "uid://c3x0hnkjatabx"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30y31"]
+atlas = ExtResource("4_2hp0k")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="Resource" id="Resource_xfj07"]
+script = ExtResource("5_2hp0k")
+dice_name = "Regular Dice"
+dice_description = "Just a regular dice"
+dice_texture = SubResource("AtlasTexture_30y31")
+dice_text_color = Color(0.5247766, 0.009047486, 0.1367926, 1)
+metadata/_custom_type_script = "uid://c3x0hnkjatabx"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibryx"]
+atlas = ExtResource("4_2hp0k")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="Resource" id="Resource_mpkjx"]
+script = ExtResource("5_2hp0k")
+dice_name = "Regular Dice"
+dice_description = "Just a regular dice"
+dice_texture = SubResource("AtlasTexture_ibryx")
+dice_text_color = Color(0.5247766, 0.009047486, 0.1367926, 1)
+metadata/_custom_type_script = "uid://c3x0hnkjatabx"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_emtft"]
+atlas = ExtResource("4_2hp0k")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="Resource" id="Resource_dvs5m"]
+script = ExtResource("6_qmv3x")
+dice_name = "Bank Dice"
+dice_description = "This dice value is equals to the sum of all the other dices."
+dice_texture = SubResource("AtlasTexture_emtft")
+dice_text_color = Color(1, 0.74947965, 0.72360146, 1)
+metadata/_custom_type_script = "uid://crm7wqyuihxe6"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gfbbj"]
 bg_color = Color(0.78818816, 0, 0.1897483, 0.5)
@@ -120,6 +134,39 @@ theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
+
+[node name="Control" type="Control" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="AbilitiesContainer" type="PanelContainer" parent="MarginContainer/Control"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 0
+offset_top = 65.0
+offset_right = 128.0
+offset_bottom = 344.0
+size_flags_horizontal = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/AbilitiesContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control/AbilitiesContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ActiveAbilityCard" parent="MarginContainer/Control/AbilitiesContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_a2o8v")]
+layout_mode = 2
+
+[node name="ActiveAbilityCard2" parent="MarginContainer/Control/AbilitiesContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_a2o8v")]
+layout_mode = 2
+
+[node name="ActiveAbilityCard3" parent="MarginContainer/Control/AbilitiesContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_a2o8v")]
+layout_mode = 2
+
+[node name="ActiveAbilityCard4" parent="MarginContainer/Control/AbilitiesContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_a2o8v")]
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -197,17 +244,21 @@ text = "1"
 fit_content = true
 autowrap_mode = 0
 
-[node name="RollArea" type="VBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Control" type="VBoxContainer" parent="MarginContainer/RollArea"]
+[node name="RollArea" type="VBoxContainer" parent="MarginContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="VBoxContainer" parent="MarginContainer/HBoxContainer3/RollArea"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 theme_override_constants/separation = 0
 alignment = 2
 
-[node name="CurrentScoreLabel" type="Label" parent="MarginContainer/RollArea/Control"]
+[node name="CurrentScoreLabel" type="Label" parent="MarginContainer/HBoxContainer3/RollArea/Control"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95386344, 0.23348907, 0.349994, 1)
@@ -216,48 +267,48 @@ text = "+10"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/RollArea"]
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/HBoxContainer3/RollArea"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="DiceContainer" type="HBoxContainer" parent="MarginContainer/RollArea/CenterContainer"]
+[node name="DiceContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer3/RollArea/CenterContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Dice1" parent="MarginContainer/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
-layout_mode = 2
-dice = SubResource("Resource_axvh3")
-
-[node name="Dice2" parent="MarginContainer/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
-layout_mode = 2
-dice = SubResource("Resource_a2o8v")
-
-[node name="Dice3" parent="MarginContainer/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
+[node name="Dice1" parent="MarginContainer/HBoxContainer3/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
 layout_mode = 2
 dice = SubResource("Resource_3mkyq")
 
-[node name="Dice4" parent="MarginContainer/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
+[node name="Dice2" parent="MarginContainer/HBoxContainer3/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
 layout_mode = 2
 dice = SubResource("Resource_fu3as")
 
-[node name="Dice5" parent="MarginContainer/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
+[node name="Dice3" parent="MarginContainer/HBoxContainer3/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
 layout_mode = 2
 dice = SubResource("Resource_laywn")
 
-[node name="Dice6" parent="MarginContainer/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
+[node name="Dice4" parent="MarginContainer/HBoxContainer3/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
 layout_mode = 2
-dice = ExtResource("6_axvh3")
+dice = SubResource("Resource_xfj07")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/RollArea"]
+[node name="Dice5" parent="MarginContainer/HBoxContainer3/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
+layout_mode = 2
+dice = SubResource("Resource_mpkjx")
+
+[node name="Dice6" parent="MarginContainer/HBoxContainer3/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
+layout_mode = 2
+dice = SubResource("Resource_dvs5m")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer3/RollArea"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/RollArea/MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/HBoxContainer3/RollArea/MarginContainer"]
 layout_mode = 2
 
-[node name="RollDiceButton" type="Button" parent="MarginContainer/RollArea/MarginContainer/CenterContainer"]
+[node name="RollDiceButton" type="Button" parent="MarginContainer/HBoxContainer3/RollArea/MarginContainer/CenterContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -298,5 +349,9 @@ visible = false
 layout_mode = 1
 
 [node name="DiceSelectionScreen" parent="." instance=ExtResource("9_axvh3")]
+visible = false
+layout_mode = 1
+
+[node name="AbilitySelectionScreen" parent="." instance=ExtResource("10_a2o8v")]
 visible = false
 layout_mode = 1

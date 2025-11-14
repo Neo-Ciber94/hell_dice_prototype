@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BonusOnDiceValueAbility" load_steps=2 format=3 uid="uid://bneq0xdedhtyr"]
+
+[ext_resource type="Script" uid="uid://dpbblv80cmuxf" path="res://common/ability/abilities/bonus_on_dice_ability/bonus_on_dice_ability.gd" id="1_p8788"]
+
+[resource]
+script = ExtResource("1_p8788")
+ability_name = "Add One"
+ability_description = "Add [color=orange]+1[/color] for each dice which value is 1"
+metadata/_custom_type_script = "uid://dpbblv80cmuxf"
