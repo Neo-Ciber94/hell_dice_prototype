@@ -10,6 +10,8 @@ extends Control
 @onready var end_round_button: Button = %EndRoundButton
 @onready var current_round_label: RichTextLabel = %CurrentRoundLabel
 @onready var ability_selection_screen: AbilitySelectionScreen = $AbilitySelectionScreen
+@onready var active_ability_container: VBoxContainer = %ActiveAbilityContainer
+@onready var abilities_container: PanelContainer = $MarginContainer/Control/AbilitiesContainer
 
 @onready var current_score_label: Label = %CurrentScoreLabel
 @onready var current_score_timer: Timer = $CurrentScoreTimer
@@ -48,12 +50,27 @@ func _ready() -> void:
 	dice_selection_screen.on_selection_done.connect(_on_selection_done)
 	ability_selection_screen.on_ability_selected.connect(_on_ability_selected)
 	end_round_button.pressed.connect(_on_end_round_pressed)
+	abilities_container.hide()
+
+func _on_abilities_changed(new_abilities: Array[AbilityData]) -> void:
+	const ACTIVE_ABILITY_CARD = preload("uid://dcxn1uq4rdvg4")
+	
+	for child in active_ability_container.get_children():
+		child.queue_free()
+		
+	for ability in new_abilities:
+		var active_ability_card = ACTIVE_ABILITY_CARD.instantiate() as ActiveAbilityCard;
+		active_ability_card.ability = ability;
+		active_ability_container.add_child(active_ability_card)
+		
+	abilities_container.visible = not new_abilities.is_empty();
 
 func _on_ability_selected(ability: AbilityData) -> void:
 	if active_abilities.size() >= 6:
 		active_abilities.pop_front()
 		
 	active_abilities.push_back(ability)
+	_on_abilities_changed(active_abilities)
 
 func _process(_delta: float) -> void:
 	end_round_button.visible = _remaining_rolls > 0 and has_reached_score
@@ -62,6 +79,7 @@ func _reset_game_state() -> void:
 	_remaining_rolls = rolls_available
 	current_round_label.text = str(_current_round)
 	current_score = 0;
+	_on_abilities_changed(active_abilities)
 	
 	end_round_button.hide()
 	_on_update_score(0)

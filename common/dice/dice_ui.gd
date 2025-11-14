@@ -6,6 +6,7 @@ signal on_finished()
 
 @onready var container: TextureRect = $Container
 @onready var value_label: Label = $Container/ValueLabel
+@onready var hover_timer: Timer = $HoverTimer
 
 @export var dice: Dice:
 	set(value):
@@ -20,6 +21,7 @@ var parent_card: DiceSelectionCard;
 
 var _had_rolled = false;
 var _side_index: int = 0;
+var is_previewed: bool = false;
 
 func _ready() -> void:
 	pressed.connect(_on_dice_pressed)
@@ -27,7 +29,23 @@ func _ready() -> void:
 	if dice:
 		dice = dice.duplicate(true)
 	
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
+	hover_timer.timeout.connect(_on_preview_dice)
 	_prepare()
+
+func _on_mouse_entered() -> void:
+	hover_timer.start(1.0)
+	
+func _on_mouse_exited() -> void:
+	hover_timer.stop()
+	
+	if is_previewed:
+		EventBus.on_hide_dice_details.emit()
+
+func _on_preview_dice() -> void:
+	is_previewed = true;
+	EventBus.on_show_dice_details.emit(dice)
 
 func _on_dice_changed() -> void:
 	var side = dice.get_selected_dice_side()

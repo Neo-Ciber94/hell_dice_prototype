@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7f0ku5ghoth7"]
+
+[ext_resource type="Texture2D" uid="uid://sjj327nggwaq" path="res://common/ability/art/ability_active_card.png" id="1_f1fmd"]
+[ext_resource type="Script" uid="uid://ceeecb6gum4af" path="res://common/dice/dice_details.gd" id="2_08lvl"]
+[ext_resource type="PackedScene" uid="uid://dpgm01o6sb5x3" path="res://common/dice/dice_ui_preview.tscn" id="3_08lvl"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fgso5"]
+texture = ExtResource("1_f1fmd")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[node name="DiceDetails" type="PanelContainer"]
+custom_minimum_size = Vector2(192, 80)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -52.0
+offset_right = 64.0
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_fgso5")
+script = ExtResource("2_08lvl")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="DiceNameLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Dice Name"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DiceContainer" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="DicePreview" parent="MarginContainer/VBoxContainer/DiceContainer" instance=ExtResource("3_08lvl")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DiceDescriptionLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "This is the dice description label used for ths dice description"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1

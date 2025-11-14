@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://br52iykcd2vob"]
+[gd_scene load_steps=28 format=3 uid="uid://br52iykcd2vob"]
 
 [ext_resource type="PackedScene" uid="uid://ynjdjcukvk4c" path="res://common/dice/dice_ui.tscn" id="1_con10"]
 [ext_resource type="Script" uid="uid://dd1d45l7ej470" path="res://common/board/board.gd" id="1_qo330"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://crm7wqyuihxe6" path="res://common/dice/dices/bank_dice/bank_dice.gd" id="6_qmv3x"]
 [ext_resource type="PackedScene" uid="uid://cd83tm6vvulaw" path="res://common/screens/dice_selection_screen/dice_selection_screen.tscn" id="9_axvh3"]
 [ext_resource type="PackedScene" uid="uid://cbcx0yg11h1xq" path="res://common/screens/ability_selection_screen/ability_selection_screen.tscn" id="10_a2o8v"]
+[ext_resource type="PackedScene" uid="uid://b7f0ku5ghoth7" path="res://common/dice/dice_details.tscn" id="12_kac7v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kac7v"]
 atlas = ExtResource("4_2hp0k")
@@ -77,11 +78,13 @@ atlas = ExtResource("4_2hp0k")
 region = Rect2(0, 32, 32, 32)
 
 [sub_resource type="Resource" id="Resource_dvs5m"]
+resource_local_to_scene = true
 script = ExtResource("6_qmv3x")
 dice_name = "Bank Dice"
 dice_description = "This dice value is equals to the sum of all the other dices."
 dice_texture = SubResource("AtlasTexture_emtft")
-dice_text_color = Color(1, 0.74947965, 0.72360146, 1)
+dice_text_color = Color(0.9019608, 0.9019608, 0.6117647, 1)
+dice_outline_size = 4
 metadata/_custom_type_script = "uid://crm7wqyuihxe6"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gfbbj"]
@@ -153,19 +156,20 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control/AbilitiesContainer/MarginContainer"]
+[node name="ActiveAbilityContainer" type="VBoxContainer" parent="MarginContainer/Control/AbilitiesContainer/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="ActiveAbilityCard" parent="MarginContainer/Control/AbilitiesContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_a2o8v")]
+[node name="ActiveAbilityCard" parent="MarginContainer/Control/AbilitiesContainer/MarginContainer/ActiveAbilityContainer" instance=ExtResource("3_a2o8v")]
 layout_mode = 2
 
-[node name="ActiveAbilityCard2" parent="MarginContainer/Control/AbilitiesContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_a2o8v")]
+[node name="ActiveAbilityCard2" parent="MarginContainer/Control/AbilitiesContainer/MarginContainer/ActiveAbilityContainer" instance=ExtResource("3_a2o8v")]
 layout_mode = 2
 
-[node name="ActiveAbilityCard3" parent="MarginContainer/Control/AbilitiesContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_a2o8v")]
+[node name="ActiveAbilityCard3" parent="MarginContainer/Control/AbilitiesContainer/MarginContainer/ActiveAbilityContainer" instance=ExtResource("3_a2o8v")]
 layout_mode = 2
 
-[node name="ActiveAbilityCard4" parent="MarginContainer/Control/AbilitiesContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_a2o8v")]
+[node name="ActiveAbilityCard4" parent="MarginContainer/Control/AbilitiesContainer/MarginContainer/ActiveAbilityContainer" instance=ExtResource("3_a2o8v")]
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
@@ -261,7 +265,7 @@ alignment = 2
 [node name="CurrentScoreLabel" type="Label" parent="MarginContainer/HBoxContainer3/RollArea/Control"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.95386344, 0.23348907, 0.349994, 1)
+theme_override_colors/font_color = Color(0.9529412, 0.23529412, 0.34901962, 1)
 theme_override_font_sizes/font_size = 80
 text = "+10"
 horizontal_alignment = 1
@@ -355,3 +359,9 @@ layout_mode = 1
 [node name="AbilitySelectionScreen" parent="." instance=ExtResource("10_a2o8v")]
 visible = false
 layout_mode = 1
+
+[node name="DiceDetails" parent="." instance=ExtResource("12_kac7v")]
+visible = false
+layout_mode = 1
+offset_top = -94.0
+offset_bottom = 10.0

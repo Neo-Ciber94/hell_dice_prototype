@@ -67,7 +67,7 @@ theme_override_constants/separation = 4
 
 [node name="Label" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/default_color = Color(1, 0.69112843, 0, 1)
+theme_override_colors/default_color = Color(1, 0.6901961, 0, 1)
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "[wave]Take a new dice[/wave]"

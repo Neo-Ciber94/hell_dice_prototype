@@ -9,6 +9,9 @@ signal on_selected(ability: AbilityData)
 @export var ability: AbilityData;
 
 func _ready() -> void:
+	if ability == null:
+		return;
+		
 	ability_name_label.text = ability.ability_name;
 	ability_description_label.text = ability.ability_description;
 	pressed.connect(_on_pressed)

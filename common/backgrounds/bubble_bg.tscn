@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3v02sgk6487u"]
+
+[ext_resource type="Texture2D" uid="uid://dtmg3q8h5rid8" path="res://common/ability/art/bubble.png" id="1_7le2a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vcp7j"]
+
+[node name="BubbleBg" type="TextureRect"]
+material = SubResource("ShaderMaterial_vcp7j")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_7le2a")
+stretch_mode = 1

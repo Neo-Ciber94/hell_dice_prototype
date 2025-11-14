@@ -8,6 +8,7 @@ atlas = ExtResource("1_dvoti")
 region = Rect2(0, 32, 32, 32)
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_tklvu")
 dice_name = "Bank Dice"
 dice_description = "This dice value is equals to the sum of all the other dices."
