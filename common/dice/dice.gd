@@ -8,7 +8,7 @@ enum Order {
 	FIRST = 1,
 	EARLY = 2,
 	#MID = 5,
-	#LATE = 9,
+	LATE = 9,
 	LAST = 10
 }
 
@@ -17,6 +17,8 @@ enum Order {
 @export_multiline var dice_description: String;
 @export var dice_texture: Texture2D;
 @export var dice_text_color: Color = Color.from_string("#860223", Color.DARK_RED)
+@export var dice_outline_size: int = 0;
+@export var dice_outline_color: Color = Color.BLACK
 
 @export_group("Selectable")
 @export var is_selectable: bool = true;

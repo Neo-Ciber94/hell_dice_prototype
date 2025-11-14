@@ -35,4 +35,4 @@ func get_dice_value() -> int:
 	return _value;
 
 func get_dice_order() -> Order:
-	return Order.LAST
+	return Order.EARLY

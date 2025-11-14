@@ -45,6 +45,8 @@ func _prepare() -> void:
 		
 	container.texture = dice.dice_texture;
 	value_label.add_theme_color_override("font_color", dice.dice_text_color)
+	value_label.add_theme_constant_override("outline_size", dice.dice_outline_size)
+	value_label.add_theme_color_override("font_outline_color", dice.dice_outline_color)
 		
 func _set_side(side: DiceSide, animate: bool = false) -> void:
 	if animate:

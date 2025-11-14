@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://br52iykcd2vob"]
+[gd_scene load_steps=23 format=3 uid="uid://br52iykcd2vob"]
 
 [ext_resource type="PackedScene" uid="uid://ynjdjcukvk4c" path="res://common/dice/dice_ui.tscn" id="1_con10"]
 [ext_resource type="Script" uid="uid://dd1d45l7ej470" path="res://common/board/board.gd" id="1_qo330"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://c3x0hnkjatabx" path="res://common/dice/dices/regular_dice/regular_dice.gd" id="5_2hp0k"]
 [ext_resource type="PackedScene" uid="uid://cjluvk3eo44bo" path="res://common/screens/game_over/game_over_screen.tscn" id="5_87ad3"]
 [ext_resource type="PackedScene" uid="uid://dh2lwt5tyi7q2" path="res://common/screens/win_screen/win_screen.tscn" id="6_7mm28"]
+[ext_resource type="Resource" uid="uid://nm1ufbx1t8gm" path="res://common/dice/dices/bank_dice/bank_dice.tres" id="6_axvh3"]
 [ext_resource type="PackedScene" uid="uid://cd83tm6vvulaw" path="res://common/screens/dice_selection_screen/dice_selection_screen.tscn" id="9_axvh3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2hp0k"]
@@ -66,18 +67,6 @@ script = ExtResource("5_2hp0k")
 dice_name = "Regular Dice"
 dice_description = "Just a regular dice"
 dice_texture = SubResource("AtlasTexture_7hws1")
-dice_text_color = Color(0.5247766, 0.009047486, 0.1367926, 1)
-metadata/_custom_type_script = "uid://c3x0hnkjatabx"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_30y31"]
-atlas = ExtResource("4_2hp0k")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="Resource" id="Resource_xfj07"]
-script = ExtResource("5_2hp0k")
-dice_name = "Regular Dice"
-dice_description = "Just a regular dice"
-dice_texture = SubResource("AtlasTexture_30y31")
 dice_text_color = Color(0.5247766, 0.009047486, 0.1367926, 1)
 metadata/_custom_type_script = "uid://c3x0hnkjatabx"
 
@@ -259,7 +248,7 @@ dice = SubResource("Resource_laywn")
 
 [node name="Dice6" parent="MarginContainer/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
 layout_mode = 2
-dice = SubResource("Resource_xfj07")
+dice = ExtResource("6_axvh3")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/RollArea"]
 layout_mode = 2
