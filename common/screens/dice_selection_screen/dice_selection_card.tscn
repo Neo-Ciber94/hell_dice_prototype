@@ -1,9 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://c1jx6x1hs7f51"]
+[gd_scene load_steps=12 format=3 uid="uid://c1jx6x1hs7f51"]
 
 [ext_resource type="PackedScene" uid="uid://ynjdjcukvk4c" path="res://common/dice/dice_ui.tscn" id="1_01x0e"]
 [ext_resource type="Script" uid="uid://dty0q4oaf3sk3" path="res://common/screens/dice_selection_screen/dice_selection_card.gd" id="1_lctdf"]
 [ext_resource type="Texture2D" uid="uid://ddmw5rh0xflch" path="res://common/board/art/card.png" id="1_u67fa"]
 [ext_resource type="Texture2D" uid="uid://cx1orjj30i725" path="res://common/board/art/card_disabled.png" id="2_jiskc"]
+[ext_resource type="Script" uid="uid://dyuo3e5cfaqpm" path="res://editor/stylebox_stacked.gd" id="4_y4iom"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y4iom"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jiskc"]
 texture = ExtResource("1_u67fa")
@@ -12,12 +15,31 @@ texture_margin_top = 4.0
 texture_margin_right = 4.0
 texture_margin_bottom = 4.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y4iom"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+anti_aliasing = false
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u67fa"]
 texture = ExtResource("1_u67fa")
 texture_margin_left = 4.0
 texture_margin_top = 4.0
 texture_margin_right = 4.0
 texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBox" id="StyleBox_v4xb8"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
+script = ExtResource("4_y4iom")
+style_boxes = Array[StyleBox]([SubResource("StyleBoxFlat_y4iom"), SubResource("StyleBoxTexture_u67fa")])
+metadata/_custom_type_script = "uid://dyuo3e5cfaqpm"
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6003p"]
 texture = ExtResource("2_jiskc")
@@ -26,41 +48,27 @@ texture_margin_top = 4.0
 texture_margin_right = 4.0
 texture_margin_bottom = 4.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u67fa"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-anti_aliasing = false
-anti_aliasing_size = 0.01
-
 [node name="DiceSelectionCard" type="Button"]
+material = SubResource("ShaderMaterial_y4iom")
 custom_minimum_size = Vector2(128, 192)
-offset_right = 128.0
-offset_bottom = 192.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -96.0
+offset_right = 64.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_default_cursor_shape = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_jiskc")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_u67fa")
+theme_override_styles/pressed = SubResource("StyleBox_v4xb8")
 theme_override_styles/hover = SubResource("StyleBoxTexture_u67fa")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_6003p")
 theme_override_styles/focus = SubResource("StyleBoxTexture_u67fa")
 script = ExtResource("1_lctdf")
-
-[node name="Outline" type="Panel" parent="."]
-visible = false
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_u67fa")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -78,7 +86,9 @@ layout_mode = 2
 theme_override_constants/separation = 16
 
 [node name="DiceNameLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
@@ -110,8 +120,10 @@ size_flags_horizontal = 4
 flat = true
 
 [node name="DiceDescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/line_spacing = -1
 text = "This is the label description for this dice"

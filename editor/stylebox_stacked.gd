@@ -8,7 +8,7 @@ extends StyleBox
 		changed.emit()
 		
 		for style_box in value:
-			if not style_box.changed.is_connected(changed.emit):
+			if style_box and not style_box.changed.is_connected(changed.emit):
 				style_box.changed.connect(changed.emit)
 		
 func _draw(to_canvas_item: RID, rect: Rect2) -> void:

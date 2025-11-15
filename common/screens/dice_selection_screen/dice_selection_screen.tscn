@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cd83tm6vvulaw"]
+[gd_scene load_steps=12 format=3 uid="uid://cd83tm6vvulaw"]
 
 [ext_resource type="Script" uid="uid://iag1fmyygrj0" path="res://common/screens/dice_selection_screen/dice_selection_screen.gd" id="1_7xkwk"]
 [ext_resource type="PackedScene" uid="uid://c1jx6x1hs7f51" path="res://common/screens/dice_selection_screen/dice_selection_card.tscn" id="1_k03ym"]
 [ext_resource type="PackedScene" uid="uid://ynjdjcukvk4c" path="res://common/dice/dice_ui.tscn" id="2_4vgwx"]
 [ext_resource type="PackedScene" uid="uid://b3cd4tivx5dm2" path="res://common/backgrounds/dotted_bg.tscn" id="2_d3dlh"]
+[ext_resource type="Shader" uid="uid://c2v88pmlifgkk" path="res://assets/shaders/pseudo_3d.gdshader" id="5_b30ox"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b30ox"]
 bg_color = Color(0.07910305, 0.07910305, 0.07910305, 1)
@@ -16,6 +17,33 @@ corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ufo3o"]
+resource_local_to_scene = true
+shader = ExtResource("5_b30ox")
+shader_parameter/fov = 90.0
+shader_parameter/cull_back = true
+shader_parameter/y_rot = 0.0
+shader_parameter/x_rot = 0.0
+shader_parameter/inset = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_80uv1"]
+resource_local_to_scene = true
+shader = ExtResource("5_b30ox")
+shader_parameter/fov = 90.0
+shader_parameter/cull_back = true
+shader_parameter/y_rot = 0.0
+shader_parameter/x_rot = 0.0
+shader_parameter/inset = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x5sen"]
+resource_local_to_scene = true
+shader = ExtResource("5_b30ox")
+shader_parameter/fov = 90.0
+shader_parameter/cull_back = true
+shader_parameter/y_rot = 0.0
+shader_parameter/x_rot = 0.0
+shader_parameter/inset = 0.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k03ym"]
 bg_color = Color(0.78818816, 0, 0.1897483, 0.5)
@@ -130,12 +158,15 @@ theme_override_constants/separation = 8
 alignment = 1
 
 [node name="PanelContainer" parent="MarginContainer/VBoxContainer/MarginContainer/DiceSelectionCardContainer" instance=ExtResource("1_k03ym")]
+material = SubResource("ShaderMaterial_ufo3o")
 layout_mode = 2
 
 [node name="PanelContainer2" parent="MarginContainer/VBoxContainer/MarginContainer/DiceSelectionCardContainer" instance=ExtResource("1_k03ym")]
+material = SubResource("ShaderMaterial_80uv1")
 layout_mode = 2
 
 [node name="PanelContainer3" parent="MarginContainer/VBoxContainer/MarginContainer/DiceSelectionCardContainer" instance=ExtResource("1_k03ym")]
+material = SubResource("ShaderMaterial_x5sen")
 layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
