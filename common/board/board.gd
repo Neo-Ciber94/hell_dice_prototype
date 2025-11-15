@@ -116,6 +116,9 @@ func _on_next_round() -> void:
 	_current_round += 1;
 	
 	if _current_round > 3:
+		dice_selection_screen.show_dice_selection(self)
+		ability_selection_screen.open_ability_selection(self)
+		
 		_current_round = 0;
 		target_score *= 10;
 	else:
@@ -155,13 +158,18 @@ func _roll_dices() -> void:
 		dice_ui.on_finished.connect(_on_roll_finished, Object.CONNECT_ONE_SHOT)
 		dice_ui.roll_dice(rng)
 
-func _get_current_score() -> int:
+func get_total_dice_score() -> int:
 	var cur_score: int = 0;
 	var cur_dices = dices_ui.duplicate();
 	cur_dices.sort_custom(_sort_dices)
 	
 	for dice_ui in dices_ui:
 		cur_score = dice_ui.dice.calculate_dice_score(self, cur_score)
+	
+	return cur_score;
+		
+func _get_current_score() -> int:
+	var cur_score: int = get_total_dice_score()
 	
 	var abilities = active_abilities.duplicate() as Array[AbilityData]
 	abilities.sort_custom(_sort_abilities)
@@ -257,6 +265,9 @@ func _show_score_accumulation() -> void:
 		if cur_score != prev_score:
 			EventBus.on_ability_activated.emit(ability)
 			await get_tree().create_timer(0.3).timeout
+			
+			@warning_ignore("redundant_await")
+			await ability.on_calculating_score(self)
 			current_score_label.text = "+%s" % cur_score;
 			
 	print("Total score: %s" % cur_score)

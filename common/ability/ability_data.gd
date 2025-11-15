@@ -5,6 +5,9 @@ extends Resource
 @export var ability_name: String;
 @export_multiline var ability_description: String;
 
+func on_calculating_score(board: Board) -> void:
+	pass
+
 @abstract
 func on_roll_start(board: Board) -> void;
 

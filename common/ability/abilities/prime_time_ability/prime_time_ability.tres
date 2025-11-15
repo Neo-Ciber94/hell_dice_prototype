@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PrimeTimeAbility" load_steps=2 format=3 uid="uid://cm2ewj452qytl"]
+
+[ext_resource type="Script" uid="uid://ckb8ns1ta87uq" path="res://common/ability/abilities/prime_time_ability/prime_time_ability.gd" id="1_ed3wx"]
+
+[resource]
+script = ExtResource("1_ed3wx")
+ability_name = "Prime Time"
+ability_description = "If the result is a [color=orange]prime number[/color], adds the [color=orange]prime number[/color]"
+metadata/_custom_type_script = "uid://ckb8ns1ta87uq"

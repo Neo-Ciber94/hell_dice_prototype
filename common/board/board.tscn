@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://br52iykcd2vob"]
+[gd_scene load_steps=29 format=3 uid="uid://br52iykcd2vob"]
 
 [ext_resource type="PackedScene" uid="uid://ynjdjcukvk4c" path="res://common/dice/dice_ui.tscn" id="1_con10"]
 [ext_resource type="Script" uid="uid://dd1d45l7ej470" path="res://common/board/board.gd" id="1_qo330"]
@@ -12,77 +12,78 @@
 [ext_resource type="PackedScene" uid="uid://cd83tm6vvulaw" path="res://common/screens/dice_selection_screen/dice_selection_screen.tscn" id="9_axvh3"]
 [ext_resource type="PackedScene" uid="uid://cbcx0yg11h1xq" path="res://common/screens/ability_selection_screen/ability_selection_screen.tscn" id="10_a2o8v"]
 [ext_resource type="PackedScene" uid="uid://b7f0ku5ghoth7" path="res://common/dice/dice_details.tscn" id="12_kac7v"]
+[ext_resource type="PackedScene" uid="uid://eqepyt40xx65" path="res://common/managers/message_manager.tscn" id="13_3mkyq"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kac7v"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_3mkyq"]
 atlas = ExtResource("4_2hp0k")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="Resource" id="Resource_3mkyq"]
+[sub_resource type="Resource" id="Resource_xmsvx"]
 script = ExtResource("5_2hp0k")
 dice_name = "Regular Dice"
 dice_description = "Just a regular dice"
-dice_texture = SubResource("AtlasTexture_kac7v")
+dice_texture = SubResource("AtlasTexture_3mkyq")
 dice_text_color = Color(0.5247766, 0.009047486, 0.1367926, 1)
 metadata/_custom_type_script = "uid://c3x0hnkjatabx"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xmsvx"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_fu3as"]
 atlas = ExtResource("4_2hp0k")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="Resource" id="Resource_fu3as"]
+[sub_resource type="Resource" id="Resource_7hws1"]
 script = ExtResource("5_2hp0k")
 dice_name = "Regular Dice"
 dice_description = "Just a regular dice"
-dice_texture = SubResource("AtlasTexture_xmsvx")
+dice_texture = SubResource("AtlasTexture_fu3as")
 dice_text_color = Color(0.5247766, 0.009047486, 0.1367926, 1)
 metadata/_custom_type_script = "uid://c3x0hnkjatabx"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7hws1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_laywn"]
 atlas = ExtResource("4_2hp0k")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="Resource" id="Resource_laywn"]
+[sub_resource type="Resource" id="Resource_30y31"]
 script = ExtResource("5_2hp0k")
 dice_name = "Regular Dice"
 dice_description = "Just a regular dice"
-dice_texture = SubResource("AtlasTexture_7hws1")
+dice_texture = SubResource("AtlasTexture_laywn")
 dice_text_color = Color(0.5247766, 0.009047486, 0.1367926, 1)
 metadata/_custom_type_script = "uid://c3x0hnkjatabx"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_30y31"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfj07"]
 atlas = ExtResource("4_2hp0k")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="Resource" id="Resource_xfj07"]
+[sub_resource type="Resource" id="Resource_ibryx"]
 script = ExtResource("5_2hp0k")
 dice_name = "Regular Dice"
 dice_description = "Just a regular dice"
-dice_texture = SubResource("AtlasTexture_30y31")
+dice_texture = SubResource("AtlasTexture_xfj07")
 dice_text_color = Color(0.5247766, 0.009047486, 0.1367926, 1)
 metadata/_custom_type_script = "uid://c3x0hnkjatabx"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ibryx"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mpkjx"]
 atlas = ExtResource("4_2hp0k")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="Resource" id="Resource_mpkjx"]
+[sub_resource type="Resource" id="Resource_emtft"]
 script = ExtResource("5_2hp0k")
 dice_name = "Regular Dice"
 dice_description = "Just a regular dice"
-dice_texture = SubResource("AtlasTexture_ibryx")
+dice_texture = SubResource("AtlasTexture_mpkjx")
 dice_text_color = Color(0.5247766, 0.009047486, 0.1367926, 1)
 metadata/_custom_type_script = "uid://c3x0hnkjatabx"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_emtft"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvs5m"]
 atlas = ExtResource("4_2hp0k")
 region = Rect2(0, 32, 32, 32)
 
-[sub_resource type="Resource" id="Resource_dvs5m"]
+[sub_resource type="Resource" id="Resource_iysjn"]
 resource_local_to_scene = true
 script = ExtResource("6_qmv3x")
 dice_name = "Bank Dice"
 dice_description = "This dice value is equals to the sum of all the other dices."
-dice_texture = SubResource("AtlasTexture_emtft")
+dice_texture = SubResource("AtlasTexture_dvs5m")
 dice_text_color = Color(0.9019608, 0.9019608, 0.6117647, 1)
 dice_outline_size = 4
 metadata/_custom_type_script = "uid://crm7wqyuihxe6"
@@ -283,27 +284,27 @@ alignment = 1
 
 [node name="Dice1" parent="MarginContainer/HBoxContainer3/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
 layout_mode = 2
-dice = SubResource("Resource_3mkyq")
+dice = SubResource("Resource_xmsvx")
 
 [node name="Dice2" parent="MarginContainer/HBoxContainer3/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
 layout_mode = 2
-dice = SubResource("Resource_fu3as")
+dice = SubResource("Resource_7hws1")
 
 [node name="Dice3" parent="MarginContainer/HBoxContainer3/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
 layout_mode = 2
-dice = SubResource("Resource_laywn")
+dice = SubResource("Resource_30y31")
 
 [node name="Dice4" parent="MarginContainer/HBoxContainer3/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
 layout_mode = 2
-dice = SubResource("Resource_xfj07")
+dice = SubResource("Resource_ibryx")
 
 [node name="Dice5" parent="MarginContainer/HBoxContainer3/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
 layout_mode = 2
-dice = SubResource("Resource_mpkjx")
+dice = SubResource("Resource_emtft")
 
 [node name="Dice6" parent="MarginContainer/HBoxContainer3/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
 layout_mode = 2
-dice = SubResource("Resource_dvs5m")
+dice = SubResource("Resource_iysjn")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer3/RollArea"]
 layout_mode = 2
@@ -365,3 +366,14 @@ visible = false
 layout_mode = 1
 offset_top = -94.0
 offset_bottom = 10.0
+
+[node name="MessageManager" parent="." instance=ExtResource("13_3mkyq")]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+offset_top = -97.0
+offset_bottom = -97.0
+grow_vertical = 0

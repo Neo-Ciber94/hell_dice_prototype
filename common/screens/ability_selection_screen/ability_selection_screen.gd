@@ -45,9 +45,20 @@ func _fade_in() -> void:
 	await tween.finished
 		
 func _get_available_abilities() -> Array[AbilityData]:
-	const BONUS_ON_1 = preload("uid://bneq0xdedhtyr")
-
-	return [BONUS_ON_1, BONUS_ON_1, BONUS_ON_1]
+	const MAX_SELECTIONS = 3;
+	const ABILITIES_PATH = "res://common/ability/abilities/"
+	
+	var result: Array[AbilityData] = []
+	var files = FileUtils.read_files(ABILITIES_PATH, "*.tres", true)
+	
+	for file in files:
+		var ability = load(file) as AbilityData;
+		if ability:
+			result.push_back(ability)
+	
+	print("%s available dices found" % result.size())
+	result.shuffle()
+	return result.slice(0, MAX_SELECTIONS)
 	
 func _on_select() -> void:
 	if _selected_ability == null:
