@@ -17,7 +17,7 @@ func on_roll_finished(board: Board) -> void:
 		print("%s is not prime" % total)
 		
 func on_calculating_score(_board: Board) -> void:
-	await MessageManager.instance.show_message("Prime Time: +%s" % _value)
+	await MessageManager.instance.show_message("[color=yellow]Prime Time: +%s[/color]" % _value)
 		
 func calculate_score(_board: Board, accumulated_score: int) -> int:
 	return accumulated_score + _value;

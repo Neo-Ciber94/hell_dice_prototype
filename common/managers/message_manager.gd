@@ -1,7 +1,7 @@
 class_name MessageManager
 extends Control
 
-const CHARACTER_DURATION = 0.1;
+const CHARACTER_DURATION = 0.05;
 
 static var instance: MessageManager;
 
