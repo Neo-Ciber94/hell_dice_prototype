@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_p8788")
+bonus_score = 10
 ability_name = "Add One"
-ability_description = "Add [color=orange]+1[/color] for each dice which value is 1"
+ability_description = "Add [color=orange]+10[/color] for each dice which value is 1"
 metadata/_custom_type_script = "uid://dpbblv80cmuxf"

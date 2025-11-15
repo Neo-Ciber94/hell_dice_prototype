@@ -30,7 +30,7 @@ var _is_calculating_score: bool = false;
 var _dice_rolling_count: int = 0;
 var _remaining_rolls: int = 0;
 
-var no_more_throws: bool:
+var no_more_rolls: bool:
 	get: return _remaining_rolls == 0;
 
 var has_reached_score: bool:
@@ -51,6 +51,15 @@ func _ready() -> void:
 	ability_selection_screen.on_ability_selected.connect(_on_ability_selected)
 	end_round_button.pressed.connect(_on_end_round_pressed)
 	abilities_container.hide()
+
+func _input(event: InputEvent) -> void:
+	if event.is_released() and event is InputEventKey:
+		var key_event = event as InputEventKey;
+		if key_event.keycode == KEY_U:
+			dice_selection_screen.show_dice_selection(self)
+			
+		if key_event.keycode == KEY_O:
+			ability_selection_screen.open_ability_selection(self)
 
 func _on_abilities_changed(new_abilities: Array[AbilityData]) -> void:
 	const ACTIVE_ABILITY_CARD = preload("uid://dcxn1uq4rdvg4")
@@ -95,7 +104,7 @@ func _on_selection_done(dices: Array[Dice]) -> void:
 		dice_ui._prepare()
 	
 func _on_roll_dices_pressed() -> void:
-	if _is_calculating_score || no_more_throws:
+	if _is_calculating_score || no_more_rolls:
 		return;
 		
 	_remaining_rolls -= 1;
@@ -118,27 +127,17 @@ func _on_next_round() -> void:
 	current_score_label.hide()
 	_reset_game_state()
 
-func _input(event: InputEvent) -> void:
-	if event.is_released() and event is InputEventKey:
-		var key_event = event as InputEventKey;
-		if key_event.keycode == KEY_U:
-			dice_selection_screen.show_dice_selection(self)
-			
-		if key_event.keycode == KEY_O:
-			ability_selection_screen.open_ability_selection(self)
-
 func _update_throw_left() -> void:
 	rolls_left_label.text = str(_remaining_rolls)
 
 func _check_game_state() -> void:
-	var is_game_over = _remaining_rolls == 0 and not has_reached_score
-	
-	if is_game_over:
-		game_over_screen.show()
-	elif has_reached_score:
-		win_screen.show_total_score(current_score, target_score)
-	else:
-		pass
+	if no_more_rolls:
+		if not has_reached_score:
+			game_over_screen.show()
+		elif has_reached_score:
+			win_screen.show_total_score(current_score, target_score)
+		else:
+			pass
 		
 	# TODO: Remove
 	for dice in dices_ui:
@@ -164,6 +163,12 @@ func _get_current_score() -> int:
 	for dice_ui in dices_ui:
 		cur_score = dice_ui.dice.calculate_dice_score(self, cur_score)
 	
+	var abilities = active_abilities.duplicate() as Array[AbilityData]
+	abilities.sort_custom(_sort_abilities)
+	
+	for ability in abilities:
+		cur_score = ability.calculate_score(self, cur_score);
+			
 	return cur_score;
 	
 func _sort_dices(a: DiceUI, b: DiceUI) -> bool:
@@ -239,17 +244,22 @@ func _show_score_accumulation() -> void:
 		cur_score = dice_ui.dice.calculate_dice_score(self, cur_score)
 		current_score_label.text = "+%s" % cur_score;
 		
+	print("Dice score: %s" % cur_score)
+		
 	# Calculate score from abilities
 	var abilities = active_abilities.duplicate() as Array[AbilityData]
 	abilities.sort_custom(_sort_abilities)
 	
 	for ability in abilities:
 		var prev_score = cur_score;
-		cur_score = ability.calculate_score(self, current_score);
+		cur_score = ability.calculate_score(self, cur_score);
 		
 		if cur_score != prev_score:
-			await get_tree().create_timer(0.2).timeout
+			EventBus.on_ability_activated.emit(ability)
+			await get_tree().create_timer(0.3).timeout
 			current_score_label.text = "+%s" % cur_score;
+			
+	print("Total score: %s" % cur_score)
 	
 func _animate_current_score() -> void:
 	current_score_timer.stop()	

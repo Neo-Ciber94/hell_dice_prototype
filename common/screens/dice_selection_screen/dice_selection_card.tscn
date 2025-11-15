@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://c1jx6x1hs7f51"]
+[gd_scene load_steps=9 format=3 uid="uid://c1jx6x1hs7f51"]
 
 [ext_resource type="PackedScene" uid="uid://ynjdjcukvk4c" path="res://common/dice/dice_ui.tscn" id="1_01x0e"]
 [ext_resource type="Script" uid="uid://dty0q4oaf3sk3" path="res://common/screens/dice_selection_screen/dice_selection_card.gd" id="1_lctdf"]
 [ext_resource type="Texture2D" uid="uid://ddmw5rh0xflch" path="res://common/board/art/card.png" id="1_u67fa"]
+[ext_resource type="Texture2D" uid="uid://cx1orjj30i725" path="res://common/board/art/card_disabled.png" id="2_jiskc"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jiskc"]
 texture = ExtResource("1_u67fa")
@@ -19,12 +20,11 @@ texture_margin_right = 4.0
 texture_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6003p"]
-texture = ExtResource("1_u67fa")
+texture = ExtResource("2_jiskc")
 texture_margin_left = 4.0
 texture_margin_top = 4.0
 texture_margin_right = 4.0
 texture_margin_bottom = 4.0
-modulate_color = Color(0.4117474, 0.4117474, 0.4117474, 0.5019608)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u67fa"]
 bg_color = Color(1, 1, 1, 1)

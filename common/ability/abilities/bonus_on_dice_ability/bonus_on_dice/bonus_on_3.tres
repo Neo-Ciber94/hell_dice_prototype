@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BonusOnDiceValueAbility" load_steps=2 format=3 uid="uid://csgmlxoijdyji"]
+
+[ext_resource type="Script" uid="uid://dpbblv80cmuxf" path="res://common/ability/abilities/bonus_on_dice_ability/bonus_on_dice_ability.gd" id="1_ksg8j"]
+
+[resource]
+script = ExtResource("1_ksg8j")
+value = 3
+bonus_score = 10
+ability_name = "Three One"
+ability_description = "Add [color=orange]+10[/color] for each dice which value is 3"
+metadata/_custom_type_script = "uid://dpbblv80cmuxf"

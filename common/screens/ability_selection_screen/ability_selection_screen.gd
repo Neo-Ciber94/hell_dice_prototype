@@ -18,8 +18,6 @@ func _ready() -> void:
 	hide()
 	
 func open_ability_selection(_board: Board) -> void:
-	await _fade_in();
-	
 	for child in ability_container.get_children():
 		child.queue_free()
 		
@@ -27,6 +25,14 @@ func open_ability_selection(_board: Board) -> void:
 		var ability_card = ABILITY_SELECTION_CARD.instantiate() as AbilitySelectionCard
 		ability_card.ability = ability;
 		ability_container.add_child(ability_card)
+		ability_card.on_selected.connect(_on_ability_selected)
+		
+	show()
+	await _fade_in();
+		
+func _on_ability_selected(ability: AbilityData) -> void:
+	_selected_ability = ability
+	select_button.disabled = false;
 		
 func _fade_in() -> void:
 	var tween = create_tween();
@@ -39,7 +45,9 @@ func _fade_in() -> void:
 	await tween.finished
 		
 func _get_available_abilities() -> Array[AbilityData]:
-	return []
+	const BONUS_ON_1 = preload("uid://bneq0xdedhtyr")
+
+	return [BONUS_ON_1, BONUS_ON_1, BONUS_ON_1]
 	
 func _on_select() -> void:
 	if _selected_ability == null:
