@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ynjdjcukvk4c"]
+[gd_scene load_steps=8 format=3 uid="uid://ynjdjcukvk4c"]
 
 [ext_resource type="Script" uid="uid://d1ipy6j6whcel" path="res://common/dice/dice_ui.gd" id="1_uk8uy"]
 [ext_resource type="Texture2D" uid="uid://bn06wbr3vqiie" path="res://common/dice/art/dices.png" id="2_q8w5g"]
 [ext_resource type="FontFile" uid="uid://qb7ev0kg1cmj" path="res://assets/fonts/awesome_dp/awesome.ttf" id="3_exfdy"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_uk8uy"]
+bounce = 1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lcp15"]
 
@@ -10,10 +13,32 @@
 atlas = ExtResource("2_q8w5g")
 region = Rect2(0, 0, 32, 32)
 
-[node name="DiceUI" type="Button"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uk8uy"]
+size = Vector2(32, 32)
+
+[node name="DiceUI" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_uk8uy")
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 2.0
+script = ExtResource("1_uk8uy")
+
+[node name="HoverTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Button" type="Button" parent="."]
 custom_minimum_size = Vector2(32, 32)
-offset_right = 32.0
-offset_bottom = 32.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
 pivot_offset = Vector2(16, 16)
 mouse_default_cursor_shape = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_lcp15")
@@ -21,10 +46,8 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_lcp15")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_lcp15")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_lcp15")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_lcp15")
-script = ExtResource("1_uk8uy")
-duration = 0.5
 
-[node name="Container" type="TextureRect" parent="."]
+[node name="Container" type="TextureRect" parent="Button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,7 +58,7 @@ pivot_offset = Vector2(16, 16)
 texture = SubResource("AtlasTexture_w33to")
 stretch_mode = 2
 
-[node name="ValueLabel" type="Label" parent="Container"]
+[node name="ValueLabel" type="Label" parent="Button/Container"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -51,5 +74,8 @@ text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HoverTimer" type="Timer" parent="."]
-one_shot = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_uk8uy")
+
+[node name="RollTimer" type="Timer" parent="."]
+process_callback = 0

@@ -1,12 +1,14 @@
 @tool
 class_name DiceUI
-extends Button
+extends RigidBody2D
 
 signal on_finished()
 
-@onready var container: TextureRect = $Container
-@onready var value_label: Label = $Container/ValueLabel
+@onready var button: Button = $Button
+@onready var container: TextureRect = $Button/Container
+@onready var value_label: Label = $Button/Container/ValueLabel
 @onready var hover_timer: Timer = $HoverTimer
+@onready var roll_timer: Timer = $RollTimer
 
 @export var dice: Dice:
 	set(value):
@@ -24,7 +26,7 @@ var _side_index: int = 0;
 var is_previewed: bool = false;
 
 func _ready() -> void:
-	pressed.connect(_on_dice_pressed)
+	button.pressed.connect(_on_dice_pressed)
 	
 	if dice:
 		dice = dice.duplicate(true)
@@ -80,6 +82,47 @@ func _on_dice_pressed() -> void:
 	_side_index = (_side_index + 1) % sides.size()
 	var side = sides.get(_side_index)
 	_set_side(side, true)
+
+var _is_rolling: bool = false;
+
+func roll_dice_to_dir(rng: RNG, dir: Vector2, force_amount: float = 1000, torque_amount: float = 1000) -> void:
+	if _is_rolling:
+		return;
+		
+	#_is_rolling = true;
+	get_tree().create_timer(0.25).timeout.connect(func(): set_deferred("_is_rolling", true))
+	
+	roll_timer.stop()
+	roll_timer.start(0.1)
+	dice.roll_dice(rng)
+	roll_timer.timeout.connect(_on_rolling_timeout)
+	
+	_set_random_side()
+	apply_impulse(dir * force_amount)
+	apply_torque(torque_amount)
+
+func _on_rolling_timeout() -> void:
+	_set_random_side()
+	
+var _cur_side: DiceSide;
+	
+func _set_random_side() -> void:
+	var dices = dice.get_dice_sides()
+	dices.erase(_cur_side)
+
+	_cur_side = dices.pick_random()
+	_set_side(_cur_side)
+	
+func _process(_delta: float) -> void:
+	if _is_rolling and not is_moving():
+		_is_rolling = false;
+		var selected = dice.get_selected_dice_side()
+		roll_timer.stop()
+		_set_side(selected)
+		on_finished.emit()
+			
+func is_moving() -> bool:
+	return linear_velocity.length() > 1.0 or abs(angular_velocity) > 1.0
 
 func roll_dice(rng: RNG) -> void:
 	_had_rolled = true;
@@ -160,7 +203,7 @@ func _get_drag_data(_at_position: Vector2) -> Variant:
 		dice_preview.dice = dice;
 		dice_preview.position = -dice_preview.custom_minimum_size / 2.0
 		preview.add_child(dice_preview)
-		set_drag_preview(preview)
+		button.set_drag_preview(preview)
 
 	return self
 

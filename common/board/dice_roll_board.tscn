@@ -1,0 +1,307 @@
+[gd_scene load_steps=11 format=3 uid="uid://dc22jxx4su3f7"]
+
+[ext_resource type="Script" uid="uid://cwvpq7a27m8bt" path="res://common/board/dice_roll_board.gd" id="1_87ft8"]
+[ext_resource type="PackedScene" uid="uid://ee5cl2bv8w0d" path="res://common/backgrounds/triangle_bg.tscn" id="1_nbju8"]
+[ext_resource type="Script" uid="uid://8ar8tbyeb4bd" path="res://common/dice/dice.gd" id="2_u8nbo"]
+[ext_resource type="Resource" uid="uid://q266l778bqyl" path="res://common/dice/dices/regular_dice/regular_dices/regular_dice.tres" id="3_4befx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nbju8"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 16
+border_width_top = 16
+border_width_right = 16
+border_width_bottom = 16
+border_color = Color(0.7919124, 0, 0, 1)
+anti_aliasing = false
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_87ft8"]
+bounce = 0.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_881qp"]
+size = Vector2(256, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u8nbo"]
+size = Vector2(16, 225)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_87ft8"]
+bg_color = Color(0.78818816, 0, 0.1897483, 0.5)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_881qp"]
+bg_color = Color(0.9998526, 0.11866053, 0.26954314, 0.7294118)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+
+[node name="DiceRollBoard" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_87ft8")
+dices = Array[ExtResource("2_u8nbo")]([ExtResource("3_4befx"), ExtResource("3_4befx"), ExtResource("3_4befx"), ExtResource("3_4befx"), ExtResource("3_4befx"), ExtResource("3_4befx")])
+
+[node name="Background" parent="." instance=ExtResource("1_nbju8")]
+layout_mode = 1
+
+[node name="DiceSpawnPoints" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpawnPoint" type="Marker2D" parent="DiceSpawnPoints"]
+position = Vector2(-44, 96)
+
+[node name="SpawnPoint2" type="Marker2D" parent="DiceSpawnPoints"]
+position = Vector2(84, 96)
+
+[node name="SpawnPoint3" type="Marker2D" parent="DiceSpawnPoints"]
+position = Vector2(20, 96)
+
+[node name="CenterMarker" type="Marker2D" parent="."]
+position = Vector2(320, 128)
+
+[node name="Container" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="ScoreAndRollContainer" type="VBoxContainer" parent="Container/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="ScoreContainer" type="HBoxContainer" parent="Container/MarginContainer/VBoxContainer/HBoxContainer/ScoreAndRollContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="Container/MarginContainer/VBoxContainer/HBoxContainer/ScoreAndRollContainer/ScoreContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Score:"
+
+[node name="ScoreLabel" type="RichTextLabel" parent="Container/MarginContainer/VBoxContainer/HBoxContainer/ScoreAndRollContainer/ScoreContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "$0 / $999"
+fit_content = true
+autowrap_mode = 0
+
+[node name="RollLeftContainer" type="HBoxContainer" parent="Container/MarginContainer/VBoxContainer/HBoxContainer/ScoreAndRollContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="Container/MarginContainer/VBoxContainer/HBoxContainer/ScoreAndRollContainer/RollLeftContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.999965, 0.10802419, 0.29587567, 1)
+theme_override_font_sizes/font_size = 32
+text = "Rolls Left:"
+
+[node name="RollsLeftLabel" type="RichTextLabel" parent="Container/MarginContainer/VBoxContainer/HBoxContainer/ScoreAndRollContainer/RollLeftContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/default_color = Color(0.999965, 0.10802419, 0.29587567, 1)
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "9"
+fit_content = true
+autowrap_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+
+[node name="RoundsContainer" type="HBoxContainer" parent="Container/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="Container/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/RoundsContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.999965, 0.10802419, 0.29587567, 1)
+theme_override_font_sizes/font_size = 32
+text = "Round:"
+
+[node name="CurrentRoundLabel" type="RichTextLabel" parent="Container/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/RoundsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/default_color = Color(0.999965, 0.10802419, 0.29587567, 1)
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "1"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Control" type="Control" parent="Container/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+
+[node name="Board" type="PanelContainer" parent="Container/MarginContainer/VBoxContainer/Control"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_nbju8")
+
+[node name="BoardCollision" type="StaticBody2D" parent="Container/MarginContainer/VBoxContainer/Control/Board"]
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_87ft8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Container/MarginContainer/VBoxContainer/Control/Board/BoardCollision"]
+position = Vector2(128, 8)
+shape = SubResource("RectangleShape2D_881qp")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Container/MarginContainer/VBoxContainer/Control/Board/BoardCollision"]
+position = Vector2(128, 248)
+shape = SubResource("RectangleShape2D_881qp")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Container/MarginContainer/VBoxContainer/Control/Board/BoardCollision"]
+position = Vector2(8, 127.5)
+shape = SubResource("RectangleShape2D_u8nbo")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Container/MarginContainer/VBoxContainer/Control/Board/BoardCollision"]
+position = Vector2(248, 127.5)
+shape = SubResource("RectangleShape2D_u8nbo")
+
+[node name="MarginContainer" type="MarginContainer" parent="Container/MarginContainer/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = -48
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/MarginContainer/VBoxContainer/Control/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Control" type="Control" parent="Container/MarginContainer/VBoxContainer/Control/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="AccumulatedScoreLabel" type="Label" parent="Container/MarginContainer/VBoxContainer/Control/MarginContainer/VBoxContainer/Control"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 0
+offset_top = 4.0
+offset_right = 624.0
+offset_bottom = 68.0
+theme_override_colors/font_color = Color(0.9529412, 0.23529412, 0.34901962, 1)
+theme_override_font_sizes/font_size = 64
+text = "+99"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DiceAlignmentContainer" type="HBoxContainer" parent="Container/MarginContainer/VBoxContainer/Control/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="DiceMarker" type="ColorRect" parent="Container/MarginContainer/VBoxContainer/Control/MarginContainer/VBoxContainer/DiceAlignmentContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+color = Color(1, 1, 1, 0.2)
+
+[node name="DiceMarker2" type="ColorRect" parent="Container/MarginContainer/VBoxContainer/Control/MarginContainer/VBoxContainer/DiceAlignmentContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+color = Color(1, 1, 1, 0.2)
+
+[node name="DiceMarker3" type="ColorRect" parent="Container/MarginContainer/VBoxContainer/Control/MarginContainer/VBoxContainer/DiceAlignmentContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+color = Color(1, 1, 1, 0.2)
+
+[node name="DiceMarker4" type="ColorRect" parent="Container/MarginContainer/VBoxContainer/Control/MarginContainer/VBoxContainer/DiceAlignmentContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+color = Color(1, 1, 1, 0.2)
+
+[node name="DiceMarker5" type="ColorRect" parent="Container/MarginContainer/VBoxContainer/Control/MarginContainer/VBoxContainer/DiceAlignmentContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+color = Color(1, 1, 1, 0.2)
+
+[node name="DiceMarker6" type="ColorRect" parent="Container/MarginContainer/VBoxContainer/Control/MarginContainer/VBoxContainer/DiceAlignmentContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+color = Color(1, 1, 1, 0.2)
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Container/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RollDiceButton" type="Button" parent="Container/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_87ft8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_881qp")
+theme_override_styles/hover = SubResource("StyleBoxFlat_881qp")
+theme_override_styles/focus = SubResource("StyleBoxFlat_881qp")
+text = "Roll Dices"
