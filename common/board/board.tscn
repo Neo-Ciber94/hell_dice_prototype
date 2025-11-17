@@ -283,27 +283,21 @@ theme_override_constants/separation = 8
 alignment = 1
 
 [node name="Dice1" parent="MarginContainer/HBoxContainer3/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
-layout_mode = 2
 dice = SubResource("Resource_xmsvx")
 
 [node name="Dice2" parent="MarginContainer/HBoxContainer3/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
-layout_mode = 2
 dice = SubResource("Resource_7hws1")
 
 [node name="Dice3" parent="MarginContainer/HBoxContainer3/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
-layout_mode = 2
 dice = SubResource("Resource_30y31")
 
 [node name="Dice4" parent="MarginContainer/HBoxContainer3/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
-layout_mode = 2
 dice = SubResource("Resource_ibryx")
 
 [node name="Dice5" parent="MarginContainer/HBoxContainer3/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
-layout_mode = 2
 dice = SubResource("Resource_emtft")
 
 [node name="Dice6" parent="MarginContainer/HBoxContainer3/RollArea/CenterContainer/DiceContainer" instance=ExtResource("1_con10")]
-layout_mode = 2
 dice = SubResource("Resource_iysjn")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer3/RollArea"]

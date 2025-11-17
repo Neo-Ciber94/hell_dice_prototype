@@ -1,4 +1,5 @@
 class_name BoardData
+extends Resource
 
 const MAX_DICES: int = 6;
 

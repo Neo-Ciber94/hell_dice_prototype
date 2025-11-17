@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://ynjdjcukvk4c"]
+[gd_scene load_steps=9 format=3 uid="uid://ynjdjcukvk4c"]
 
 [ext_resource type="Script" uid="uid://d1ipy6j6whcel" path="res://common/dice/dice_ui.gd" id="1_uk8uy"]
+[ext_resource type="Script" uid="uid://bgmb2xw7wok0n" path="res://common/dice/dice_draggable.gd" id="2_exfdy"]
 [ext_resource type="Texture2D" uid="uid://bn06wbr3vqiie" path="res://common/dice/art/dices.png" id="2_q8w5g"]
 [ext_resource type="FontFile" uid="uid://qb7ev0kg1cmj" path="res://assets/fonts/awesome_dp/awesome.ttf" id="3_exfdy"]
 
@@ -46,6 +47,7 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_lcp15")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_lcp15")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_lcp15")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_lcp15")
+script = ExtResource("2_exfdy")
 
 [node name="Container" type="TextureRect" parent="Button"]
 layout_mode = 1

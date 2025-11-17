@@ -1,9 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://dc22jxx4su3f7"]
+[gd_scene load_steps=14 format=3 uid="uid://dc22jxx4su3f7"]
 
 [ext_resource type="Script" uid="uid://cwvpq7a27m8bt" path="res://common/board/dice_roll_board.gd" id="1_87ft8"]
 [ext_resource type="PackedScene" uid="uid://ee5cl2bv8w0d" path="res://common/backgrounds/triangle_bg.tscn" id="1_nbju8"]
 [ext_resource type="Script" uid="uid://8ar8tbyeb4bd" path="res://common/dice/dice.gd" id="2_u8nbo"]
 [ext_resource type="Resource" uid="uid://q266l778bqyl" path="res://common/dice/dices/regular_dice/regular_dices/regular_dice.tres" id="3_4befx"]
+[ext_resource type="PackedScene" uid="uid://cd83tm6vvulaw" path="res://common/screens/dice_selection_screen/dice_selection_screen.tscn" id="5_4befx"]
+[ext_resource type="PackedScene" uid="uid://cjluvk3eo44bo" path="res://common/screens/game_over/game_over_screen.tscn" id="6_675gk"]
+[ext_resource type="PackedScene" uid="uid://dh2lwt5tyi7q2" path="res://common/screens/win_screen/win_screen.tscn" id="7_ncni1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nbju8"]
 bg_color = Color(0, 0, 0, 1)
@@ -305,3 +308,18 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_881qp")
 theme_override_styles/hover = SubResource("StyleBoxFlat_881qp")
 theme_override_styles/focus = SubResource("StyleBoxFlat_881qp")
 text = "Roll Dices"
+
+[node name="DiceSelectionScreen" parent="." instance=ExtResource("5_4befx")]
+visible = false
+layout_mode = 1
+
+[node name="GameOverScreen" parent="." instance=ExtResource("6_675gk")]
+visible = false
+layout_mode = 1
+
+[node name="WinScreen" parent="." instance=ExtResource("7_ncni1")]
+visible = false
+layout_mode = 1
+
+[node name="AccumulatedScoreTimer" type="Timer" parent="."]
+one_shot = true

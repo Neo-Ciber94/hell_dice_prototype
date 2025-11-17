@@ -18,6 +18,15 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b30ox"]
+resource_local_to_scene = true
+shader = ExtResource("5_b30ox")
+shader_parameter/fov = 90.0
+shader_parameter/cull_back = true
+shader_parameter/y_rot = 0.0
+shader_parameter/x_rot = 0.0
+shader_parameter/inset = 0.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ufo3o"]
 resource_local_to_scene = true
 shader = ExtResource("5_b30ox")
@@ -28,15 +37,6 @@ shader_parameter/x_rot = 0.0
 shader_parameter/inset = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_80uv1"]
-resource_local_to_scene = true
-shader = ExtResource("5_b30ox")
-shader_parameter/fov = 90.0
-shader_parameter/cull_back = true
-shader_parameter/y_rot = 0.0
-shader_parameter/x_rot = 0.0
-shader_parameter/inset = 0.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_x5sen"]
 resource_local_to_scene = true
 shader = ExtResource("5_b30ox")
 shader_parameter/fov = 90.0
@@ -91,7 +91,7 @@ theme_override_constants/margin_bottom = 16
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 10
 
 [node name="Label" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -126,30 +126,54 @@ vertical_alignment = 1
 
 [node name="CurrentDiceContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
+theme_override_constants/separation = 16
 alignment = 1
 
-[node name="Dice" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer" instance=ExtResource("2_4vgwx")]
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="Dice2" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer" instance=ExtResource("2_4vgwx")]
+[node name="Dice" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer/Control" instance=ExtResource("2_4vgwx")]
+position = Vector2(16, 16)
+freeze = true
+
+[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="Dice3" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer" instance=ExtResource("2_4vgwx")]
+[node name="Dice" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer/Control2" instance=ExtResource("2_4vgwx")]
+position = Vector2(16, 16)
+freeze = true
+
+[node name="Control3" type="Control" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="Dice4" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer" instance=ExtResource("2_4vgwx")]
+[node name="Dice" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer/Control3" instance=ExtResource("2_4vgwx")]
+position = Vector2(16, 16)
+freeze = true
+
+[node name="Control4" type="Control" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="Dice5" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer" instance=ExtResource("2_4vgwx")]
+[node name="Dice" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer/Control4" instance=ExtResource("2_4vgwx")]
+position = Vector2(16, 16)
+freeze = true
+
+[node name="Control5" type="Control" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="Dice6" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer" instance=ExtResource("2_4vgwx")]
-layout_mode = 2
+[node name="Dice" parent="MarginContainer/VBoxContainer/ReplaceDiceContainer/ReplaceDiceOuterContainer/CurrentDiceContainer/Control5" instance=ExtResource("2_4vgwx")]
+position = Vector2(16, 16)
+freeze = true
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 16
+theme_override_constants/margin_top = 8
 
 [node name="DiceSelectionCardContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
 unique_name_in_owner = true
@@ -158,15 +182,15 @@ theme_override_constants/separation = 8
 alignment = 1
 
 [node name="PanelContainer" parent="MarginContainer/VBoxContainer/MarginContainer/DiceSelectionCardContainer" instance=ExtResource("1_k03ym")]
-material = SubResource("ShaderMaterial_ufo3o")
+material = SubResource("ShaderMaterial_b30ox")
 layout_mode = 2
 
 [node name="PanelContainer2" parent="MarginContainer/VBoxContainer/MarginContainer/DiceSelectionCardContainer" instance=ExtResource("1_k03ym")]
-material = SubResource("ShaderMaterial_80uv1")
+material = SubResource("ShaderMaterial_ufo3o")
 layout_mode = 2
 
 [node name="PanelContainer3" parent="MarginContainer/VBoxContainer/MarginContainer/DiceSelectionCardContainer" instance=ExtResource("1_k03ym")]
-material = SubResource("ShaderMaterial_x5sen")
+material = SubResource("ShaderMaterial_80uv1")
 layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]

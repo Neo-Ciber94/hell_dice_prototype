@@ -57,7 +57,11 @@ func _prepare_current_dices(board: Board) -> void:
 	for d: Dice in dices:
 		var dice_ui = DICE.instantiate() as DiceUI;
 		dice_ui.dice = d;
-		current_dice_container.add_child(dice_ui)
+		dice_ui.freeze = true;
+		var container = Control.new();
+		container.custom_minimum_size = Vector2(32, 32)
+		container.add_child(dice_ui)
+		current_dice_container.add_child(container)
 		
 func _get_available_dices() -> Array[Dice]:
 	const DICES_PATH = "res://common/dice/dices/"
@@ -87,8 +91,9 @@ func _notify_changed() -> void:
 func _get_selection() -> Array[Dice]:
 	var result: Array[Dice] = []
 	
-	for d in current_dice_container.get_children():
-		if d is DiceUI:
+	for child in current_dice_container.get_children():
+		if child is Control:
+			var d = child.get_child(0) as DiceUI;
 			result.push_back(d.dice.duplicate())
 	
 	return result;
