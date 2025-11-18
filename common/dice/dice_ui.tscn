@@ -15,7 +15,7 @@ atlas = ExtResource("2_q8w5g")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uk8uy"]
-size = Vector2(32, 32)
+size = Vector2(32, 16)
 
 [node name="DiceUI" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_uk8uy")
@@ -77,6 +77,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_uk8uy")
 
 [node name="RollTimer" type="Timer" parent="."]

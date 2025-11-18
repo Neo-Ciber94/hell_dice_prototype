@@ -17,7 +17,7 @@ signal on_rolls_left_changed(new_value: int)
 @onready var roll_dice_button: Button = %RollDiceButton
 @onready var center_marker: Marker2D = $CenterMarker
 @onready var dice_spawn_points: Control = $DiceSpawnPoints
-@onready var board: PanelContainer = %Board
+@onready var board: Node = %Board
 @onready var dice_alignment_container: HBoxContainer = %DiceAlignmentContainer
 @onready var accumulated_score_label: Label = %AccumulatedScoreLabel
 @onready var score_label: RichTextLabel = %ScoreLabel
@@ -126,6 +126,7 @@ func roll_dices() -> void:
 		
 	_board_dices.clear()
 	accumulated_score_label.hide()
+	roll_dice_button.hide()
 	
 	on_rolls_left_changed.emit(_current_rolls - 1)
 	
@@ -159,6 +160,7 @@ func _on_dice_finished_rolling() -> void:
 	if _dice_rolling_count <= 0:
 		await _align_dices()
 		await _on_roll_finished()
+		roll_dice_button.show()
 
 func _on_roll_finished() -> void:
 	await _on_show_score()

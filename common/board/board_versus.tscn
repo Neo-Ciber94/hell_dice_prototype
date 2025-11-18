@@ -1,0 +1,221 @@
+[gd_scene load_steps=7 format=3 uid="uid://bxami76duxylq"]
+
+[ext_resource type="Script" uid="uid://g3jsx8ra3o30" path="res://common/board/board_versus.gd" id="1_h3xpf"]
+[ext_resource type="PackedScene" uid="uid://ee5cl2bv8w0d" path="res://common/backgrounds/triangle_bg.tscn" id="1_swjd2"]
+[ext_resource type="PackedScene" uid="uid://be5obcj0eom2p" path="res://common/table/dice_table.tscn" id="2_uloyn"]
+[ext_resource type="PackedScene" uid="uid://cubcnaqlrqeva" path="res://common/dice/dice_active.tscn" id="3_hcpdc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uloyn"]
+bg_color = Color(0.78818816, 0, 0.1897483, 0.5)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hcpdc"]
+bg_color = Color(0.9998526, 0.11866053, 0.26954314, 0.7294118)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+
+[node name="BoardVersus" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h3xpf")
+
+[node name="Background" parent="." instance=ExtResource("1_swjd2")]
+layout_mode = 1
+
+[node name="DiceTable" parent="." instance=ExtResource("2_uloyn")]
+position = Vector2(320, 180)
+
+[node name="SpawnPointRoot" type="Node2D" parent="DiceTable"]
+
+[node name="SpawnPoint1" type="Marker2D" parent="DiceTable/SpawnPointRoot"]
+position = Vector2(-64, 140)
+metadata/_edit_group_ = true
+
+[node name="SpawnPoint2" type="Marker2D" parent="DiceTable/SpawnPointRoot"]
+position = Vector2(0, 140)
+metadata/_edit_group_ = true
+
+[node name="SpawnPoint3" type="Marker2D" parent="DiceTable/SpawnPointRoot"]
+position = Vector2(64, 140)
+metadata/_edit_group_ = true
+
+[node name="CenterPoint" type="Marker2D" parent="DiceTable"]
+position = Vector2(0, 36)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="MoneyLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "$999"
+fit_content = true
+vertical_alignment = 1
+
+[node name="OpponentHPLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0.9529412, 0.23529412, 0.34901962, 1)
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "HP: 100/100"
+fit_content = true
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Spacer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 24
+
+[node name="CurrentDiceCount" type="RichTextLabel" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "0/6"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="CurrentDiceContainer" type="HFlowContainer" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+alignment = 1
+last_wrap_alignment = 2
+
+[node name="DiceActive" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer/CurrentDiceContainer" instance=ExtResource("3_hcpdc")]
+layout_mode = 2
+
+[node name="DiceActive2" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer/CurrentDiceContainer" instance=ExtResource("3_hcpdc")]
+layout_mode = 2
+
+[node name="DiceActive3" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer/CurrentDiceContainer" instance=ExtResource("3_hcpdc")]
+layout_mode = 2
+
+[node name="DiceActive4" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer/CurrentDiceContainer" instance=ExtResource("3_hcpdc")]
+layout_mode = 2
+
+[node name="DiceActive5" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer/CurrentDiceContainer" instance=ExtResource("3_hcpdc")]
+layout_mode = 2
+
+[node name="DiceActive6" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer/CurrentDiceContainer" instance=ExtResource("3_hcpdc")]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerHPLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/Control/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0.9529412, 0.23529412, 0.34901962, 1)
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "HP: 100/100"
+fit_content = true
+vertical_alignment = 1
+
+[node name="RollDiceButton" type="Button" parent="MarginContainer/VBoxContainer/Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -46.0
+offset_top = -28.0
+offset_right = 46.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_uloyn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hcpdc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hcpdc")
+theme_override_styles/focus = SubResource("StyleBoxFlat_hcpdc")
+text = "Roll Dices"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_bottom = 4
+
+[node name="DiceContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 1
+
+[node name="DiceActive" parent="MarginContainer/MarginContainer/DiceContainer" instance=ExtResource("3_hcpdc")]
+layout_mode = 2
+
+[node name="DiceActive2" parent="MarginContainer/MarginContainer/DiceContainer" instance=ExtResource("3_hcpdc")]
+layout_mode = 2
+
+[node name="DiceActive3" parent="MarginContainer/MarginContainer/DiceContainer" instance=ExtResource("3_hcpdc")]
+layout_mode = 2
+
+[node name="DiceActive4" parent="MarginContainer/MarginContainer/DiceContainer" instance=ExtResource("3_hcpdc")]
+layout_mode = 2
+
+[node name="DiceActive5" parent="MarginContainer/MarginContainer/DiceContainer" instance=ExtResource("3_hcpdc")]
+layout_mode = 2
+
+[node name="DiceActive6" parent="MarginContainer/MarginContainer/DiceContainer" instance=ExtResource("3_hcpdc")]
+layout_mode = 2
+
+[node name="DiceActive7" parent="MarginContainer/MarginContainer/DiceContainer" instance=ExtResource("3_hcpdc")]
+layout_mode = 2

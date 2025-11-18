@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://be5obcj0eom2p"]
+
+[ext_resource type="Texture2D" uid="uid://oesuofr3q3kj" path="res://common/table/art/table.png" id="1_wcwtv"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wcwtv"]
+bounce = 0.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ydbaj"]
+size = Vector2(288, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b2a6r"]
+size = Vector2(416, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wnwqk"]
+size = Vector2(8, 180.61621)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m4f4a"]
+size = Vector2(8, 180.61621)
+
+[node name="DiceTable" type="StaticBody2D"]
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_wcwtv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_wcwtv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_ydbaj")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0, 180)
+shape = SubResource("RectangleShape2D_b2a6r")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(-176, 95.999985)
+rotation = 0.34732053
+shape = SubResource("RectangleShape2D_wnwqk")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2(176, 96.00001)
+rotation = -0.34732053
+shape = SubResource("RectangleShape2D_m4f4a")
