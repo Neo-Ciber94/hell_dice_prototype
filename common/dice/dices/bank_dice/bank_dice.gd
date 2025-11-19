@@ -4,15 +4,15 @@ extends Dice
 
 var _value: int = 0;
 
-func on_roll_start(_board: Board) -> void:
+func on_roll_start(_ctx: BoardContext) -> void:
 	_value = 0;
 
-func on_roll_finished(board: Board) -> void:
+func on_roll_finished(ctx: BoardContext) -> void:
 	_value = 0;
 	
-	for dice_ui in board.dices_ui:
-		if dice_ui.dice != self:
-			_value += dice_ui.dice.get_dice_value()
+	for dice in ctx.dices:
+		if dice != self:
+			_value += dice.get_dice_value()
 		
 	changed.emit()
 
@@ -36,5 +36,5 @@ func get_dice_sides() -> Array[DiceSide]:
 func get_dice_order() -> Order:
 	return Order.EARLY
 
-func calculate_dice_score(_board: Board, accumulated_score: int) -> int:
+func calculate_dice_score(_ctx: BoardContext, accumulated_score: int) -> int:
 	return accumulated_score + _value;

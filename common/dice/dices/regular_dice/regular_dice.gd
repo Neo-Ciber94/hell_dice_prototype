@@ -15,7 +15,7 @@ func roll_dice(rng: RNG) -> void:
 func get_dice_value() -> int:
 	return _value;
 
-func calculate_dice_score(_board: Board, accumulated_score: int) -> int:
+func calculate_dice_score(_ctx: BoardContext, accumulated_score: int) -> int:
 	return get_dice_value() + accumulated_score;
 	
 func get_dice_sides() -> Array[DiceSide]:

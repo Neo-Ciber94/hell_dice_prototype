@@ -37,6 +37,9 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_87ft8")
 dices = Array[ExtResource("2_u8nbo")]([ExtResource("3_4befx"), ExtResource("3_4befx"), ExtResource("3_4befx"), ExtResource("3_4befx"), ExtResource("3_4befx"), ExtResource("3_4befx")])
+abilities = null
+target_score = null
+rolls_per_round = null
 
 [node name="Background" parent="." instance=ExtResource("1_nbju8")]
 layout_mode = 1

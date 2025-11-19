@@ -23,6 +23,7 @@ gravity_scale = 0.0
 linear_damp = 2.0
 angular_damp = 2.0
 script = ExtResource("1_uk8uy")
+no_interactable = null
 
 [node name="HoverTimer" type="Timer" parent="."]
 one_shot = true

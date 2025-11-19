@@ -255,10 +255,8 @@ func _prepare_align_markers() -> void:
 	await get_tree().process_frame
 
 # this is for keep the prev impl
-func _get_mock_board() -> Board:
-	var b = Board.new()
-	b.dices_ui = _board_dices;
-	return b;
+func _get_mock_board() -> BoardContext:
+	return BoardContext.new(dices)
 
 func _sort_dices(a: DiceUI, b: DiceUI) -> bool:
 	return a.dice.get_dice_order() < b.dice.get_dice_order()

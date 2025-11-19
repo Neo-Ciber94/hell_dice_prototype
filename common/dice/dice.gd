@@ -23,10 +23,10 @@ enum Order {
 @export_group("Selectable")
 @export var is_selectable: bool = true;
 
-func on_roll_start(board: Board) -> void:
+func on_roll_start(ctx: BoardContext) -> void:
 	pass
 
-func on_roll_finished(board: Board) -> void:
+func on_roll_finished(ctx: BoardContext) -> void:
 	pass
 
 @abstract
@@ -39,7 +39,7 @@ func roll_dice(rng: RNG) -> void;
 func get_dice_value() -> int;
 
 @abstract
-func calculate_dice_score(board: Board, accumulated_score: int) -> int;
+func calculate_dice_score(ctx: BoardContext, accumulated_score: int) -> int;
 	
 func get_dice_order() -> Order:
 	return Order.FIRST;

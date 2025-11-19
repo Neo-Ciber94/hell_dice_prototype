@@ -1,9 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://bxami76duxylq"]
+[gd_scene load_steps=14 format=3 uid="uid://bxami76duxylq"]
 
 [ext_resource type="Script" uid="uid://g3jsx8ra3o30" path="res://common/board/board_versus.gd" id="1_h3xpf"]
 [ext_resource type="PackedScene" uid="uid://ee5cl2bv8w0d" path="res://common/backgrounds/triangle_bg.tscn" id="1_swjd2"]
+[ext_resource type="Script" uid="uid://8ar8tbyeb4bd" path="res://common/dice/dice.gd" id="2_6ys0i"]
 [ext_resource type="PackedScene" uid="uid://be5obcj0eom2p" path="res://common/table/dice_table.tscn" id="2_uloyn"]
 [ext_resource type="PackedScene" uid="uid://cubcnaqlrqeva" path="res://common/dice/dice_active.tscn" id="3_hcpdc"]
+[ext_resource type="Resource" uid="uid://q266l778bqyl" path="res://common/dice/dices/regular_dice/regular_dices/regular_dice.tres" id="3_rhwk2"]
+[ext_resource type="Script" uid="uid://dflynyfof55mm" path="res://common/dice/dice_container.gd" id="4_ndege"]
+[ext_resource type="Resource" uid="uid://d3q7ot200fctq" path="res://common/dice/dices/regular_dice/regular_dices/4_sided_dice.tres" id="4_v5snl"]
+[ext_resource type="Resource" uid="uid://c8vxymiysr5fx" path="res://common/dice/dices/regular_dice/regular_dices/greedy_dice.tres" id="5_e4isq"]
+[ext_resource type="PackedScene" uid="uid://gj1ck81yqw50" path="res://characters/charlotte/charlotte.tscn" id="5_rhwk2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uloyn"]
 bg_color = Color(0.78818816, 0, 0.1897483, 0.5)
@@ -23,6 +29,15 @@ corner_radius_bottom_left = 4
 expand_margin_left = 5.0
 expand_margin_right = 5.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhwk2"]
+bg_color = Color(0.39138144, 0.39138144, 0.39138144, 0.7294118)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+
 [node name="BoardVersus" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -30,30 +45,52 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_h3xpf")
+player_dices = Array[ExtResource("2_6ys0i")]([ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("4_v5snl"), ExtResource("4_v5snl")])
+opponent_dices = Array[ExtResource("2_6ys0i")]([ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("5_e4isq"), ExtResource("4_v5snl")])
 
 [node name="Background" parent="." instance=ExtResource("1_swjd2")]
 layout_mode = 1
 
+[node name="CenterPoint" type="Marker2D" parent="."]
+position = Vector2(320, 216)
+
+[node name="CharlotteDemon" parent="." instance=ExtResource("5_rhwk2")]
+position = Vector2(328, 96)
+
 [node name="DiceTable" parent="." instance=ExtResource("2_uloyn")]
+unique_name_in_owner = true
 position = Vector2(320, 180)
 
-[node name="SpawnPointRoot" type="Node2D" parent="DiceTable"]
+[node name="PlayerSpawnPoints" type="Node2D" parent="DiceTable"]
 
-[node name="SpawnPoint1" type="Marker2D" parent="DiceTable/SpawnPointRoot"]
+[node name="SpawnPoint1" type="Marker2D" parent="DiceTable/PlayerSpawnPoints"]
 position = Vector2(-64, 140)
 metadata/_edit_group_ = true
 
-[node name="SpawnPoint2" type="Marker2D" parent="DiceTable/SpawnPointRoot"]
+[node name="SpawnPoint2" type="Marker2D" parent="DiceTable/PlayerSpawnPoints"]
 position = Vector2(0, 140)
 metadata/_edit_group_ = true
 
-[node name="SpawnPoint3" type="Marker2D" parent="DiceTable/SpawnPointRoot"]
+[node name="SpawnPoint3" type="Marker2D" parent="DiceTable/PlayerSpawnPoints"]
 position = Vector2(64, 140)
 metadata/_edit_group_ = true
 
-[node name="CenterPoint" type="Marker2D" parent="DiceTable"]
-position = Vector2(0, 36)
+[node name="OpponentSpawnPoints" type="Node2D" parent="DiceTable"]
+position = Vector2(0, -100)
+
+[node name="SpawnPoint1" type="Marker2D" parent="DiceTable/OpponentSpawnPoints"]
+position = Vector2(-64, 140)
+metadata/_edit_group_ = true
+
+[node name="SpawnPoint2" type="Marker2D" parent="DiceTable/OpponentSpawnPoints"]
+position = Vector2(0, 140)
+metadata/_edit_group_ = true
+
+[node name="SpawnPoint3" type="Marker2D" parent="DiceTable/OpponentSpawnPoints"]
+position = Vector2(64, 140)
+metadata/_edit_group_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -75,8 +112,10 @@ custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 
 [node name="MoneyLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/default_color = Color(1, 0.6901961, 0, 1)
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "$999"
@@ -84,6 +123,7 @@ fit_content = true
 vertical_alignment = 1
 
 [node name="OpponentHPLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/default_color = Color(0.9529412, 0.23529412, 0.34901962, 1)
@@ -97,6 +137,7 @@ vertical_alignment = 1
 [node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Spacer"]
 custom_minimum_size = Vector2(0, 32)
@@ -111,6 +152,7 @@ grow_vertical = 0
 theme_override_constants/separation = 24
 
 [node name="CurrentDiceCount" type="RichTextLabel" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
@@ -119,34 +161,96 @@ text = "0/6"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="CurrentDiceContainer" type="HFlowContainer" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer"]
+[node name="HandDicesContainer" type="HFlowContainer" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer" node_paths=PackedStringArray("next_container")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 alignment = 1
 last_wrap_alignment = 2
+script = ExtResource("4_ndege")
+next_container = NodePath("../../../../MarginContainer/SideDicesContainer")
+max_dices = 6
 
-[node name="DiceActive" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer/CurrentDiceContainer" instance=ExtResource("3_hcpdc")]
+[node name="DiceActive" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer/HandDicesContainer" instance=ExtResource("3_hcpdc")]
 layout_mode = 2
 
-[node name="DiceActive2" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer/CurrentDiceContainer" instance=ExtResource("3_hcpdc")]
+[node name="DiceActive2" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer/HandDicesContainer" instance=ExtResource("3_hcpdc")]
 layout_mode = 2
 
-[node name="DiceActive3" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer/CurrentDiceContainer" instance=ExtResource("3_hcpdc")]
+[node name="DiceActive3" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer/HandDicesContainer" instance=ExtResource("3_hcpdc")]
 layout_mode = 2
 
-[node name="DiceActive4" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer/CurrentDiceContainer" instance=ExtResource("3_hcpdc")]
+[node name="DiceActive4" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer/HandDicesContainer" instance=ExtResource("3_hcpdc")]
 layout_mode = 2
 
-[node name="DiceActive5" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer/CurrentDiceContainer" instance=ExtResource("3_hcpdc")]
+[node name="DiceActive5" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer/HandDicesContainer" instance=ExtResource("3_hcpdc")]
 layout_mode = 2
 
-[node name="DiceActive6" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer/CurrentDiceContainer" instance=ExtResource("3_hcpdc")]
+[node name="DiceActive6" parent="MarginContainer/VBoxContainer/Spacer/VBoxContainer/HandDicesContainer" instance=ExtResource("3_hcpdc")]
 layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Spacer"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 80
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Spacer/MarginContainer"]
+layout_mode = 2
+
+[node name="DamageLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/Spacer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "damage: 99"
+fit_content = true
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ScoreContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Spacer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+alignment = 1
+
+[node name="PlayerScoreLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/Spacer/MarginContainer/VBoxContainer/ScoreContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_colors/default_color = Color(0.9529412, 0.23529412, 0.34901962, 1)
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "+99"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OpponentScoreLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/Spacer/MarginContainer/VBoxContainer/ScoreContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/default_color = Color(0.9529412, 0.23529412, 0.34901962, 1)
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "+99"
+fit_content = true
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="Control" type="Control" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
+mouse_filter = 1
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Control"]
 layout_mode = 1
@@ -157,6 +261,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PlayerHPLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/Control/HBoxContainer3"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/default_color = Color(0.9529412, 0.23529412, 0.34901962, 1)
@@ -184,38 +289,44 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_uloyn")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_hcpdc")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hcpdc")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_rhwk2")
 theme_override_styles/focus = SubResource("StyleBoxFlat_hcpdc")
 text = "Roll Dices"
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 8
+mouse_filter = 2
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_bottom = 4
 
-[node name="DiceContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+[node name="SideDicesContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer" node_paths=PackedStringArray("next_container")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 alignment = 1
+script = ExtResource("4_ndege")
+next_container = NodePath("../../VBoxContainer/Spacer/VBoxContainer/HandDicesContainer")
+max_dices = 7
 
-[node name="DiceActive" parent="MarginContainer/MarginContainer/DiceContainer" instance=ExtResource("3_hcpdc")]
+[node name="DiceActive" parent="MarginContainer/MarginContainer/SideDicesContainer" instance=ExtResource("3_hcpdc")]
 layout_mode = 2
 
-[node name="DiceActive2" parent="MarginContainer/MarginContainer/DiceContainer" instance=ExtResource("3_hcpdc")]
+[node name="DiceActive2" parent="MarginContainer/MarginContainer/SideDicesContainer" instance=ExtResource("3_hcpdc")]
 layout_mode = 2
 
-[node name="DiceActive3" parent="MarginContainer/MarginContainer/DiceContainer" instance=ExtResource("3_hcpdc")]
+[node name="DiceActive3" parent="MarginContainer/MarginContainer/SideDicesContainer" instance=ExtResource("3_hcpdc")]
 layout_mode = 2
 
-[node name="DiceActive4" parent="MarginContainer/MarginContainer/DiceContainer" instance=ExtResource("3_hcpdc")]
+[node name="DiceActive4" parent="MarginContainer/MarginContainer/SideDicesContainer" instance=ExtResource("3_hcpdc")]
 layout_mode = 2
 
-[node name="DiceActive5" parent="MarginContainer/MarginContainer/DiceContainer" instance=ExtResource("3_hcpdc")]
+[node name="DiceActive5" parent="MarginContainer/MarginContainer/SideDicesContainer" instance=ExtResource("3_hcpdc")]
 layout_mode = 2
 
-[node name="DiceActive6" parent="MarginContainer/MarginContainer/DiceContainer" instance=ExtResource("3_hcpdc")]
+[node name="DiceActive6" parent="MarginContainer/MarginContainer/SideDicesContainer" instance=ExtResource("3_hcpdc")]
 layout_mode = 2
 
-[node name="DiceActive7" parent="MarginContainer/MarginContainer/DiceContainer" instance=ExtResource("3_hcpdc")]
+[node name="DiceActive7" parent="MarginContainer/MarginContainer/SideDicesContainer" instance=ExtResource("3_hcpdc")]
 layout_mode = 2

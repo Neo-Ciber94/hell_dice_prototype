@@ -56,7 +56,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_released() and event is InputEventKey:
 		var key_event = event as InputEventKey;
 		if key_event.keycode == KEY_U:
-			dice_selection_screen.show_dice_selection(self)
+			dice_selection_screen.show_dice_selection(_get_board_context())
 			
 		if key_event.keycode == KEY_O:
 			ability_selection_screen.open_ability_selection(self)
@@ -116,13 +116,13 @@ func _on_next_round() -> void:
 	_current_round += 1;
 	
 	if _current_round > 3:
-		dice_selection_screen.show_dice_selection(self)
+		dice_selection_screen.show_dice_selection(_get_board_context())
 		ability_selection_screen.open_ability_selection(self)
 		
 		_current_round = 0;
 		target_score *= 10;
 	else:
-		dice_selection_screen.show_dice_selection(self)
+		dice_selection_screen.show_dice_selection(_get_board_context())
 		target_score += 50;
 		rolls_available += 1;
 	
@@ -164,7 +164,7 @@ func get_total_dice_score() -> int:
 	cur_dices.sort_custom(_sort_dices)
 	
 	for dice_ui in dices_ui:
-		cur_score = dice_ui.dice.calculate_dice_score(self, cur_score)
+		cur_score = dice_ui.dice.calculate_dice_score(_get_board_context(), cur_score)
 	
 	return cur_score;
 		
@@ -203,7 +203,7 @@ func _on_roll_start() -> void:
 	for dice_ui in dices_ui:
 		if dice_ui is DiceUI:
 			@warning_ignore("redundant_await")
-			await dice_ui.dice.on_roll_start(self)
+			await dice_ui.dice.on_roll_start(_get_board_context())
 			
 	for ability in abilities:
 		@warning_ignore("redundant_await")
@@ -216,7 +216,7 @@ func _on_roll_ended() -> void:
 	for dice_ui in dices_ui:
 		if dice_ui is DiceUI:
 			@warning_ignore("redundant_await")
-			await dice_ui.dice.on_roll_finished(self)
+			await dice_ui.dice.on_roll_finished(_get_board_context())
 	
 	for ability in abilities:
 		@warning_ignore("redundant_await")
@@ -298,3 +298,9 @@ func _on_update_score(new_value: int) -> void:
 			target = target_score
 		})
 		
+func _get_dices() -> Array[Dice]:
+	return dices_ui.map(func(x: DiceUI): return x.dice)
+
+func _get_board_context() -> BoardContext:
+	var dices = _get_dices()
+	return BoardContext.new(dices)

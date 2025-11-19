@@ -18,7 +18,7 @@ func _ready() -> void:
 	cancel_button.pressed.connect(_on_cancel_button)
 	EventBus.on_dice_selected.connect(_on_dice_selected)
 	
-func show_dice_selection(board: Board) -> void:
+func show_dice_selection(ctx: BoardContext) -> void:
 	var tween = create_tween();
 	self.modulate.a = 0.0;
 	tween.set_parallel(true)
@@ -28,7 +28,7 @@ func show_dice_selection(board: Board) -> void:
 	tween.tween_property(self, "scale", Vector2.ONE, 0.5).from(Vector2.ONE * 0.8)
 	
 	show.call_deferred()
-	_prepare_current_dices(board)
+	_prepare_current_dices(ctx)
 	_prepare_dice_selection()
 		
 func _on_dice_selected(_selected: DiceUI) -> void:
@@ -47,14 +47,13 @@ func _prepare_dice_selection() -> void:
 		selection_card.dice = dice;
 		dice_selection_card_container.add_child(selection_card)
 		
-func _prepare_current_dices(board: Board) -> void:
+func _prepare_current_dices(ctx: BoardContext) -> void:
 	for child in current_dice_container.get_children():
 		child.queue_free()
 		
-	var dices = board.dices_ui.map(func(d: DiceUI): return d.dice)
 	var DICE = load("uid://ynjdjcukvk4c")
 	
-	for d: Dice in dices:
+	for d: Dice in ctx.dices:
 		var dice_ui = DICE.instantiate() as DiceUI;
 		dice_ui.dice = d;
 		dice_ui.freeze = true;

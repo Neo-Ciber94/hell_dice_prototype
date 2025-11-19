@@ -19,5 +19,5 @@ func get_dice_value() -> int:
 func roll_dice(_rng: RNG) -> void:
 	pass
 
-func calculate_dice_score(_board: Board, accumulated_score: int) -> int:
+func calculate_dice_score(_ctx: BoardContext, accumulated_score: int) -> int:
 	return accumulated_score + value;

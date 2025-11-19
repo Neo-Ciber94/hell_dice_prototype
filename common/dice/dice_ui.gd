@@ -15,6 +15,7 @@ signal on_finished()
 		dice = value;
 		
 @export var duration: float = 1.0;
+@export var no_interactable: bool = false;
 
 @export_group("Animations")
 @export_tool_button("Bring to Front", "Callable") var _bring_to_front = bring_to_front;
@@ -27,6 +28,9 @@ var is_previewed: bool = false;
 
 func _ready() -> void:
 	button.pressed.connect(_on_dice_pressed)
+	
+	if no_interactable:
+		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
 	if dice:
 		dice = dice.duplicate(true)
