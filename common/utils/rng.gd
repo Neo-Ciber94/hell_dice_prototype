@@ -14,6 +14,15 @@ func take_random(array: Array) -> Variant:
 	array.remove_at(idx)
 	return value;
 
+func take_random_array(array: Array, count: int) -> Array:
+	var result: Array = []
+	
+	while result.size() < count and array.size() > 0:
+		var item = take_random(array)
+		result.push_back(item)
+	
+	return result;
+
 func rand_bool(probability: float = 0.5) -> bool:
 	return super.randf() < probability
 
