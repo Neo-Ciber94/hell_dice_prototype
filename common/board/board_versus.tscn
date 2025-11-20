@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bxami76duxylq"]
+[gd_scene load_steps=17 format=3 uid="uid://bxami76duxylq"]
 
 [ext_resource type="Script" uid="uid://g3jsx8ra3o30" path="res://common/board/board_versus.gd" id="1_h3xpf"]
 [ext_resource type="PackedScene" uid="uid://ee5cl2bv8w0d" path="res://common/backgrounds/triangle_bg.tscn" id="1_swjd2"]
@@ -10,6 +10,9 @@
 [ext_resource type="Resource" uid="uid://d3q7ot200fctq" path="res://common/dice/dices/regular_dice/regular_dices/4_sided_dice.tres" id="4_v5snl"]
 [ext_resource type="Resource" uid="uid://c8vxymiysr5fx" path="res://common/dice/dices/regular_dice/regular_dices/greedy_dice.tres" id="5_e4isq"]
 [ext_resource type="PackedScene" uid="uid://gj1ck81yqw50" path="res://characters/charlotte/charlotte.tscn" id="5_rhwk2"]
+[ext_resource type="Script" uid="uid://cjr77nuoybwy8" path="res://common/game/server.gd" id="11_0mqfs"]
+[ext_resource type="Script" uid="uid://q2nkjk1tlo16" path="res://common/game/client.gd" id="12_35ao1"]
+[ext_resource type="PackedScene" uid="uid://8foqxxk8mdj8" path="res://common/ui/DamageOverlay.tscn" id="13_35ao1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uloyn"]
 bg_color = Color(0.78818816, 0, 0.1897483, 0.5)
@@ -47,8 +50,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_h3xpf")
-player_dices = Array[ExtResource("2_6ys0i")]([ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("4_v5snl"), ExtResource("4_v5snl")])
-opponent_dices = Array[ExtResource("2_6ys0i")]([ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("5_e4isq"), ExtResource("4_v5snl")])
 
 [node name="Background" parent="." instance=ExtResource("1_swjd2")]
 layout_mode = 1
@@ -78,7 +79,7 @@ position = Vector2(64, 140)
 metadata/_edit_group_ = true
 
 [node name="OpponentSpawnPoints" type="Node2D" parent="DiceTable"]
-position = Vector2(0, -100)
+position = Vector2(0, -84)
 
 [node name="SpawnPoint1" type="Marker2D" parent="DiceTable/OpponentSpawnPoints"]
 position = Vector2(-64, 140)
@@ -330,3 +331,25 @@ layout_mode = 2
 
 [node name="DiceActive7" parent="MarginContainer/MarginContainer/SideDicesContainer" instance=ExtResource("3_hcpdc")]
 layout_mode = 2
+
+[node name="GameServer" type="Node" parent="." node_paths=PackedStringArray("p1", "p2")]
+script = ExtResource("11_0mqfs")
+p1 = NodePath("HumanPlayer")
+p2 = NodePath("DemonPlayer")
+metadata/_custom_type_script = "uid://cjr77nuoybwy8"
+
+[node name="HumanPlayer" type="Node" parent="GameServer"]
+script = ExtResource("12_35ao1")
+bag_dices = Array[ExtResource("2_6ys0i")]([ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("4_v5snl"), ExtResource("4_v5snl"), ExtResource("4_v5snl"), ExtResource("3_rhwk2")])
+player_health = 50
+metadata/_custom_type_script = "uid://q2nkjk1tlo16"
+
+[node name="DemonPlayer" type="Node" parent="GameServer" node_paths=PackedStringArray("demon")]
+script = ExtResource("12_35ao1")
+bag_dices = Array[ExtResource("2_6ys0i")]([ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("3_rhwk2"), ExtResource("5_e4isq"), ExtResource("4_v5snl"), ExtResource("4_v5snl"), ExtResource("4_v5snl"), ExtResource("4_v5snl")])
+player_health = 50
+controller = 1
+demon = NodePath("../../CharlotteDemon")
+metadata/_custom_type_script = "uid://q2nkjk1tlo16"
+
+[node name="DamageOverlay" parent="." instance=ExtResource("13_35ao1")]

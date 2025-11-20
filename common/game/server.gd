@@ -33,39 +33,59 @@ var _p1_score: int = 0;
 var _p2_score: int = 0;
 var _player_roll_counter: int = 0;
 
+func _ready() -> void:
+	assert(p1 != null)
+	assert(p2 != null)
+	assert(p1 != p2)
+
 func start() -> void:
 	_prepare_players()
 	await _dedice_first()
 	
 	while _turn_phase != TurnPhase.FINISHED:
 		await _play_turn()
+		_end_turn()
 	
 func _play_turn() -> void:
 	_set_turn_phase(TurnPhase.TURN_START)
 	var client = get_turn_client()
+	client.start_turn()
 	client.play.call_deferred()
 	var dices_to_roll = await client.on_choose_roll_dices;
 	
 	_roll_dices(dices_to_roll)
-	_apply_damage()
+	await client.on_dice_roll_end
+	
+	if _apply_damage():
+		#await client.on_damage_calculation_finished
+		await SignalUtils.when_any([
+			p1.on_damage_calculation_finished,
+			p2.on_damage_calculation_finished
+		]).completed
+		
+	if p1.is_dead() || p2.is_dead():
+		_finish_game()
 	
 func _end_turn() -> void:
+	if _turn_phase == TurnPhase.FINISHED:
+		return;
+		
 	_turn_count += 1;
 	_set_turn_phase(TurnPhase.TURN_END)
-	
+	get_turn_client().end_turn()
+		
 	match _turn_player:
 		TurnPlayer.P1:
-			_turn_player = TurnPlayer.P2;
+			_set_turn_player(TurnPlayer.P2);
 		TurnPlayer.P2:
-			_turn_player = TurnPlayer.P1;
+			_set_turn_player(TurnPlayer.P1);
 			
-	on_turn_player_changed.emit(_turn_player)
 	get_turn_client().prepare_dices(_rng)
 	
 func _roll_dices(dices: Array[Dice]) -> void:
 	var ctx = BoardContext.new(dices)
 	dices = dices.duplicate()
-	dices.sort_custom(_sort_dices)
+	dices.sort_custom(sort_dices)
 	
 	for dice in dices:
 		dice.on_roll_start(ctx)
@@ -91,30 +111,31 @@ func _calculate_score(dices: Array[Dice]) -> void:
 	on_player_score.emit(_turn_player, score)
 	_set_player_score(_turn_player, score)
 	
-func _apply_damage() -> void:
+func _apply_damage() -> bool:
 	if _player_roll_counter != 2:
-		return;
+		return false;
 		
 	_player_roll_counter = 0;
 	
 	_set_turn_phase(TurnPhase.DAMAGE)
 	
 	if _p1_score == _p2_score:
-		return;
+		_p1_score = 0;
+		_p2_score = 0;
+		print("No damage")
+		return false;
 		
 	if _p1_score > _p2_score:
 		var damage_amount = abs(_p2_score - _p1_score);
-		p2.take_damage(damage_amount)
+		p2.take_damage.call_deferred(damage_amount)
 	else:
 		var damage_amount = abs(_p1_score - _p2_score);
-		p1.take_damage(damage_amount)
-	
+		p1.take_damage.call_deferred(damage_amount)
+
 	_p1_score = 0;
 	_p2_score = 0;
-	
-	if p1.is_dead() || p2.is_dead():
-		_finish_game()
-		
+	return true;
+
 func _finish_game() -> void:
 	_set_turn_phase(TurnPhase.FINISHED)	
 	
@@ -152,14 +173,17 @@ func _set_player_score(player: TurnPlayer, score: int) -> void:
 		TurnPlayer.P2:
 			_p2_score = score;
 	
-func get_turn_client() -> GameClient:
-	match _turn_player:
+func get_client_for_player(player: TurnPlayer) -> GameClient:
+	match player:
 		TurnPlayer.P1: return p1;
 		TurnPlayer.P2: return p2;
 		_: return null;
 		
+func get_turn_client() -> GameClient:
+	return get_client_for_player(_turn_player)
+		
 func get_turn_player() -> TurnPlayer:
 	return _turn_player;
 		
-static func _sort_dices(a: Dice, b: Dice) -> bool:
+static func sort_dices(a: Dice, b: Dice) -> bool:
 	return a.get_dice_order() < b.get_dice_order()

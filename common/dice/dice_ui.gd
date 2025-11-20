@@ -32,8 +32,8 @@ func _ready() -> void:
 	if no_interactable:
 		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
-	if dice:
-		dice = dice.duplicate(true)
+	#if dice:
+		#dice = dice.duplicate(true)
 	
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
@@ -98,12 +98,13 @@ func roll_dice_to_dir(rng: RNG, dir: Vector2, force_amount: float = 1000, torque
 	
 	roll_timer.stop()
 	roll_timer.start(0.1)
-	dice.roll_dice(rng)
+	#dice.roll_dice(rng)
 	roll_timer.timeout.connect(_on_rolling_timeout)
 	
 	_set_random_side()
 	apply_impulse(dir * force_amount)
 	apply_torque(torque_amount)
+
 
 func _on_rolling_timeout() -> void:
 	_set_random_side()

@@ -33,14 +33,14 @@ func _clear() -> void:
 		child.queue_free()
 	
 func _on_dice_selected(source: DiceActive) -> void:
-	if is_full():
+	if next_container.is_full():
 		return;
 		
 	next_container.add_dice(source.dice)
 	source.queue_free()
 	on_changed.emit(get_dices())
 
-func remove_all_dices() -> Array[Dice]:
+func take_all_dices() -> Array[Dice]:
 	var result: Array[Dice] = get_dices()
 	_clear()
 	return result;

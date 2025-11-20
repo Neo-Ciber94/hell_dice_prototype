@@ -12,3 +12,11 @@ func start_turn() -> void:
 	
 func end_turn() -> void:
 	sprite_2d.flip_h = false;
+
+func damaged() -> void:
+	animation_player.play("damaged")
+	
+	if animation_player.is_playing():
+		await animation_player.animation_finished
+		
+	animation_player.play("idle")
