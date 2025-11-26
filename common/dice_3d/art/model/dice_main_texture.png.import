@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mr5hsc78263j"
-path.s3tc="res://.godot/imported/triangles.png-e5f8c05ac74b41758bea9fd2e063f009.s3tc.ctex"
+uid="uid://uef3ggukk3ak"
+path.s3tc="res://.godot/imported/dice_main_texture.png-ed5d2cc37542214e5ba983acd58640e8.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "5c6f74dcbec477d8231d5681e452465e"
+}
 
 [deps]
 
-source_file="res://common/backgrounds/art/triangles.png"
-dest_files=["res://.godot/imported/triangles.png-e5f8c05ac74b41758bea9fd2e063f009.s3tc.ctex"]
+source_file="res://common/dice_3d/art/model/dice_main_texture.png"
+dest_files=["res://.godot/imported/dice_main_texture.png-ed5d2cc37542214e5ba983acd58640e8.s3tc.ctex"]
 
 [params]
 

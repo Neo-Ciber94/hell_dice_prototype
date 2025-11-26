@@ -58,7 +58,8 @@ layout_mode = 1
 position = Vector2(320, 216)
 
 [node name="CharlotteDemon" parent="." instance=ExtResource("5_rhwk2")]
-position = Vector2(328, 96)
+position = Vector2(320, 72)
+scale = Vector2(0.8, 0.8)
 
 [node name="DiceTable" parent="." instance=ExtResource("2_uloyn")]
 unique_name_in_owner = true

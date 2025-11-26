@@ -179,6 +179,9 @@ func get_client_for_player(player: TurnPlayer) -> GameClient:
 		TurnPlayer.P2: return p2;
 		_: return null;
 		
+func get_random_number_generator() -> RNG:
+	return _rng;
+		
 func get_turn_client() -> GameClient:
 	return get_client_for_player(_turn_player)
 		

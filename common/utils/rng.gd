@@ -14,6 +14,9 @@ func take_random(array: Array) -> Variant:
 	array.remove_at(idx)
 	return value;
 
+func rand_sign(positive_probability: float = 0.5) -> float:
+	return 1 if rand_bool(positive_probability) else -1;
+
 func take_random_array(array: Array, count: int) -> Array:
 	var result: Array = []
 	

@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6ue3nd0xdj8r"]
+
+[ext_resource type="PackedScene" uid="uid://b6tyjc1njk5f8" path="res://common/dice_3d/board_3d/board.tscn" id="1_57trf"]
+[ext_resource type="Script" uid="uid://dvi53jdioo6dh" path="res://common/dice_3d/test/dice_3d_test.gd" id="1_yulua"]
+[ext_resource type="PackedScene" uid="uid://841pc45bke6w" path="res://common/dice_3d/cage_3d/cage_3d.tscn" id="2_cugxr"]
+[ext_resource type="PackedScene" uid="uid://cgqdnpid55n28" path="res://common/dice_3d/dice_3d.tscn" id="3_g2aq8"]
+
+[node name="Dice3dTest" type="Node3D"]
+script = ExtResource("1_yulua")
+
+[node name="Board" parent="." instance=ExtResource("1_57trf")]
+visible = false
+
+[node name="Cage3D" parent="." instance=ExtResource("2_cugxr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.1545758, 0)
+visible = false
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 15.135801, 12.847734)
+fov = 30.0
+
+[node name="Dice3D_1" parent="." instance=ExtResource("3_g2aq8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7498841, 1.8155022, 1.5525341)
+
+[node name="Dice3D_2" parent="." instance=ExtResource("3_g2aq8")]
+transform = Transform3D(0.77823216, 0, -0.62797666, 0, 1, 0, 0.62797666, 0, 0.77823216, -2.5023336, 1.8155022, 1.5525341)
+
+[node name="Dice3D_3" parent="." instance=ExtResource("3_g2aq8")]
+transform = Transform3D(0.9082089, 0, 0.41851708, 0, 1, 0, -0.41851708, 0, 0.9082089, 3.0795133, 1.8155022, 0.3518572)
+
+[node name="Dice3D_6" parent="." instance=ExtResource("3_g2aq8")]
+transform = Transform3D(0.25335285, 0, -0.967374, 0, 1, 0, 0.967374, 0, 0.25335285, -1.3799858, 1.8155022, 1.6211238)
+
+[node name="Dice3D_4" parent="." instance=ExtResource("3_g2aq8")]
+transform = Transform3D(0.45706692, 0, -0.8894323, 0, 1, 0, 0.8894323, 0, 0.45706692, -0.462116, 1.8155022, -1.1027007)
+
+[node name="Dice3D_5" parent="." instance=ExtResource("3_g2aq8")]
+transform = Transform3D(0.8886252, 0.45863405, 0, -0.45863405, 0.8886252, 0, 0, 0, 1, 2.0808942, 1.8155022, 3.0703583)

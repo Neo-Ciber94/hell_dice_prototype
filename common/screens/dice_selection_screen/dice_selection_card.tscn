@@ -123,6 +123,7 @@ position = Vector2(16, 16)
 sleeping = true
 lock_rotation = true
 freeze = true
+no_interactable = false
 
 [node name="DiceDescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true

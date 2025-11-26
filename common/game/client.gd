@@ -86,6 +86,11 @@ func prepare_dices(rng: RNG) -> void:
 
 	on_side_dices_changed.emit(side_dices)
 
+func shuffle_all(rng: RNG) -> void:
+	bag_dices.append_array(side_dices)
+	side_dices.clear()
+	prepare_dices(rng)
+
 func start_turn() -> void:
 	match controller:
 		PlayerController.DEMON:

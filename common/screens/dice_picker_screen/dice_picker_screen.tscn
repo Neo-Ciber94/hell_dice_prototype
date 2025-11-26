@@ -1,0 +1,127 @@
+[gd_scene load_steps=8 format=3 uid="uid://djc8fppvf6brl"]
+
+[ext_resource type="Texture2D" uid="uid://mquidbki6n3p" path="res://common/backgrounds/art/diagonal_lines.png" id="1_arfav"]
+[ext_resource type="Script" uid="uid://c7p1uh4w42067" path="res://common/screens/dice_picker_screen/dice_picker_screen.gd" id="1_shv1d"]
+[ext_resource type="Shader" uid="uid://cccjkqsh3osro" path="res://common/backgrounds/move_uv.gdshader" id="1_vq3iq"]
+[ext_resource type="PackedScene" uid="uid://c1jx6x1hs7f51" path="res://common/screens/dice_selection_screen/dice_selection_card.tscn" id="3_oc3ux"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oc3ux"]
+shader = ExtResource("1_vq3iq")
+shader_parameter/dir = Vector2(1, 1)
+shader_parameter/speed = 0.5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oc3ux"]
+bg_color = Color(0.78818816, 0, 0.1897483, 0.5)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shv1d"]
+bg_color = Color(0.9998526, 0.11866053, 0.26954314, 0.7294118)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+
+[node name="DicePickerScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_shv1d")
+
+[node name="Background" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_oc3ux")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_arfav")
+stretch_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -196.0
+offset_top = -96.0
+offset_right = 196.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 0.8773401, 0, 1)
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[wave]Select a new dice[/wave]"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CardsContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="DiceSelectionCard" parent="MarginContainer/VBoxContainer/CardsContainer" instance=ExtResource("3_oc3ux")]
+layout_mode = 2
+
+[node name="DiceSelectionCard2" parent="MarginContainer/VBoxContainer/CardsContainer" instance=ExtResource("3_oc3ux")]
+layout_mode = 2
+
+[node name="DiceSelectionCard3" parent="MarginContainer/VBoxContainer/CardsContainer" instance=ExtResource("3_oc3ux")]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="ContinueButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_oc3ux")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_shv1d")
+theme_override_styles/hover = SubResource("StyleBoxFlat_shv1d")
+theme_override_styles/focus = SubResource("StyleBoxFlat_shv1d")
+text = "Continue"
+
+[node name="CancelButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 32
+text = "Cancel"
+flat = true
