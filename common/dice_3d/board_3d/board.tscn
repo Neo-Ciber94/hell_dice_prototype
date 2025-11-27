@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://b6tyjc1njk5f8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w4mj8"]
-shading_mode = 0
-albedo_color = Color(0.72, 0.18, 0.2700002, 1)
+albedo_color = Color(0.18039216, 0.13333334, 0.18431373, 1)
+metallic_specular = 0.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_w4mj8"]
 material = SubResource("StandardMaterial3D_w4mj8")

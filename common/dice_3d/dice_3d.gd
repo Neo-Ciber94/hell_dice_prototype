@@ -3,6 +3,9 @@ extends RigidBody3D
 
 signal on_stopped()
 
+@onready var dice_value_indicator: Node3D = $DiceValueIndicator
+@onready var dice_value_label: Label3D = %DiceValueLabel
+
 @onready var dice_sides: Array[Marker3D] = [
 	$DiceModel/Side_1, 
 	$DiceModel/Side_2, 
@@ -25,9 +28,11 @@ var _elapsed_till_time: float = 0.0;
 func _ready() -> void:
 	assert(min_roll_force <= max_roll_force)
 	assert(min_roll_torque <= max_roll_torque)
+	dice_value_indicator.hide()
 
 func roll_dice() -> void:
 	_is_rolling = true;
+	dice_value_indicator.hide()
 
 	var roll_impulse = Vector3(
 		_get_rand_force(_rng) * _rng.rand_sign(),
@@ -68,7 +73,7 @@ func _check_stopped(delta: float) -> void:
 		_elapsed_till_time = 0;
 		_is_rolling = false;
 		freeze = false
-		on_stopped.emit()
+		_on_stopped()
 		
 func get_dice_value() -> int:
 	var side = _get_top_side();
@@ -104,6 +109,13 @@ func _is_colliding() -> bool:
 			return true;
 			
 	return false;
+	
+func _on_stopped() -> void:
+	on_stopped.emit()
+
+	dice_value_indicator.global_position = global_position + Vector3(0, 0.5, 0);
+	dice_value_indicator.show()
+	dice_value_label.text = str(get_dice_value())
 	
 func is_stopped() -> bool:
 	const STOP_THRESHOLD = 0.05;

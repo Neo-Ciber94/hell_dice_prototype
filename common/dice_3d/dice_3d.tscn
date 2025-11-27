@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgqdnpid55n28"]
+[gd_scene load_steps=7 format=3 uid="uid://cgqdnpid55n28"]
 
 [ext_resource type="Script" uid="uid://jtysnry8mtoh" path="res://common/dice_3d/dice_3d.gd" id="1_d6t2f"]
 [ext_resource type="PackedScene" uid="uid://b71qgnk3gmgot" path="res://common/dice_3d/art/model/dice.blend" id="1_xwgs8"]
@@ -8,14 +8,24 @@ bounce = 0.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xwgs8"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d6t2f"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 0.8)
+billboard_mode = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_d6t2f"]
+material = SubResource("StandardMaterial3D_d6t2f")
+size = Vector2(1.5, 1.5)
+
 [node name="Dice3D" type="RigidBody3D"]
 physics_material_override = SubResource("PhysicsMaterial_d6t2f")
 gravity_scale = 3.0
 continuous_cd = true
 contact_monitor = true
 max_contacts_reported = 8
-linear_damp = 2.0
-angular_damp = 2.0
+linear_damp = 3.0
+angular_damp = 3.0
 script = ExtResource("1_d6t2f")
 
 [node name="DiceModel" parent="." instance=ExtResource("1_xwgs8")]
@@ -40,3 +50,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_xwgs8")
+
+[node name="DiceValueIndicator" type="Node3D" parent="."]
+top_level = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DiceValueIndicator"]
+transform = Transform3D(0.9999999, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("QuadMesh_d6t2f")
+skeleton = NodePath("../..")
+
+[node name="DiceValueLabel" type="Label3D" parent="DiceValueIndicator/MeshInstance3D"]
+unique_name_in_owner = true
+sorting_offset = 1.0
+billboard = 1
+texture_filter = 0
+text = "1"
+font_size = 256
+outline_size = 16

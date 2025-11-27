@@ -9,15 +9,16 @@
 script = ExtResource("1_yulua")
 
 [node name="Board" parent="." instance=ExtResource("1_57trf")]
-visible = false
 
 [node name="Cage3D" parent="." instance=ExtResource("2_cugxr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.1545758, 0)
 visible = false
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 15.135801, 12.847734)
-fov = 30.0
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 22.692883, 23.719828)
+keep_aspect = 0
+current = true
+fov = 55.0
 
 [node name="Dice3D_1" parent="." instance=ExtResource("3_g2aq8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7498841, 1.8155022, 1.5525341)

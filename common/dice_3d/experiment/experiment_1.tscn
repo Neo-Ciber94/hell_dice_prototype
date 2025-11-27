@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://4rjcgxk7ile8"]
+
+[ext_resource type="Script" uid="uid://dvi53jdioo6dh" path="res://common/dice_3d/test/dice_3d_test.gd" id="1_47uot"]
+[ext_resource type="PackedScene" uid="uid://b6tyjc1njk5f8" path="res://common/dice_3d/board_3d/board.tscn" id="2_3u0nq"]
+[ext_resource type="PackedScene" uid="uid://841pc45bke6w" path="res://common/dice_3d/cage_3d/cage_3d.tscn" id="3_w15w3"]
+[ext_resource type="PackedScene" uid="uid://cgqdnpid55n28" path="res://common/dice_3d/dice_3d.tscn" id="4_7svan"]
+[ext_resource type="PackedScene" uid="uid://ee5cl2bv8w0d" path="res://common/backgrounds/triangle_bg.tscn" id="5_3u0nq"]
+
+[node name="Experiment1" type="Node3D"]
+
+[node name="Dice3dTest" type="Node3D" parent="."]
+script = ExtResource("1_47uot")
+
+[node name="Board" parent="Dice3dTest" instance=ExtResource("2_3u0nq")]
+
+[node name="Cage3D" parent="Dice3dTest" instance=ExtResource("3_w15w3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.93300676, 0)
+visible = false
+
+[node name="Camera3D" type="Camera3D" parent="Dice3dTest"]
+transform = Transform3D(1, 0, 0, 0, 0.8574908, 0.5144994, 0, -0.5144994, 0.8574908, 0, 12.121405, 16.5953)
+keep_aspect = 0
+current = true
+fov = 45.0
+
+[node name="Dice3D_1" parent="Dice3dTest" instance=ExtResource("4_7svan")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7498841, 3.403986, 1.5525341)
+
+[node name="Dice3D_2" parent="Dice3dTest" instance=ExtResource("4_7svan")]
+transform = Transform3D(0.77823216, 0, -0.62797666, 0, 1, 0, 0.62797666, 0, 0.77823216, -2.5023336, 1.8155022, 1.5525341)
+
+[node name="Dice3D_3" parent="Dice3dTest" instance=ExtResource("4_7svan")]
+transform = Transform3D(0.9082089, 0, 0.41851708, 0, 1, 0, -0.41851708, 0, 0.9082089, 3.0795133, 1.8155022, 0.3518572)
+
+[node name="Dice3D_6" parent="Dice3dTest" instance=ExtResource("4_7svan")]
+transform = Transform3D(0.25335285, 0, -0.967374, 0, 1, 0, 0.967374, 0, 0.25335285, -1.3799858, 3.8384247, 1.6211238)
+
+[node name="Dice3D_4" parent="Dice3dTest" instance=ExtResource("4_7svan")]
+transform = Transform3D(0.45706692, 0, -0.8894323, 0, 1, 0, 0.8894323, 0, 0.45706692, -0.462116, 1.8155022, -1.1027007)
+
+[node name="Dice3D_5" parent="Dice3dTest" instance=ExtResource("4_7svan")]
+transform = Transform3D(0.8886252, 0.45863405, 0, -0.45863405, 0.8886252, 0, 0, 0, 1, 2.0808942, 1.8155022, 3.0703583)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -8
+visible = false
+
+[node name="Background" parent="CanvasLayer" instance=ExtResource("5_3u0nq")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7462433, 0.6656733, 0, -0.6656733, 0.7462433, 0, 8.714245, 0)
+shadow_enabled = true

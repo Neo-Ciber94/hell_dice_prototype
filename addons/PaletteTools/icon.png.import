@@ -2,19 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://uef3ggukk3ak"
-path="res://.godot/imported/dice_main_texture.png-ed5d2cc37542214e5ba983acd58640e8.ctex"
+uid="uid://jnbf7y0pgmxt"
+path="res://.godot/imported/icon.png-0223c51045c6df14e252616e4752d918.ctex"
 metadata={
 "vram_texture": false
-}
-generator_parameters={
-"md5": "5c6f74dcbec477d8231d5681e452465e"
 }
 
 [deps]
 
-source_file="res://common/dice_3d/art/model/dice_main_texture.png"
-dest_files=["res://.godot/imported/dice_main_texture.png-ed5d2cc37542214e5ba983acd58640e8.ctex"]
+source_file="res://addons/PaletteTools/icon.png"
+dest_files=["res://.godot/imported/icon.png-0223c51045c6df14e252616e4752d918.ctex"]
 
 [params]
 
@@ -26,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -40,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1
