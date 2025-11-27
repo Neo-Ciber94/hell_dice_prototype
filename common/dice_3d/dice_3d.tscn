@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cgqdnpid55n28"]
+[gd_scene load_steps=9 format=3 uid="uid://cgqdnpid55n28"]
 
 [ext_resource type="Script" uid="uid://jtysnry8mtoh" path="res://common/dice_3d/dice_3d.gd" id="1_d6t2f"]
 [ext_resource type="PackedScene" uid="uid://b71qgnk3gmgot" path="res://common/dice_3d/art/model/dice.blend" id="1_xwgs8"]
+[ext_resource type="AudioStream" uid="uid://c1d6i7gldeev8" path="res://common/dice_3d/sound/dice_hit.ogg" id="3_u4peg"]
+[ext_resource type="AudioStream" uid="uid://cnd63fvvweath" path="res://common/dice_3d/sound/dice_hit_ground.ogg" id="4_l2q23"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_d6t2f"]
 bounce = 0.5
@@ -23,7 +25,7 @@ physics_material_override = SubResource("PhysicsMaterial_d6t2f")
 gravity_scale = 3.0
 continuous_cd = true
 contact_monitor = true
-max_contacts_reported = 8
+max_contacts_reported = 1
 linear_damp = 3.0
 angular_damp = 3.0
 script = ExtResource("1_d6t2f")
@@ -67,3 +69,12 @@ texture_filter = 0
 text = "1"
 font_size = 256
 outline_size = 16
+
+[node name="DiceHitAudioPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_u4peg")
+
+[node name="DiceHitGroundAudioPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_l2q23")
+
+[node name="AudioTimer" type="Timer" parent="."]
+one_shot = true

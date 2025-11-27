@@ -5,6 +5,9 @@ signal on_stopped()
 
 @onready var dice_value_indicator: Node3D = $DiceValueIndicator
 @onready var dice_value_label: Label3D = %DiceValueLabel
+@onready var dice_hit_audio_player: AudioStreamPlayer3D = $DiceHitAudioPlayer
+@onready var dice_hit_ground_audio_player: AudioStreamPlayer3D = $DiceHitGroundAudioPlayer
+@onready var audio_timer: Timer = $AudioTimer
 
 @onready var dice_sides: Array[Marker3D] = [
 	$DiceModel/Side_1, 
@@ -29,6 +32,7 @@ func _ready() -> void:
 	assert(min_roll_force <= max_roll_force)
 	assert(min_roll_torque <= max_roll_torque)
 	dice_value_indicator.hide()
+	body_entered.connect(_on_collision)
 
 func roll_dice() -> void:
 	_is_rolling = true;
@@ -116,6 +120,32 @@ func _on_stopped() -> void:
 	dice_value_indicator.global_position = global_position + Vector3(0, 0.5, 0);
 	dice_value_indicator.show()
 	dice_value_label.text = str(get_dice_value())
+	
+func _on_collision(body: Node3D) -> void:
+	if body.is_in_group("ground"):
+		_play_hit_ground_sfx()
+	else:
+		_play_hit_sfx()
+	
+func _play_hit_sfx() -> void:
+	if dice_hit_audio_player.playing || not audio_timer.is_stopped():
+		return;
+		
+	_play_audio(dice_hit_audio_player)
+	
+func _play_hit_ground_sfx() -> void:
+	if dice_hit_ground_audio_player.playing || not audio_timer.is_stopped():
+		return;
+		
+	_play_audio(dice_hit_ground_audio_player)
+	
+func _play_audio(audio_player: AudioStreamPlayer3D) -> void:
+	var volume = randf_range(1, 1.5)
+	var pitch = randf_range(1, 2.0)
+	audio_player.volume_linear = volume;
+	audio_player.pitch_scale = pitch
+	audio_player.play()
+	audio_timer.start(0.5)
 	
 func is_stopped() -> bool:
 	const STOP_THRESHOLD = 0.05;
