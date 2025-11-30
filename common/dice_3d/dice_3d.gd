@@ -3,6 +3,7 @@ extends RigidBody3D
 
 signal on_stopped()
 
+@onready var dice_model: Node3D = $DiceModel
 @onready var dice_value_indicator: Node3D = $DiceValueIndicator
 @onready var dice_value_label: Label3D = %DiceValueLabel
 @onready var dice_hit_audio_player: AudioStreamPlayer3D = $DiceHitAudioPlayer
@@ -18,9 +19,11 @@ signal on_stopped()
 	$DiceModel/Side_6
 ]
 
+@export var dice_data: DiceData;
+
 @export_group("Rolling")
-@export_range(0, 1000) var min_roll_force: float = 20.0;
-@export_range(0, 1000) var max_roll_force: float = 30.0;
+@export_range(0, 1000) var min_roll_force: float = 50.0;
+@export_range(0, 1000) var max_roll_force: float = 100.0;
 @export_range(0, 1000) var min_roll_torque: float = 8.0;
 @export_range(0, 1000) var max_roll_torque: float = 12.0;
 
@@ -31,17 +34,31 @@ var _elapsed_till_time: float = 0.0;
 func _ready() -> void:
 	assert(min_roll_force <= max_roll_force)
 	assert(min_roll_torque <= max_roll_torque)
+	
+	_update_dice_material()
 	dice_value_indicator.hide()
 	body_entered.connect(_on_collision)
+	
+func _update_dice_material() -> void:
+	var dice_mesh_instance = dice_model.get_node("Cube") as MeshInstance3D;
+	var dice_mesh = dice_mesh_instance.mesh;
+	var dice_material = dice_mesh.surface_get_material(0) as StandardMaterial3D;
+	dice_material.albedo_texture = dice_data.dice_texture;
 
 func roll_dice() -> void:
 	_is_rolling = true;
 	dice_value_indicator.hide()
 
+	#var roll_impulse = Vector3(
+		#_get_rand_force(_rng) * _rng.rand_sign(),
+		#_get_rand_force(_rng) * -1,
+		#_get_rand_force(_rng)  * _rng.rand_sign(),
+	#)
+	
 	var roll_impulse = Vector3(
-		_get_rand_force(_rng) * _rng.rand_sign(),
+		0,
 		_get_rand_force(_rng) * -1,
-		_get_rand_force(_rng)  * _rng.rand_sign(),
+		0,
 	)
 	
 	var roll_torque = Vector3(
@@ -119,7 +136,7 @@ func _on_stopped() -> void:
 
 	dice_value_indicator.global_position = global_position + Vector3(0, 0.5, 0);
 	dice_value_indicator.show()
-	dice_value_label.text = str(get_dice_value())
+	dice_value_label.text = dice_data.get_selected_dice_side().side_text
 	
 func _on_collision(body: Node3D) -> void:
 	if body.is_in_group("ground"):

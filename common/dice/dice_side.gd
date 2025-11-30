@@ -2,11 +2,11 @@ class_name DiceSide
 
 var side_value: int;
 var side_text: String;
+var side_weight: float = -1;
 
 func _init(value: int, text: String) -> void:
 	side_value = value;
 	side_text = text;
-
 
 func _to_string() -> String:
 	return str({

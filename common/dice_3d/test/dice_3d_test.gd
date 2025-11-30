@@ -2,7 +2,12 @@ extends Node3D
 
 
 @onready var dices: Array[Dice3D] = [
-	$Dice3D_1, $Dice3D_2, $Dice3D_3, $Dice3D_6, $Dice3D_4, $Dice3D_5
+	$Board/Dice3D_1, 
+	$Board/Dice3D_2, 
+	$Board/Dice3D_3, 
+	$Board/Dice3D_6, 
+	$Board/Dice3D_4, 
+	$Board/Dice3D_5
 ]
 
 func _ready() -> void:

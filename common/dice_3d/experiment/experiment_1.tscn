@@ -1,52 +1,362 @@
-[gd_scene load_steps=6 format=3 uid="uid://4rjcgxk7ile8"]
+[gd_scene load_steps=14 format=3 uid="uid://4rjcgxk7ile8"]
 
-[ext_resource type="Script" uid="uid://dvi53jdioo6dh" path="res://common/dice_3d/test/dice_3d_test.gd" id="1_47uot"]
+[ext_resource type="Script" uid="uid://ckjcqqp3aao3t" path="res://common/dice_3d/experiment/experiment_1.gd" id="1_w15w3"]
 [ext_resource type="PackedScene" uid="uid://b6tyjc1njk5f8" path="res://common/dice_3d/board_3d/board.tscn" id="2_3u0nq"]
 [ext_resource type="PackedScene" uid="uid://841pc45bke6w" path="res://common/dice_3d/cage_3d/cage_3d.tscn" id="3_w15w3"]
 [ext_resource type="PackedScene" uid="uid://cgqdnpid55n28" path="res://common/dice_3d/dice_3d.tscn" id="4_7svan"]
-[ext_resource type="PackedScene" uid="uid://ee5cl2bv8w0d" path="res://common/backgrounds/triangle_bg.tscn" id="5_3u0nq"]
+[ext_resource type="Texture2D" uid="uid://uef3ggukk3ak" path="res://common/dice_3d/art/model/dice_main_texture.png" id="5_3u0nq"]
+[ext_resource type="Texture2D" uid="uid://bc5qpw1oik8b2" path="res://common/dice_3d/experiment/art/dice_bag.png" id="6_w15w3"]
+[ext_resource type="Script" uid="uid://dhab2ggoveo0x" path="res://common/dice_3d/game/game_server.gd" id="7_dj81j"]
+[ext_resource type="Script" uid="uid://c614elq0w3j1m" path="res://common/dice_3d/game/game_client.gd" id="8_und7d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_47uot"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 0.5)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_47uot"]
+material = SubResource("StandardMaterial3D_47uot")
+size = Vector2(8, 128)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_47uot"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w15w3"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.09985284, 0.09985284, 0.09985284, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9098039, 0.23137255, 0.23137255, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w15w3"]
+atlas = ExtResource("5_3u0nq")
+region = Rect2(16, 0, 16, 16)
 
 [node name="Experiment1" type="Node3D"]
+script = ExtResource("1_w15w3")
 
 [node name="Dice3dTest" type="Node3D" parent="."]
-script = ExtResource("1_47uot")
 
 [node name="Board" parent="Dice3dTest" instance=ExtResource("2_3u0nq")]
+unique_name_in_owner = true
+
+[node name="Dice3D_1" parent="Dice3dTest/Board" instance=ExtResource("4_7svan")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7498841, 3.403986, 1.5525341)
+
+[node name="Dice3D_2" parent="Dice3dTest/Board" instance=ExtResource("4_7svan")]
+transform = Transform3D(0.77823216, 0, -0.62797666, 0, 1, 0, 0.62797666, 0, 0.77823216, -2.5023336, 1.8155022, 1.5525341)
+
+[node name="Dice3D_3" parent="Dice3dTest/Board" instance=ExtResource("4_7svan")]
+transform = Transform3D(0.9082089, 0, 0.41851708, 0, 1, 0, -0.41851708, 0, 0.9082089, 3.0795133, 1.8155022, 0.3518572)
+
+[node name="Dice3D_6" parent="Dice3dTest/Board" instance=ExtResource("4_7svan")]
+transform = Transform3D(0.25335285, 0, -0.967374, 0, 1, 0, 0.967374, 0, 0.25335285, -1.3799858, 3.8384247, 1.6211238)
+
+[node name="Dice3D_4" parent="Dice3dTest/Board" instance=ExtResource("4_7svan")]
+transform = Transform3D(0.45706692, 0, -0.8894323, 0, 1, 0, 0.8894323, 0, 0.45706692, -0.462116, 1.8155022, -1.1027007)
+
+[node name="Dice3D_5" parent="Dice3dTest/Board" instance=ExtResource("4_7svan")]
+transform = Transform3D(0.8886252, 0.45863405, 0, -0.45863405, 0.8886252, 0, 0, 0, 1, 2.0808942, 1.8155022, 3.0703583)
 
 [node name="Cage3D" parent="Dice3dTest" instance=ExtResource("3_w15w3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.93300676, 0)
 visible = false
 
 [node name="Camera3D" type="Camera3D" parent="Dice3dTest"]
-transform = Transform3D(1, 0, 0, 0, 0.8574908, 0.5144994, 0, -0.5144994, 0.8574908, 0, 12.121405, 16.5953)
+transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 15, 11.235578)
 keep_aspect = 0
 current = true
-fov = 45.0
 
-[node name="Dice3D_1" parent="Dice3dTest" instance=ExtResource("4_7svan")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7498841, 3.403986, 1.5525341)
+[node name="Side" type="Node3D" parent="Dice3dTest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
 
-[node name="Dice3D_2" parent="Dice3dTest" instance=ExtResource("4_7svan")]
-transform = Transform3D(0.77823216, 0, -0.62797666, 0, 1, 0, 0.62797666, 0, 0.77823216, -2.5023336, 1.8155022, 1.5525341)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Dice3dTest/Side"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+mesh = SubResource("PlaneMesh_47uot")
 
-[node name="Dice3D_3" parent="Dice3dTest" instance=ExtResource("4_7svan")]
-transform = Transform3D(0.9082089, 0, 0.41851708, 0, 1, 0, -0.41851708, 0, 0.9082089, 3.0795133, 1.8155022, 0.3518572)
+[node name="Node3D" type="Node3D" parent="Dice3dTest"]
 
-[node name="Dice3D_6" parent="Dice3dTest" instance=ExtResource("4_7svan")]
-transform = Transform3D(0.25335285, 0, -0.967374, 0, 1, 0, 0.967374, 0, 0.25335285, -1.3799858, 3.8384247, 1.6211238)
-
-[node name="Dice3D_4" parent="Dice3dTest" instance=ExtResource("4_7svan")]
-transform = Transform3D(0.45706692, 0, -0.8894323, 0, 1, 0, 0.8894323, 0, 0.45706692, -0.462116, 1.8155022, -1.1027007)
-
-[node name="Dice3D_5" parent="Dice3dTest" instance=ExtResource("4_7svan")]
-transform = Transform3D(0.8886252, 0.45863405, 0, -0.45863405, 0.8886252, 0, 0, 0, 1, 2.0808942, 1.8155022, 3.0703583)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = -8
-visible = false
-
-[node name="Background" parent="CanvasLayer" instance=ExtResource("5_3u0nq")]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Dice3dTest/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.01, 0)
+mesh = SubResource("PlaneMesh_47uot")
+skeleton = NodePath("../../Side")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.7462433, 0.6656733, 0, -0.6656733, 0.7462433, 0, 8.714245, 0)
 shadow_enabled = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer"]
+layout_mode = 2
+
+[node name="PlayerUIContainer" type="Control" parent="UI/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HP" type="HBoxContainer" parent="UI/MarginContainer/HBoxContainer/PlayerUIContainer"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -28.0
+offset_top = -40.0
+offset_right = 28.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="UI/MarginContainer/HBoxContainer/PlayerUIContainer/HP"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9098039, 0.23137255, 0.23137255, 1)
+theme_override_font_sizes/font_size = 32
+text = "HP:"
+
+[node name="HPLabel" type="RichTextLabel" parent="UI/MarginContainer/HBoxContainer/PlayerUIContainer/HP"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.9098039, 0.23137255, 0.23137255, 1)
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "99/99"
+fit_content = true
+autowrap_mode = 0
+autowrap_trim_flags = 128
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="UI/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="OpponentUIContainer" type="Control" parent="UI/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HP2" type="HBoxContainer" parent="UI/MarginContainer/HBoxContainer/OpponentUIContainer"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -45.0
+offset_right = 45.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="UI/MarginContainer/HBoxContainer/OpponentUIContainer/HP2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9098039, 0.23137255, 0.23137255, 1)
+theme_override_font_sizes/font_size = 32
+text = "HP:"
+
+[node name="HPLabel" type="RichTextLabel" parent="UI/MarginContainer/HBoxContainer/OpponentUIContainer/HP2"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.9098039, 0.23137255, 0.23137255, 1)
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "99/99"
+fit_content = true
+autowrap_mode = 0
+autowrap_trim_flags = 128
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UI2" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="UI2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI2/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="P2Container" type="Control" parent="UI2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Control" type="Control" parent="UI2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="PanelContainer" type="PanelContainer" parent="UI2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_47uot")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI2/MarginContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI2/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI2/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI2/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9098039, 0.23137255, 0.23137255, 1)
+theme_override_font_sizes/font_size = 32
+text = "HP:"
+
+[node name="Label2" type="Label" parent="UI2/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9098039, 0.23137255, 0.23137255, 1)
+theme_override_font_sizes/font_size = 32
+text = "99/99"
+
+[node name="Control" type="Control" parent="UI2/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RollButton" type="Button" parent="UI2/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Control"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -18.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.9098039, 0.23137255, 0.23137255, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_w15w3")
+text = "RollButton"
+
+[node name="SideDicesContainer" type="VBoxContainer" parent="UI2/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Label" type="Label" parent="UI2/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/SideDicesContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.99215686, 0.79607844, 0.6901961, 1)
+theme_override_font_sizes/font_size = 32
+text = "Side Dices"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI2/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/SideDicesContainer"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI2/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/SideDicesContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_w15w3")
+stretch_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="UI2/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/SideDicesContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_w15w3")
+stretch_mode = 5
+
+[node name="TextureRect3" type="TextureRect" parent="UI2/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/SideDicesContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_w15w3")
+stretch_mode = 5
+
+[node name="TextureRect4" type="TextureRect" parent="UI2/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/SideDicesContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_w15w3")
+stretch_mode = 5
+
+[node name="TextureRect5" type="TextureRect" parent="UI2/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/SideDicesContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_w15w3")
+stretch_mode = 5
+
+[node name="TextureRect6" type="TextureRect" parent="UI2/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/SideDicesContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_w15w3")
+stretch_mode = 5
+
+[node name="TextureRect7" type="TextureRect" parent="UI2/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/SideDicesContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_w15w3")
+stretch_mode = 5
+
+[node name="DiceBagButton" type="Button" parent="UI2/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+flat = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI2/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/DiceBagButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI2/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/DiceBagButton/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.9764706, 0.7607843, 0.16862746, 1)
+theme_override_font_sizes/font_size = 32
+text = "Dice Bag"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI2/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/DiceBagButton/VBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("6_w15w3")
+stretch_mode = 5
+
+[node name="GameServer2" type="Node" parent="." node_paths=PackedStringArray("p1", "p2")]
+script = ExtResource("7_dj81j")
+p1 = NodePath("../GameClient2")
+p2 = NodePath("../GameClient3")
+metadata/_custom_type_script = "uid://dhab2ggoveo0x"
+
+[node name="GameClient2" type="Node" parent="."]
+script = ExtResource("8_und7d")
+metadata/_custom_type_script = "uid://c614elq0w3j1m"
+
+[node name="GameClient3" type="Node" parent="."]
+script = ExtResource("8_und7d")
+metadata/_custom_type_script = "uid://c614elq0w3j1m"

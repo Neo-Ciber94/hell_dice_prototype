@@ -1,12 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://cgqdnpid55n28"]
+[gd_scene load_steps=10 format=3 uid="uid://cgqdnpid55n28"]
 
 [ext_resource type="Script" uid="uid://jtysnry8mtoh" path="res://common/dice_3d/dice_3d.gd" id="1_d6t2f"]
 [ext_resource type="PackedScene" uid="uid://b71qgnk3gmgot" path="res://common/dice_3d/art/model/dice.blend" id="1_xwgs8"]
+[ext_resource type="Resource" uid="uid://dp467w288ctg2" path="res://common/dice_3d/data/dices/d6_dices/d6.tres" id="2_trun2"]
 [ext_resource type="AudioStream" uid="uid://c1d6i7gldeev8" path="res://common/dice_3d/sound/dice_hit.ogg" id="3_u4peg"]
 [ext_resource type="AudioStream" uid="uid://cnd63fvvweath" path="res://common/dice_3d/sound/dice_hit_ground.ogg" id="4_l2q23"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_d6t2f"]
-bounce = 0.5
+rough = true
+bounce = 0.3
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xwgs8"]
 
@@ -22,13 +24,16 @@ size = Vector2(1.5, 1.5)
 
 [node name="Dice3D" type="RigidBody3D"]
 physics_material_override = SubResource("PhysicsMaterial_d6t2f")
-gravity_scale = 3.0
+gravity_scale = 4.0
 continuous_cd = true
 contact_monitor = true
 max_contacts_reported = 1
+linear_damp_mode = 1
 linear_damp = 3.0
+angular_damp_mode = 1
 angular_damp = 3.0
 script = ExtResource("1_d6t2f")
+dice_data = ExtResource("2_trun2")
 
 [node name="DiceModel" parent="." instance=ExtResource("1_xwgs8")]
 
@@ -55,6 +60,7 @@ shape = SubResource("BoxShape3D_xwgs8")
 
 [node name="DiceValueIndicator" type="Node3D" parent="."]
 top_level = true
+visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="DiceValueIndicator"]
 transform = Transform3D(0.9999999, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0, 1.5, 0)
